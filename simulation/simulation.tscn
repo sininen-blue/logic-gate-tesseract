@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://swjkfmyam37c"]
+
+[ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
+[ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6ovty"]
+radius = 5.0
+
+[node name="Simulation" type="Node2D"]
+script = ExtResource("1_qo526")
+GATE_SCENE = ExtResource("2_8m28h")
+
+[node name="MouseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea"]
+shape = SubResource("CircleShape2D_6ovty")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -67.0
+offset_right = 208.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="and" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+layout_mode = 2
+text = "And"
+
+[node name="or" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+layout_mode = 2
+text = "Or"
+
+[node name="xor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+layout_mode = 2
+text = "Xor"
+
+[node name="nand" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+layout_mode = 2
+text = "Nand"
+
+[node name="nor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+layout_mode = 2
+text = "Nor"
+
+[node name="xnor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+layout_mode = 2
+text = "Xnor"
+
+[node name="not" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+layout_mode = 2
+text = "Not"
+
+[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/and" to="." method="_on_and_pressed"]
