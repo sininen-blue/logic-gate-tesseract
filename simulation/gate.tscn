@@ -39,3 +39,6 @@ type = "output"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OutputArea"]
 position = Vector2(-3, 0)
 shape = SubResource("CircleShape2D_nvyvh")
+
+[node name="TempLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
