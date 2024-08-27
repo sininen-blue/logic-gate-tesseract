@@ -42,3 +42,7 @@ shape = SubResource("CircleShape2D_nvyvh")
 
 [node name="TempLine" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
+
+[node name="TestingLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

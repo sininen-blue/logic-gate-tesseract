@@ -4,7 +4,7 @@ class_name GateNode
 signal dragging_start(source)
 signal dragging_stop(source)
 
-@export_enum("And", "Or", "Xor", "Nand", "Nor", "Xnor", "Not", "Input", "Output") var gate_type : String = "And"
+@export_enum("And", "Or", "Xor", "Nand", "Nor", "Xnor", "Not", "Start", "End") var gate_type : String = "And"
 
 var value : bool
 var draggable : bool = false
@@ -15,6 +15,7 @@ var offset : Vector2
 @onready var main : Node2D = get_parent()
 @onready var input_area: Area2D = $InputArea
 @onready var output_area: Area2D = $OutputArea
+@onready var testing_label: Label = $TestingLabel
 
 func _ready() -> void:
 	self.mouse_entered.connect(_on_mouse_entered)

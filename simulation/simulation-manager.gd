@@ -3,8 +3,10 @@ extends Node2D
 var gates : Array[Gate]
 class Gate:
 	var node : GateNode
-	var connections : Array[Connection]
+	# contains connections where the end is equal to the node
+	var connections : Array[Connection] 
 	var type : String
+
 
 var connections : Array[Connection]
 class Connection:
@@ -28,7 +30,7 @@ var state : int = IDLE
 
 func _ready() -> void:
 	var gate_scene : GateNode = GATE_SCENE.instantiate()
-	gate_scene.gate_type = "Input"
+	gate_scene.gate_type = "Start"
 	gate_scene.value = true
 	gate_scene.global_position = Vector2(200, 200) # NOTE: temp start location
 	
@@ -40,7 +42,7 @@ func _ready() -> void:
 	add_child(gate_scene)
 
 	gate_scene = GATE_SCENE.instantiate()
-	gate_scene.gate_type = "Input"
+	gate_scene.gate_type = "End"
 	gate_scene.value = false
 	gate_scene.global_position = Vector2(200, 400) # NOTE: temp start location
 	
@@ -122,11 +124,28 @@ func _on_connection_stop(source : Area2D):
 				break
 
 func create_line():
+	# checks for duplicates
 	for connection in connections:
 		if (connection.start == new_connection.start and
 			connection.end == new_connection.end):
 			new_connection = null
 			return
+	
+	match new_connection.end.type:
+		"Start":
+			if len(new_connection.end.connections) >= 0:
+				new_connection = null
+				return
+		"Not":
+			if len(new_connection.end.connections) >= 1:
+				new_connection = null
+				return
+		_:
+			if len(new_connection.end.connections) >= 2:
+				print("??")
+				new_connection = null
+				return
+		
 	
 	new_connection.line = ConnectionLine.new()
 	new_connection.line.add_point(Vector2.ZERO)
@@ -161,15 +180,18 @@ func remove_gate(source : Area2D):
 		if gate.node == source:
 			gate_item = gate
 	
+	# deletes all related connections
 	var connection_items : Array[Connection]
 	for connection in connections:
 		if connection.start == gate_item or connection.end == gate_item:
 			connection_items.append(connection)
 	
+	
 	remove_child(gate_item.node)
 	gates.erase(gate_item)
 	
 	for to_delete in connection_items:
+		to_delete.end.connections.erase(to_delete)
 		remove_child(to_delete.line)
 		connections.erase(to_delete)
 
@@ -202,11 +224,8 @@ func in_connections(line : Area2D) -> bool:
 ## Processes
 func _process(_delta: float) -> void:
 	for gate in gates:
+		gate.node.testing_label.text = str(gate.type, "->", gate.connections)
 		pass
-		# go through each gate
-		# figure out how many connections are connected to it
-		# if there are more than 2 (or 1 in the case of a not gate)
-		# figure out what value the gate should output
 	
 	mouse_area.global_position = get_global_mouse_position()
 	
