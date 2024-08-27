@@ -122,6 +122,12 @@ func _on_connection_stop(source : Area2D):
 				break
 
 func create_line():
+	for connection in connections:
+		if (connection.start == new_connection.start and
+			connection.end == new_connection.end):
+			new_connection = null
+			return
+	
 	new_connection.line = ConnectionLine.new()
 	new_connection.line.add_point(Vector2.ZERO)
 	new_connection.line.add_point(Vector2.ZERO)
