@@ -90,6 +90,7 @@ func _on_connection_start(source : Area2D, type : String):
 	if type == "input":
 		new_connection.end = source_gate
 
+## TODO: clean this up at some point
 func _on_connection_stop(source : Area2D):
 	state = IDLE
 	
@@ -101,19 +102,13 @@ func _on_connection_stop(source : Area2D):
 	for area in areas:
 		# if connection started with an output
 		if new_connection.end == null:
+			# check if input area and not the same as the start of the connection
 			if area.is_in_group("inputs") and area.parent != source:
 				for gate in gates:
 					if gate.node == area.parent:
 						new_connection.end = gate
 				
-				new_connection.line = ConnectionLine.new()
-				new_connection.line.add_point(Vector2.ZERO)
-				new_connection.line.add_point(Vector2.ZERO)
-				add_child(new_connection.line)
-				
-				new_connection.end.connections.append(new_connection)
-				connections.append(new_connection)
-				new_connection = null
+				create_line()
 				break
 			
 		# if connection started with an input
@@ -123,16 +118,18 @@ func _on_connection_stop(source : Area2D):
 					if gate.node == area.parent:
 						new_connection.start = gate
 				
-				# probably change this line2d at some point
-				new_connection.line = ConnectionLine.new()
-				new_connection.line.add_point(Vector2.ZERO)
-				new_connection.line.add_point(Vector2.ZERO)
-				add_child(new_connection.line)
-				
-				new_connection.end.connections.append(new_connection)
-				connections.append(new_connection)
-				new_connection = null
+				create_line()
 				break
+
+func create_line():
+	new_connection.line = ConnectionLine.new()
+	new_connection.line.add_point(Vector2.ZERO)
+	new_connection.line.add_point(Vector2.ZERO)
+	add_child(new_connection.line)
+				
+	new_connection.end.connections.append(new_connection)
+	connections.append(new_connection)
+	new_connection = null
 
 
 ## Deletion
