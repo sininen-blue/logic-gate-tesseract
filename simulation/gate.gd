@@ -4,8 +4,9 @@ class_name GateNode
 signal dragging_start(source)
 signal dragging_stop(source)
 
-@export_enum("And", "Or", "Xor", "Nand", "Nor", "Xnor", "Not") var gate_type : String = "And"
+@export_enum("And", "Or", "Xor", "Nand", "Nor", "Xnor", "Not", "Input", "Output") var gate_type : String = "And"
 
+var value : bool
 var draggable : bool = false
 var dragging : bool = false
 
@@ -24,6 +25,12 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	## NOTE: these are testing textures
+	if value == true:
+		$Sprite2D.texture = load("res://assets/simulation/var on.png")
+	if value == false:
+		$Sprite2D.texture = load("res://assets/simulation/var off.png")
+		
 	if draggable:
 		if Input.is_action_just_pressed("left_click") and main.state == 0:
 			dragging_start.emit(self)

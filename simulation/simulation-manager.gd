@@ -24,6 +24,33 @@ var state : int = IDLE
 @onready var mouse_area: Area2D = $MouseArea
 
 
+
+func _ready() -> void:
+	var gate_scene : GateNode = GATE_SCENE.instantiate()
+	gate_scene.gate_type = "Input"
+	gate_scene.value = true
+	gate_scene.global_position = Vector2(200, 200) # NOTE: temp start location
+	
+	var new_gate : Gate = Gate.new()
+	new_gate.node = gate_scene
+	new_gate.type = gate_scene.gate_type
+	
+	gates.append(new_gate)
+	add_child(gate_scene)
+
+	gate_scene = GATE_SCENE.instantiate()
+	gate_scene.gate_type = "Input"
+	gate_scene.value = false
+	gate_scene.global_position = Vector2(200, 400) # NOTE: temp start location
+	
+	new_gate = Gate.new()
+	new_gate.node = gate_scene
+	new_gate.type = gate_scene.gate_type
+	
+	gates.append(new_gate)
+	add_child(gate_scene)
+
+
 ## Gate Creation
 func _on_and_pressed() -> void:
 	var gate_scene : GateNode = GATE_SCENE.instantiate()
@@ -159,6 +186,13 @@ func in_connections(line : Area2D) -> bool:
 
 ## Processes
 func _process(_delta: float) -> void:
+	for gate in gates:
+		pass
+		# go through each gate
+		# figure out how many connections are connected to it
+		# if there are more than 2 (or 1 in the case of a not gate)
+		# figure out what value the gate should output
+	
 	mouse_area.global_position = get_global_mouse_position()
 	
 	if connections.is_empty() == false:
