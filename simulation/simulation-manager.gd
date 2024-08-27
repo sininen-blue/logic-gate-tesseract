@@ -162,8 +162,9 @@ func remove_gate(source : Area2D):
 			gate_item = gate
 	
 	var connection_items : Array[Connection]
-	for connection in gate_item.connections:
-		connection_items.append(connection)
+	for connection in connections:
+		if connection.start == gate_item or connection.end == gate_item:
+			connection_items.append(connection)
 	
 	remove_child(gate_item.node)
 	gates.erase(gate_item)
