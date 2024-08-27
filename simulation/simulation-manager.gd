@@ -3,6 +3,7 @@ extends Node2D
 var gates : Array[Gate]
 class Gate:
 	var node : GateNode
+	var connections : Array[Connection]
 	var type : String
 
 var connections : Array[Connection]
@@ -110,6 +111,7 @@ func _on_connection_stop(source : Area2D):
 				new_connection.line.add_point(Vector2.ZERO)
 				add_child(new_connection.line)
 				
+				new_connection.end.connections.append(new_connection)
 				connections.append(new_connection)
 				new_connection = null
 				break
@@ -127,6 +129,7 @@ func _on_connection_stop(source : Area2D):
 				new_connection.line.add_point(Vector2.ZERO)
 				add_child(new_connection.line)
 				
+				new_connection.end.connections.append(new_connection)
 				connections.append(new_connection)
 				new_connection = null
 				break
@@ -149,14 +152,15 @@ func remove_item():
 
 func remove_gate(source : Area2D):
 	var gate_item : Gate
+	
+	# grabs corresponding gate class the source is in
 	for gate in gates:
 		if gate.node == source:
 			gate_item = gate
 	
 	var connection_items : Array[Connection]
-	for connection in connections:
-		if connection.start == gate_item or connection.end == gate_item:
-			connection_items.append(connection)
+	for connection in gate_item.connections:
+		connection_items.append(connection)
 	
 	remove_child(gate_item.node)
 	gates.erase(gate_item)
@@ -166,10 +170,17 @@ func remove_gate(source : Area2D):
 		connections.erase(to_delete)
 
 func remove_connection(target : Area2D):
+	var connection_item : Connection
 	for connection in connections:
 		if connection.line == target.get_parent():
 			remove_child(connection.line)
-			connections.erase(connection)
+			connection_item = connection
+	
+	for gate in gates:
+		if connection_item in gate.connections:
+			gate.connections.erase(connection_item)
+	
+	connections.erase(connection_item)
 
 func in_gates(node : Area2D) -> bool:
 	for gate in gates:
