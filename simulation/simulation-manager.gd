@@ -138,9 +138,14 @@ func create_line():
 			new_connection = null
 			return
 	
+	# connection limits for specific types
 	match new_connection.end.type:
 		"Start":
 			if len(new_connection.end.connections) >= 0:
+				new_connection = null
+				return
+		"End":
+			if len(new_connection.start.connections) >= 0:
 				new_connection = null
 				return
 		"Not":
@@ -149,7 +154,6 @@ func create_line():
 				return
 		_:
 			if len(new_connection.end.connections) >= 2:
-				print("??")
 				new_connection = null
 				return
 		
