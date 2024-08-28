@@ -42,8 +42,8 @@ func _ready() -> void:
 	add_child(gate_scene)
 
 	gate_scene = GATE_SCENE.instantiate()
-	gate_scene.gate_type = "End"
-	gate_scene.value = false
+	gate_scene.gate_type = "Start"
+	gate_scene.value = true
 	gate_scene.global_position = Vector2(200, 400) # NOTE: temp start location
 	
 	new_gate = Gate.new()
@@ -56,8 +56,14 @@ func _ready() -> void:
 
 ## Gate Creation
 func _on_and_pressed() -> void:
+	create_gate("And")
+
+func _on_or_pressed() -> void:
+	create_gate("Or")
+
+func create_gate(type : String):
 	var gate_scene : GateNode = GATE_SCENE.instantiate()
-	gate_scene.gate_type = "And"
+	gate_scene.gate_type = type
 	gate_scene.global_position = Vector2(500, 500) # NOTE: temp start location
 	
 	var new_gate : Gate = Gate.new()
@@ -66,6 +72,7 @@ func _on_and_pressed() -> void:
 	
 	gates.append(new_gate)
 	add_child(gate_scene)
+
 
 
 ## Gate Moving Signals
@@ -223,9 +230,25 @@ func in_connections(line : Area2D) -> bool:
 
 ## Processes
 func _process(_delta: float) -> void:
+	# NOTE: this label is for testing
 	for gate in gates:
 		gate.node.testing_label.text = str(gate.type, "->", gate.connections)
-		pass
+		
+		## TODO: Testing purposes, put this somewhere else at some point
+		match gate.type:
+			"And":
+				if len(gate.connections) == 2:
+					gate.node.value = gate.connections[0].value and gate.connections[1].value
+				else:
+					gate.node.value = false
+			"Or":
+				if len(gate.connections) == 2:
+					gate.node.value = gate.connections[0].value or gate.connections[1].value
+				else:
+					gate.node.value = false
+	
+	for connection in connections:
+		connection.value = connection.start.node.value
 	
 	mouse_area.global_position = get_global_mouse_position()
 	
