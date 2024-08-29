@@ -10,10 +10,17 @@ radius = 5.0
 script = ExtResource("1_qo526")
 GATE_SCENE = ExtResource("2_8m28h")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(581, 325)
+
 [node name="MouseArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea"]
 shape = SubResource("CircleShape2D_6ovty")
+
+[node name="Label" type="Label" parent="MouseArea"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -71,3 +78,8 @@ text = "Not"
 
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/and" to="." method="_on_and_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/or" to="." method="_on_or_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xor" to="." method="_on_xor_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/nand" to="." method="_on_nand_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/nor" to="." method="_on_nor_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xnor" to="." method="_on_xnor_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/not" to="." method="_on_not_pressed"]

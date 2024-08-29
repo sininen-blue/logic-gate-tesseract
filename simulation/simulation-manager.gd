@@ -17,6 +17,7 @@ class Connection:
 
 enum {
 	IDLE,
+	MOVING_CAMERA,
 	MOVING_GATE,
 	CREATING_CONNECTION,
 }
@@ -25,7 +26,6 @@ var state : int = IDLE
 @export var GATE_SCENE : PackedScene
 
 @onready var mouse_area: Area2D = $MouseArea
-
 
 
 func _ready() -> void:
@@ -60,6 +60,22 @@ func _on_and_pressed() -> void:
 
 func _on_or_pressed() -> void:
 	create_gate("Or")
+
+func _on_xor_pressed() -> void:
+	create_gate("Xor")
+
+func _on_nand_pressed() -> void:
+	create_gate("Nand")
+
+func _on_nor_pressed() -> void:
+	create_gate("Nor")
+
+func _on_xnor_pressed() -> void:
+	create_gate("Xnor")
+
+func _on_not_pressed() -> void:
+	create_gate("Not")
+
 
 func create_gate(type : String):
 	var gate_scene : GateNode = GATE_SCENE.instantiate()
@@ -233,8 +249,10 @@ func in_connections(line : Area2D) -> bool:
 
 
 ## Processes
+var start_position : Vector2
 func _process(_delta: float) -> void:
 	# NOTE: this label is for testing
+	$MouseArea/Label.text = str(get_global_mouse_position())
 	for gate in gates:
 		gate.node.testing_label.text = str(gate.type, "->", gate.connections)
 		
@@ -267,6 +285,18 @@ func _process(_delta: float) -> void:
 			## TODO: put this in a state transition instead to save compute time
 			for connection in connections:
 				connection.line.distribute_areas()
+			
+			if Input.is_action_just_pressed("left_click"):
+				if mouse_area.has_overlapping_areas() == false:
+					start_position = get_global_mouse_position()
+					state = MOVING_CAMERA
+		MOVING_CAMERA:
+			## TODO: Tween this position change at some point
+			var mouse_vector : Vector2 = start_position - get_global_mouse_position()
+			$Camera2D.global_position += mouse_vector
+			
+			if Input.is_action_just_released("left_click"):
+				state = IDLE
 		MOVING_GATE:
 			pass
 		CREATING_CONNECTION:
