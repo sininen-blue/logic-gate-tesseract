@@ -16,6 +16,7 @@ var offset : Vector2
 @onready var input_area: Area2D = $InputArea
 @onready var output_area: Area2D = $OutputArea
 @onready var testing_label: Label = $TestingLabel
+@onready var sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
 	self.mouse_entered.connect(_on_mouse_entered)
@@ -26,12 +27,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	## NOTE: these are testing textures
-	if value == true:
-		$Sprite2D.texture = load("res://assets/simulation/var on.png")
-	if value == false:
-		$Sprite2D.texture = load("res://assets/simulation/var off.png")
-		
+	handle_textures()
 	if draggable:
 		if Input.is_action_just_pressed("left_click") and main.state == 0:
 			dragging_start.emit(self)
@@ -51,3 +47,45 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	draggable = false
+
+func handle_textures() -> void:
+	if value == true:
+		match gate_type:
+			"And":
+				sprite.texture = load("res://assets/simulation/and.png")
+			"Or":
+				sprite.texture = load("res://assets/simulation/or.png")
+			"Xor":
+				sprite.texture = load("res://assets/simulation/xor.png")
+			"Nand": 
+				sprite.texture = load("res://assets/simulation/nand.png")
+			"Nor":
+				sprite.texture = load("res://assets/simulation/nor.png")
+			"Xnor":
+				sprite.texture = load("res://assets/simulation/xnor.png")
+			"Not":
+				sprite.texture = load("res://assets/simulation/not.png")
+			"Start": 
+				sprite.texture = load("res://assets/simulation/start.png")
+			"End":
+				sprite.texture = load("res://assets/simulation/end.png")
+	else:
+		match gate_type:
+			"And":
+				sprite.texture = load("res://assets/simulation/and-false.png")
+			"Or":
+				sprite.texture = load("res://assets/simulation/or-false.png")
+			"Xor":
+				sprite.texture = load("res://assets/simulation/xor-false.png")
+			"Nand": 
+				sprite.texture = load("res://assets/simulation/nand-false.png")
+			"Nor":
+				sprite.texture = load("res://assets/simulation/nor-false.png")
+			"Xnor":
+				sprite.texture = load("res://assets/simulation/xnor-false.png")
+			"Not":
+				sprite.texture = load("res://assets/simulation/not-false.png")
+			"Start": 
+				sprite.texture = load("res://assets/simulation/start-false.png")
+			"End":
+				sprite.texture = load("res://assets/simulation/end-false.png")
