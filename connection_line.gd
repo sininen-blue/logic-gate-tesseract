@@ -9,6 +9,13 @@ var index : int = 0
 
 var area_pool : Array[Area2D]
 
+func _ready() -> void:
+	self.width = 6
+	self.joint_mode = Line2D.LINE_JOINT_ROUND
+	self.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	self.end_cap_mode = Line2D.LINE_CAP_ROUND
+
+
 func _process(_delta: float) -> void:
 	start_point = self.points[0]
 	end_point = self.points[-1]
