@@ -44,5 +44,6 @@ shape = SubResource("CircleShape2D_nvyvh")
 points = PackedVector2Array(0, 0, 0, 0)
 
 [node name="TestingLabel" type="Label" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0

@@ -29,6 +29,10 @@ var state : int = IDLE
 
 
 func _ready() -> void:
+	## NOTE: these are temporary testing nodes
+	## this should be replaced by a json reader
+	## that reads level data and places all the parts
+	
 	var gate_scene : GateNode = GATE_SCENE.instantiate()
 	gate_scene.gate_type = "Start"
 	gate_scene.value = true
@@ -45,6 +49,19 @@ func _ready() -> void:
 	gate_scene.gate_type = "Start"
 	gate_scene.value = true
 	gate_scene.global_position = Vector2(200, 400) # NOTE: temp start location
+	
+	new_gate = Gate.new()
+	new_gate.node = gate_scene
+	new_gate.type = gate_scene.gate_type
+	
+	gates.append(new_gate)
+	add_child(gate_scene)
+	
+	
+	gate_scene = GATE_SCENE.instantiate()
+	gate_scene.gate_type = "End"
+	gate_scene.value = true
+	gate_scene.global_position = Vector2(700, 300) # NOTE: temp start location
 	
 	new_gate = Gate.new()
 	new_gate.node = gate_scene
@@ -116,6 +133,7 @@ func _on_connection_start(source : Area2D, type : String):
 		new_connection.end = source_gate
 
 ## TODO: clean this up at some point
+## TODO make sure that you can't make a connection with the output
 func _on_connection_stop(source : Area2D):
 	state = IDLE
 	
@@ -161,7 +179,7 @@ func create_line():
 				new_connection = null
 				return
 		"End":
-			if len(new_connection.start.connections) >= 0:
+			if len(new_connection.end.connections) >= 1:
 				new_connection = null
 				return
 		"Not":
@@ -185,6 +203,7 @@ func create_line():
 
 
 ## Deletion
+## TODO: make sure that outputs and inputs can't be deleted
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click"):
 		remove_item()
@@ -257,17 +276,7 @@ func _process(_delta: float) -> void:
 		gate.node.testing_label.text = str(gate.type, "->", gate.connections)
 		
 		## TODO: Testing purposes, put this somewhere else at some point
-		match gate.type:
-			"And":
-				if len(gate.connections) == 2:
-					gate.node.value = gate.connections[0].value and gate.connections[1].value
-				else:
-					gate.node.value = false
-			"Or":
-				if len(gate.connections) == 2:
-					gate.node.value = gate.connections[0].value or gate.connections[1].value
-				else:
-					gate.node.value = false
+		handle_gate_values(gate)
 	
 	for connection in connections:
 		connection.value = connection.start.node.value
@@ -301,3 +310,47 @@ func _process(_delta: float) -> void:
 			pass
 		CREATING_CONNECTION:
 			pass
+
+
+func handle_gate_values(gate):
+	match gate.type:
+			"And":
+				if len(gate.connections) == 2:
+					gate.node.value = gate.connections[0].value and gate.connections[1].value
+				else:
+					gate.node.value = 2
+			"Or":
+				if len(gate.connections) == 2:
+					gate.node.value = gate.connections[0].value or gate.connections[1].value
+				else:
+					gate.node.value = 2
+			"Xor":
+				if len(gate.connections) == 2:
+					gate.node.value = int(gate.connections[0].value) ^ int(gate.connections[1].value)
+				else:
+					gate.node.value = 2
+			"Nand": 
+				if len(gate.connections) == 2:
+					gate.node.value = !(gate.connections[0].value and gate.connections[1].value)
+				else:
+					gate.node.value = 2
+			"Nor":
+				if len(gate.connections) == 2:
+					gate.node.value = !(gate.connections[0].value or gate.connections[1].value)
+				else:
+					gate.node.value = 2
+			"Xnor":
+				if len(gate.connections) == 2:
+					gate.node.value = !(int(gate.connections[0].value) ^ int(gate.connections[1].value))
+				else:
+					gate.node.value = 2
+			"Not":
+				if len(gate.connections) == 1:
+					gate.node.value = !gate.connections[0].value
+				else:
+					gate.node.value = 2
+			"End":
+				if len(gate.connections) == 1:
+					gate.node.value = gate.connections[0].value
+				else:
+					gate.node.value = 2

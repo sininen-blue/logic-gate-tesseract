@@ -76,6 +76,18 @@ text = "Xnor"
 layout_mode = 2
 text = "Not"
 
+[node name="RunButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_top = 32.0
+offset_right = -41.0
+offset_bottom = 63.0
+grow_horizontal = 0
+text = "RUN"
+
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/and" to="." method="_on_and_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/or" to="." method="_on_or_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xor" to="." method="_on_xor_pressed"]

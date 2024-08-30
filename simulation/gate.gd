@@ -6,7 +6,7 @@ signal dragging_stop(source)
 
 @export_enum("And", "Or", "Xor", "Nand", "Nor", "Xnor", "Not", "Start", "End") var gate_type : String = "And"
 
-var value : bool
+var value : int
 var draggable : bool = false
 var dragging : bool = false
 
@@ -49,7 +49,9 @@ func _on_mouse_exited() -> void:
 	draggable = false
 
 func handle_textures() -> void:
-	if value == true:
+	## TODO: figure out a way to change this so it only runs
+	## when the value changes instead of per frame
+	if value == 1:
 		match gate_type:
 			"And":
 				sprite.texture = load("res://assets/simulation/and.png")
@@ -69,7 +71,7 @@ func handle_textures() -> void:
 				sprite.texture = load("res://assets/simulation/start.png")
 			"End":
 				sprite.texture = load("res://assets/simulation/end.png")
-	else:
+	elif value == 0:
 		match gate_type:
 			"And":
 				sprite.texture = load("res://assets/simulation/and-false.png")
@@ -87,5 +89,23 @@ func handle_textures() -> void:
 				sprite.texture = load("res://assets/simulation/not-false.png")
 			"Start": 
 				sprite.texture = load("res://assets/simulation/start-false.png")
+			"End":
+				sprite.texture = load("res://assets/simulation/end-false.png")
+	elif value == 2:
+		match gate_type:
+			"And":
+				sprite.texture = load("res://assets/simulation/and-inactive.png")
+			"Or":
+				sprite.texture = load("res://assets/simulation/or-inactive.png")
+			"Xor":
+				sprite.texture = load("res://assets/simulation/xor-inactive.png")
+			"Nand": 
+				sprite.texture = load("res://assets/simulation/nand-inactive.png")
+			"Nor":
+				sprite.texture = load("res://assets/simulation/nor-inactive.png")
+			"Xnor":
+				sprite.texture = load("res://assets/simulation/xnor-inactive.png")
+			"Not":
+				sprite.texture = load("res://assets/simulation/not-inactive.png")
 			"End":
 				sprite.texture = load("res://assets/simulation/end-false.png")
