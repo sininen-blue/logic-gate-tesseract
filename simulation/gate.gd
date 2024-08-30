@@ -49,8 +49,10 @@ func _on_mouse_exited() -> void:
 	draggable = false
 
 func handle_textures() -> void:
-	## TODO: figure out a way to change this so it only runs
+	## TODO: figure out a way to change this so it only runs (setget?)
 	## when the value changes instead of per frame
+	## Also I know for a fact that I can do this better
+	## probably just have a singular function that changes the string
 	if value == 1:
 		match gate_type:
 			"And":

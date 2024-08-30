@@ -311,7 +311,7 @@ func _process(_delta: float) -> void:
 		CREATING_CONNECTION:
 			pass
 
-
+## TODO: fix this to be less ugly
 func handle_gate_values(gate):
 	match gate.type:
 			"And":

@@ -14,22 +14,47 @@ metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(162, 415, 350, 296)
+width = 6.0
+default_color = Color(0.180392, 0.180392, 0.180392, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="Line2D2" type="Line2D" parent="."]
 position = Vector2(306, -121)
 points = PackedVector2Array(161, 401, 415, 362)
+width = 6.0
+default_color = Color(0.180392, 0.180392, 0.180392, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="Line2D3" type="Line2D" parent="."]
 position = Vector2(694, -159)
 points = PackedVector2Array(161, 401, 333, 469)
+width = 6.0
+default_color = Color(0.180392, 0.180392, 0.180392, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="Line2D4" type="Line2D" parent="."]
 position = Vector2(3, 33)
 points = PackedVector2Array(161, 401, 466, 532)
+width = 6.0
+default_color = Color(0.180392, 0.180392, 0.180392, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="Line2D5" type="Line2D" parent="."]
 position = Vector2(427, 159)
 points = PackedVector2Array(161, 401, 590, 175)
+width = 6.0
+default_color = Color(0.180392, 0.180392, 0.180392, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="LevelButton" type="Button" parent="."]
 layout_mode = 0
