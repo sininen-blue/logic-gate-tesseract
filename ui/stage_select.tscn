@@ -17,10 +17,10 @@ clip_contents = true
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = 64.0
-offset_top = 16.0
-offset_right = 496.0
-offset_bottom = -16.0
+offset_left = 111.0
+offset_top = 17.0
+offset_right = 543.0
+offset_bottom = -15.0
 grow_vertical = 2
 
 [node name="StagePanel" type="Panel" parent="VBoxContainer"]
@@ -207,3 +207,10 @@ offset_bottom = -24.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Play"
+
+[node name="Back" type="Button" parent="."]
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 92.0
+offset_bottom = 64.0
+text = "Back"

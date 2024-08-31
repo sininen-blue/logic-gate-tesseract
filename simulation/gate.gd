@@ -6,19 +6,22 @@ signal dragging_stop(source)
 
 @export_enum("And", "Or", "Xor", "Nand", "Nor", "Xnor", "Not", "Start", "End") var gate_type : String = "And"
 
-var value : int
+var value : int = 2
 var draggable : bool = false
 var dragging : bool = false
-
+var var_name : String = ""
 var offset : Vector2
+
 
 @onready var main : Node2D = get_parent()
 @onready var input_area: Area2D = $InputArea
 @onready var output_area: Area2D = $OutputArea
 @onready var testing_label: Label = $TestingLabel
+@onready var start_label: Label = $StartLabel
 @onready var sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
+	start_label.text = var_name
 	self.mouse_entered.connect(_on_mouse_entered)
 	self.mouse_exited.connect(_on_mouse_exited)
 	

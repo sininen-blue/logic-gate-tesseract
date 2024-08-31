@@ -161,3 +161,10 @@ texture = ExtResource("3_qsmob")
 position = Vector2(100, 419.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_ym278")
+
+[node name="Back" type="Button" parent="."]
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 92.0
+offset_bottom = 64.0
+text = "Back"

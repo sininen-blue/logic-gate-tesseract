@@ -13,7 +13,7 @@ class Connection:
 	var line : Line2D
 	var start : Gate
 	var end : Gate
-	var value : bool
+	var value : int
 
 enum {
 	IDLE,
@@ -27,6 +27,8 @@ var state : int = IDLE
 
 @onready var mouse_area: Area2D = $MouseArea
 
+var start_nodes : Array[GateNode]
+var end_node : GateNode
 
 func _ready() -> void:
 	## NOTE: these are temporary testing nodes
@@ -35,18 +37,21 @@ func _ready() -> void:
 	
 	var gate_scene : GateNode = GATE_SCENE.instantiate()
 	gate_scene.gate_type = "Start"
-	gate_scene.value = true
+	gate_scene.var_name = "x"
+	gate_scene.value = false
 	gate_scene.global_position = Vector2(200, 200) # NOTE: temp start location
 	
 	var new_gate : Gate = Gate.new()
 	new_gate.node = gate_scene
 	new_gate.type = gate_scene.gate_type
 	
+	start_nodes.append(new_gate.node)
 	gates.append(new_gate)
 	add_child(gate_scene)
 
 	gate_scene = GATE_SCENE.instantiate()
 	gate_scene.gate_type = "Start"
+	gate_scene.var_name = "y"
 	gate_scene.value = true
 	gate_scene.global_position = Vector2(200, 400) # NOTE: temp start location
 	
@@ -54,11 +59,13 @@ func _ready() -> void:
 	new_gate.node = gate_scene
 	new_gate.type = gate_scene.gate_type
 	
+	start_nodes.append(new_gate.node)
 	gates.append(new_gate)
 	add_child(gate_scene)
 	
 	gate_scene = GATE_SCENE.instantiate()
 	gate_scene.gate_type = "Start"
+	gate_scene.var_name = "z"
 	gate_scene.value = true
 	gate_scene.global_position = Vector2(200, 600) # NOTE: temp start location
 	
@@ -66,19 +73,21 @@ func _ready() -> void:
 	new_gate.node = gate_scene
 	new_gate.type = gate_scene.gate_type
 	
+	start_nodes.append(new_gate.node)
 	gates.append(new_gate)
 	add_child(gate_scene)
 	
 	
 	gate_scene = GATE_SCENE.instantiate()
 	gate_scene.gate_type = "End"
-	gate_scene.value = true
+	gate_scene.value = false
 	gate_scene.global_position = Vector2(700, 300) # NOTE: temp start location
 	
 	new_gate = Gate.new()
 	new_gate.node = gate_scene
 	new_gate.type = gate_scene.gate_type
 	
+	end_node = new_gate.node
 	gates.append(new_gate)
 	add_child(gate_scene)
 
@@ -216,6 +225,7 @@ func create_line():
 
 ## Deletion
 ## TODO: make sure that outputs and inputs can't be deleted
+## TODO: make right clicks change the state of inputs
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click"):
 		remove_item()
@@ -237,6 +247,9 @@ func remove_gate(source : Area2D):
 	for gate in gates:
 		if gate.node == source:
 			gate_item = gate
+	
+	if gate_item.type == "Start" or gate_item.type == "End":
+		return
 	
 	# deletes all related connections
 	var connection_items : Array[Connection]
@@ -286,7 +299,7 @@ func _process(_delta: float) -> void:
 	$MouseArea/Label.text = str(get_global_mouse_position())
 	for gate in gates:
 		# TODO: this is for testing, remove later
-		gate.node.testing_label.text = str(gate.type, "->", gate.connections)
+		gate.node.testing_label.text = str(gate.node.value, gate.type, "->", gate.connections)
 		
 		## TODO: put this somewhere in a setget function for connections
 		handle_gate_values(gate)
@@ -373,16 +386,8 @@ func _on_run_button_pressed() -> void:
 	run_simulation()
 
 func run_simulation():
-	var start_nodes : Array[GateNode]
-	var end_node : GateNode
+	## TODO: label start nodes
 	var end_values : Array[Array]
-	
-	for gate in gates:
-		if gate.type == "Start":
-			start_nodes.append(gate.node)
-		if gate.type == "End":
-			end_node = gate.node
-	
 	
 	for x in range(2):
 		for y in range(2):

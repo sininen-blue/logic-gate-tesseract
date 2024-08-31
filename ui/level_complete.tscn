@@ -58,7 +58,19 @@ offset_bottom = 82.0
 grow_horizontal = 2
 text = "LEVEL PASSED"
 
-[node name="Button" type="Button" parent="LevelPass"]
+[node name="Accuracy" type="Label" parent="LevelPass"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.0
+offset_top = 137.0
+offset_right = 58.0
+offset_bottom = 160.0
+grow_horizontal = 2
+text = "LEVEL PASSED"
+
+[node name="RetryButton" type="Button" parent="LevelPass"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -108,7 +120,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="ContinueButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -122,3 +134,6 @@ offset_bottom = 254.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "continue"
+
+[connection signal="pressed" from="LevelPass/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
