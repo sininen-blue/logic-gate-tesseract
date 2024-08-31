@@ -26,6 +26,7 @@ var state : int = IDLE
 @export var GATE_SCENE : PackedScene
 
 @onready var mouse_area: Area2D = $MouseArea
+@onready var camera : Camera2D = $Camera2D
 
 var start_nodes : Array[GateNode]
 var end_node : GateNode
@@ -230,6 +231,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click"):
 		remove_item()
 	
+	## TODO: tween this
+	if event.is_action_pressed("mouse_wheel_up"):
+		camera.zoom += Vector2(0.2, 0.2)
+	if event.is_action_pressed("mouse_whee_down") and camera.zoom >= Vector2(0.5, 0.5):
+		camera.zoom -= Vector2(0.2, 0.2)
+	
+	
 func remove_item():
 	var areas = mouse_area.get_overlapping_areas()
 	for area in areas:
@@ -328,7 +336,7 @@ func _process(_delta: float) -> void:
 		MOVING_CAMERA:
 			## TODO: Tween this position change at some point
 			var mouse_vector : Vector2 = start_position - get_global_mouse_position()
-			$Camera2D.global_position += mouse_vector
+			camera.global_position += mouse_vector
 			
 			if Input.is_action_just_released("left_click"):
 				state = IDLE
