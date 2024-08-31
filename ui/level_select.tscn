@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://yrih2e5sant0"]
+[gd_scene load_steps=5 format=3 uid="uid://yrih2e5sant0"]
 
 [ext_resource type="Script" path="res://ui/level_select.gd" id="1_6kh77"]
+[ext_resource type="Texture2D" uid="uid://c4po5a0dv7iwn" path="res://assets/simulation/end.png" id="2_xff30"]
+[ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="3_qsmob"]
+[ext_resource type="Texture2D" uid="uid://c1nuetfa18n17" path="res://assets/simulation/start-false.png" id="4_ym278"]
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -40,7 +43,7 @@ end_cap_mode = 2
 
 [node name="Line2D4" type="Line2D" parent="."]
 position = Vector2(3, 33)
-points = PackedVector2Array(161, 401, 466, 532)
+points = PackedVector2Array(157, 400, 466, 532)
 width = 6.0
 default_color = Color(0.180392, 0.180392, 0.180392, 1)
 joint_mode = 2
@@ -105,8 +108,9 @@ offset_right = 432.0
 offset_bottom = 260.5
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="LevelInfo"]
+[node name="LevelDescription" type="Label" parent="LevelInfo"]
 layout_mode = 0
 offset_left = 41.0
 offset_top = 44.0
@@ -115,21 +119,21 @@ offset_bottom = 240.0
 text = "Design a combinational logic circuit with three inputs and one output; the output is one when the binary value of the inputs is greater than or equal to three; otherwise the output will be zero. "
 autowrap_mode = 3
 
-[node name="Label2" type="Label" parent="LevelInfo"]
+[node name="DesiredTable" type="Label" parent="LevelInfo"]
 layout_mode = 0
-offset_left = 533.0
-offset_top = 88.5
-offset_right = 830.0
-offset_bottom = 394.5
-text = "Table here"
-
-[node name="Label3" type="Label" parent="LevelInfo"]
-layout_mode = 0
-offset_left = 62.0
-offset_top = 264.0
-offset_right = 425.0
-offset_bottom = 465.0
-text = "INfo and variables here"
+offset_left = 587.0
+offset_top = 101.5
+offset_right = 702.0
+offset_bottom = 332.5
+text = "X Y Z Output
+0 0 0 0 
+0 0 1 0
+0 1 0 0
+0 1 1 0
+1 0 0 1
+1 0 1 1
+1 1 0 1
+1 1 1 1"
 
 [node name="Button" type="Button" parent="LevelInfo"]
 layout_mode = 0
@@ -138,3 +142,22 @@ offset_top = 462.5
 offset_right = 817.0
 offset_bottom = 493.5
 text = "Play"
+
+[node name="End" type="Sprite2D" parent="LevelInfo"]
+position = Vector2(402, 317.5)
+texture = ExtResource("2_xff30")
+
+[node name="Start" type="Sprite2D" parent="LevelInfo"]
+position = Vector2(103, 258.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_qsmob")
+
+[node name="Start2" type="Sprite2D" parent="LevelInfo"]
+position = Vector2(105, 341.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_qsmob")
+
+[node name="Start-false" type="Sprite2D" parent="LevelInfo"]
+position = Vector2(100, 419.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_ym278")

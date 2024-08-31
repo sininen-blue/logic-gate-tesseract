@@ -57,6 +57,18 @@ func _ready() -> void:
 	gates.append(new_gate)
 	add_child(gate_scene)
 	
+	gate_scene = GATE_SCENE.instantiate()
+	gate_scene.gate_type = "Start"
+	gate_scene.value = true
+	gate_scene.global_position = Vector2(200, 600) # NOTE: temp start location
+	
+	new_gate = Gate.new()
+	new_gate.node = gate_scene
+	new_gate.type = gate_scene.gate_type
+	
+	gates.append(new_gate)
+	add_child(gate_scene)
+	
 	
 	gate_scene = GATE_SCENE.instantiate()
 	gate_scene.gate_type = "End"
@@ -355,3 +367,39 @@ func handle_gate_values(gate):
 					gate.node.value = gate.connections[0].value
 				else:
 					gate.node.value = 2
+
+
+func _on_run_button_pressed() -> void:
+	run_simulation()
+
+func run_simulation():
+	var start_nodes : Array[GateNode]
+	var end_node : GateNode
+	var end_values : Array[Array]
+	
+	for gate in gates:
+		if gate.type == "Start":
+			start_nodes.append(gate.node)
+		if gate.type == "End":
+			end_node = gate.node
+	
+	
+	for x in range(2):
+		for y in range(2):
+			for z in range(2):
+				start_nodes[0].value = x
+				start_nodes[1].value = y
+				start_nodes[2].value = z
+				
+				await get_tree().create_timer(.2).timeout
+				
+				var row = [x, y, z, end_node.value]
+				end_values.append(row)
+				
+				await get_tree().create_timer(.2).timeout
+	
+	var json_string = JSON.stringify(end_values)
+	var file = FileAccess.open("user://temp.dat", FileAccess.WRITE)
+	file.store_string(json_string)
+	
+	get_tree().change_scene_to_file("res://ui/level_complete.tscn")

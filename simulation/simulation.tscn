@@ -159,3 +159,4 @@ text = "Play"
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/nor" to="." method="_on_nor_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xnor" to="." method="_on_xnor_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/FlowContainer/not" to="." method="_on_not_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/RunButton" to="." method="_on_run_button_pressed"]
