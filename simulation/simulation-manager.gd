@@ -270,12 +270,13 @@ func in_connections(line : Area2D) -> bool:
 ## Processes
 var start_position : Vector2
 func _process(_delta: float) -> void:
-	# NOTE: this label is for testing
+	# TODO: this label is for testing, remove later
 	$MouseArea/Label.text = str(get_global_mouse_position())
 	for gate in gates:
+		# TODO: this is for testing, remove later
 		gate.node.testing_label.text = str(gate.type, "->", gate.connections)
 		
-		## TODO: Testing purposes, put this somewhere else at some point
+		## TODO: put this somewhere in a setget function for connections
 		handle_gate_values(gate)
 	
 	for connection in connections:
