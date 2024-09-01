@@ -395,6 +395,7 @@ func _on_run_button_pressed() -> void:
 
 func run_simulation():
 	## TODO: label start nodes
+	## TODO: make a recursive function that allows for multiple depths
 	var end_values : Array[Array]
 	
 	for x in range(2):
@@ -416,3 +417,7 @@ func run_simulation():
 	file.store_string(json_string)
 	
 	get_tree().change_scene_to_file("res://ui/level_complete.tscn")
+
+
+func _on_info_button_pressed() -> void:
+	$CanvasLayer/UI/LevelInfo.visible = !$CanvasLayer/UI/LevelInfo.visible
