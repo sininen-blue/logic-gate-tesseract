@@ -34,6 +34,7 @@ func _ready() -> void:
 	## NOTE: these are temporary testing nodes
 	## this should be replaced by a json reader
 	## that reads level data and places all the parts
+	create_gate("start")
 	create_gate("nor")
 	create_gate("and")
 
@@ -46,8 +47,6 @@ func create_gate(type : String) -> void:
 	add_child(gate_scene)
 
 ## Deletion
-## TODO: make sure that outputs and inputs can't be deleted
-## TODO: make right clicks change the state of inputs
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click") and mouse_area.has_overlapping_areas():
 		remove_item()
@@ -69,9 +68,10 @@ func remove_item() -> void:
 			remove_child(connection)
 			return
 		if area.is_in_group("gates"):
-			remove_connections(area)
-			remove_child(area)
-			return
+			if !(area.gate_type == "start" or area.gate_type == "end"):
+				remove_connections(area)
+				remove_child(area)
+				return
 
 func remove_connections(gate : Gate) -> void:
 	for connection in gate.connections:
