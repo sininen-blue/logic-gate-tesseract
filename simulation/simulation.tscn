@@ -16,6 +16,9 @@ GATE_SCENE = ExtResource("2_8m28h")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(581, 325)
 
+[node name="TempLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+
 [node name="MouseArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea"]
@@ -52,31 +55,31 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="and" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="AndButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "And"
 
-[node name="or" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="OrButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Or"
 
-[node name="xor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="XorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Xor"
 
-[node name="nand" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="NandButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Nand"
 
-[node name="nor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="NorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Nor"
 
-[node name="xnor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="XnorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Xnor"
 
-[node name="not" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="NotButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Not"
 
@@ -175,12 +178,4 @@ position = Vector2(100, 419.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_o6ogc")
 
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/and" to="." method="_on_and_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/or" to="." method="_on_or_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xor" to="." method="_on_xor_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/nand" to="." method="_on_nand_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/nor" to="." method="_on_nor_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xnor" to="." method="_on_xnor_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/not" to="." method="_on_not_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]
