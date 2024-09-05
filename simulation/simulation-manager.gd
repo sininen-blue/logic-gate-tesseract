@@ -121,9 +121,14 @@ func _process(_delta: float) -> void:
 						state = CREATING_CONNECTION
 						break
 		MOVING_CAMERA:
-			## TODO: tween this
 			var mouse_vector : Vector2 = start_position - get_global_mouse_position()
-			camera.global_position += mouse_vector
+			
+			var tween = get_tree().create_tween()
+			tween.set_ease(Tween.EASE_OUT)
+			tween.set_trans(Tween.TRANS_QUART)
+			tween.tween_property(
+				camera, "global_position", camera.global_position + mouse_vector, 0.1
+			)
 			
 			if Input.is_action_just_released("left_click"):
 				state = IDLE
