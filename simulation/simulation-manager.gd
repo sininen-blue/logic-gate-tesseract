@@ -9,6 +9,7 @@ enum {
 var state : int = IDLE
 
 @export var GATE_SCENE : PackedScene
+@export var LEVEL : JSON
 
 @onready var temp_line: Line2D = $TempLine
 @onready var mouse_area: Area2D = $MouseArea
