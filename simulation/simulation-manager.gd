@@ -51,11 +51,12 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click") and mouse_area.has_overlapping_areas():
 		remove_item()
 	
-	## TODO: tween this
 	if event.is_action_pressed("mouse_wheel_up"):
-		camera.zoom += Vector2(0.2, 0.2)
+		var tween = get_tree().create_tween()
+		tween.tween_property(camera, "zoom", camera.zoom + Vector2(0.2, 0.2), 0.1)
 	if event.is_action_pressed("mouse_whee_down") and camera.zoom >= Vector2(0.5, 0.5):
-		camera.zoom -= Vector2(0.2, 0.2)
+		var tween = get_tree().create_tween()
+		tween.tween_property(camera, "zoom", camera.zoom - Vector2(0.2, 0.2), 0.1)
 	
 	
 func remove_item() -> void:
