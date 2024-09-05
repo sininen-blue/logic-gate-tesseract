@@ -52,10 +52,10 @@ func _input(event: InputEvent) -> void:
 		remove_item()
 	
 	if event.is_action_pressed("mouse_wheel_up"):
-		var tween = get_tree().create_tween()
+		var tween : Tween = get_tree().create_tween()
 		tween.tween_property(camera, "zoom", camera.zoom + Vector2(0.2, 0.2), 0.1)
 	if event.is_action_pressed("mouse_whee_down") and camera.zoom >= Vector2(0.5, 0.5):
-		var tween = get_tree().create_tween()
+		var tween : Tween = get_tree().create_tween()
 		tween.tween_property(camera, "zoom", camera.zoom - Vector2(0.2, 0.2), 0.1)
 	
 	
@@ -86,6 +86,7 @@ func remove_connections(gate : Gate) -> void:
 
 ## Processes
 var start_position : Vector2
+var gate_offset : Vector2
 var gate_held : Gate
 var temp_connection : Connection
 func _process(_delta: float) -> void:
@@ -102,6 +103,7 @@ func _process(_delta: float) -> void:
 				for area in areas:
 					if area.is_in_group("gates"):
 						gate_held = area
+						gate_offset = area.global_position - get_global_mouse_position()
 						state = MOVING_GATE
 						break
 					
@@ -123,7 +125,7 @@ func _process(_delta: float) -> void:
 		MOVING_CAMERA:
 			var mouse_vector : Vector2 = start_position - get_global_mouse_position()
 			
-			var tween = get_tree().create_tween()
+			var tween : Tween = get_tree().create_tween()
 			tween.set_ease(Tween.EASE_OUT)
 			tween.set_trans(Tween.TRANS_QUART)
 			tween.tween_property(
@@ -134,8 +136,7 @@ func _process(_delta: float) -> void:
 				state = IDLE
 		
 		MOVING_GATE:
-			## TODO: handle offsets
-			gate_held.global_position = get_global_mouse_position()
+			gate_held.global_position = get_global_mouse_position() + gate_offset
 			
 			if Input.is_action_just_released("left_click"):
 				state = IDLE
