@@ -56,17 +56,24 @@ func create_level() -> void:
 	var start_count : int = truth_table[0].length() - end_count
 	
 	for start in range(start_count):
-		create_gate("start")
+		create_gate("start", "left")
 	for end in range(end_count):
-		create_gate("end")
+		create_gate("end", "right")
 
 
-func create_gate(type : String) -> void:
+func create_gate(type : String, location : String = "") -> void:
 	var gate_scene : Gate = GATE_SCENE.instantiate()
 	gate_scene.gate_type = type
 	gate_scene.gate_name = String.chr(97 + len(all_gates)) # NOTE: will die after Z
-	var random_start : Vector2 = Vector2(randi_range(100, 1000), randi_range(200, 500))
-	gate_scene.global_position = random_start
+	
+	var start_location : Vector2
+	if location == "left":
+		start_location = Vector2(200, randi_range(50, 600))
+	elif location == "right":
+		start_location = Vector2(700, randi_range(50, 600))
+	else:
+		start_location = Vector2(500, 500)
+	gate_scene.global_position = start_location
 	
 	add_child(gate_scene)
 
