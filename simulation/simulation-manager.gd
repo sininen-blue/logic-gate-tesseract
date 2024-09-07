@@ -31,6 +31,22 @@ func _on_child_order_changed() -> void:
 	for child in children:
 		if child.is_in_group("gates") and child not in all_gates:
 			all_gates.append(child)
+	
+	for gate in all_gates:
+		if gate not in children:
+			children.erase(gate)
+	
+	## weird issue where it crahes when you close scene
+	## NOTE: whole system needs actual designing
+	var tokens : Array[Array]
+	for gate in all_gates:
+		if gate.connections.is_empty() != true:
+			for connection in gate.connections:
+				var token : Array = [connection.output, connection.input]
+				if token not in tokens:
+					tokens.append([connection.output, connection.input])
+	
+	print(tokens)
 
 
 func _ready() -> void:
@@ -110,7 +126,7 @@ func remove_connections(gate : Gate) -> void:
 	for connection in gate.connections:
 		remove_child(connection)
 		
-		if connection.input == gate: # left side of gate 
+		if connection.input == gate: # left side of gate
 			connection.output.connections.erase(connection)
 		if connection.output == gate:
 			connection.input.connections.erase(connection)
@@ -186,8 +202,8 @@ func _process(_delta: float) -> void:
 						temp_connection.output = area.get_parent()
 					
 					if (temp_connection.input != temp_connection.output and
-							temp_connection.input != null and 
-							temp_connection.output != null):
+						temp_connection.input != null and
+						temp_connection.output != null):
 						complete_connection()
 						break
 				
