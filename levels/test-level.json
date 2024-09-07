@@ -3,7 +3,8 @@
   "author": "sininenblue",
   "create_date": "6-9-2024",
   "description": "A test level, if you're seeing this, something has gone wrong",
+  "end_count": "1",
   "truth_table": [
-    "0000", "0010", "0100", "0111", "1001", "1011", "1101", "1111"
+	"0000", "0010", "0100", "0111", "1001", "1011", "1101", "1111"
   ]
 }

@@ -8,6 +8,8 @@ enum {
 }
 var state : int = IDLE
 
+var all_gates : Array[Gate]
+
 @export var GATE_SCENE : PackedScene
 @export var LEVEL : JSON
 
@@ -23,7 +25,16 @@ var state : int = IDLE
 @onready var xnor_button: Button = $CanvasLayer/UI/FlowContainer/XnorButton
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
 
+
+func _on_child_order_changed() -> void:
+	var children : Array[Node] = get_children()
+	for child in children:
+		if child.is_in_group("gates") and child not in all_gates:
+			all_gates.append(child)
+
+
 func _ready() -> void:
+	randomize()
 	and_button.pressed.connect(create_gate.bind("and"))
 	or_button.pressed.connect(create_gate.bind("or"))
 	xor_button.pressed.connect(create_gate.bind("xor"))
@@ -35,17 +46,30 @@ func _ready() -> void:
 	## NOTE: these are temporary testing nodes
 	## this should be replaced by a json reader
 	## that reads level data and places all the parts
-	create_gate("start")
-	create_gate("nor")
-	create_gate("and")
+	create_level()
+
+
+func create_level() -> void:
+	var level_data : Dictionary = LEVEL.data
+	var truth_table : Array = level_data["truth_table"]
+	var end_count : int = int(level_data["end_count"])
+	var start_count : int = truth_table[0].length() - end_count
+	
+	for start in range(start_count):
+		create_gate("start")
+	for end in range(end_count):
+		create_gate("end")
 
 
 func create_gate(type : String) -> void:
 	var gate_scene : Gate = GATE_SCENE.instantiate()
 	gate_scene.gate_type = type
-	gate_scene.global_position = Vector2(500, 500) # NOTE: temp start location
+	gate_scene.gate_name = String.chr(97 + len(all_gates)) # NOTE: will die after Z
+	var random_start : Vector2 = Vector2(randi_range(100, 1000), randi_range(200, 500))
+	gate_scene.global_position = random_start
 	
 	add_child(gate_scene)
+
 
 ## Deletion
 func _input(event: InputEvent) -> void:
