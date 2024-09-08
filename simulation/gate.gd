@@ -22,8 +22,24 @@ func _ready() -> void:
 	
 	start_label.text = gate_name
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	handle_value() ## TODO: probably signal this shit since setget doesn't work
 	$TestingLabel.text = str(connections)
+
+func handle_value() -> void:
+	## NOTE: handle the one inputs here (not and end)
+	
+	if len(connections) < 2:
+		return
+	
+	var input_one : int = connections[0].output.value
+	var input_two : int = connections[1].output.value
+	match gate_type:
+		"and":
+			self.value = input_one and input_two
+		"or":
+			self.value = input_one or input_two
+			## TODO: do the rest
 
 func handle_textures(type : String) -> void:
 	if value == 0: # false

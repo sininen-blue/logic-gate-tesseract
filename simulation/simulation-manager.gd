@@ -36,11 +36,15 @@ func _on_child_order_changed() -> void:
 		if gate not in children:
 			children.erase(gate)
 	
+	## BUG: tokens should be removed if gate is deleted
+	
 	## NOTE: so this system will collect all the connections from a gate
 	## that has the right amount of connections
 	## like an and gate that has two connections
 	## then it'll generate connection[0].output self.gate_name connection[1].output
 	## will need TODO: value generation for each gate
+	
+	## BUG: isn't run when connections are made
 	var tokens : Array[Connection]
 	for gate in all_gates:
 		if (is_instance_valid(gate) and 
@@ -48,13 +52,19 @@ func _on_child_order_changed() -> void:
 			gate.value != 2 and
 			gate.connections.is_empty() != true):
 			
-			print(gate.gate_type, gate.value)
+			## BUG: doesn't work with outputs/ other 1 input gates
+			## a sentence shoudl have the main gate, it's connections
+			## so basically a sentence is a gates lmao
+			print(gate.connections[0].output.gate_name, 
+			gate.gate_type, ## THIS WORKS, now to put it in a datatype
+			gate.connections[1].output.gate_name)
 			
 			for connection in gate.connections:
 				if connection not in tokens:
 					tokens.append(connection)
 	
 	print(tokens, "\n")
+	
 
 
 func _ready() -> void:
