@@ -36,8 +36,11 @@ func _on_child_order_changed() -> void:
 		if gate not in children:
 			children.erase(gate)
 	
-	## weird issue where it crahes when you close scene
-	## NOTE: whole system needs actual designing
+	## NOTE: so this system will collect all the connections from a gate
+	## that has the right amount of connections
+	## like an and gate that has two connections
+	## then it'll generate connection[0].output self.gate_name connection[1].output
+	## will need TODO: value generation for each gate
 	var tokens : Array[Connection]
 	for gate in all_gates:
 		if (is_instance_valid(gate) and 
