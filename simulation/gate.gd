@@ -16,7 +16,10 @@ var gate_name : String
 @onready var output_area: Area2D = $OutputArea
 
 func _ready() -> void:
-	value = 0
+	value = 2
+	if self.gate_type == 'start' or self.gate_type == 'end':
+		value = 0
+	
 	start_label.text = gate_name
 
 func _process(delta: float) -> void:

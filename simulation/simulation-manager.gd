@@ -38,15 +38,20 @@ func _on_child_order_changed() -> void:
 	
 	## weird issue where it crahes when you close scene
 	## NOTE: whole system needs actual designing
-	var tokens : Array[Array]
+	var tokens : Array[Connection]
 	for gate in all_gates:
-		if gate.connections.is_empty() != true:
+		if (is_instance_valid(gate) and 
+			gate.gate_type != "start" and
+			gate.value != 2 and
+			gate.connections.is_empty() != true):
+			
+			print(gate.gate_type, gate.value)
+			
 			for connection in gate.connections:
-				var token : Array = [connection.output, connection.input]
-				if token not in tokens:
-					tokens.append([connection.output, connection.input])
+				if connection not in tokens:
+					tokens.append(connection)
 	
-	print(tokens)
+	print(tokens, "\n")
 
 
 func _ready() -> void:
@@ -96,6 +101,9 @@ func create_gate(type : String, location : String = "") -> void:
 
 ## Deletion
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("quit"):
+		get_tree().quit()
+	
 	if event.is_action_pressed("right_click") and mouse_area.has_overlapping_areas():
 		remove_item()
 	
@@ -189,6 +197,7 @@ func _process(_delta: float) -> void:
 			if Input.is_action_just_released("left_click"):
 				state = IDLE
 		
+		## TODO: never implemented connection limits
 		CREATING_CONNECTION:
 			temp_line.points[-1] = get_global_mouse_position()
 			
