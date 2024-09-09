@@ -7,6 +7,8 @@ var value : int = 2:
 		value = new_value
 		handle_textures(gate_type)
 var connections : Array[Connection]
+var input_connections : Array[Connection]
+var input_max : int = 2
 var gate_name : String
 
 @onready var start_label: Label = $StartLabel
@@ -16,30 +18,54 @@ var gate_name : String
 @onready var output_area: Area2D = $OutputArea
 
 func _ready() -> void:
-	value = 2
 	if self.gate_type == 'start' or self.gate_type == 'end':
 		value = 0
+	else:
+		value = 2
+	
+	if self.gate_type == "not" or self.gate_type == "end":
+		input_max = 1
 	
 	start_label.text = gate_name
 
 func _process(_delta: float) -> void:
-	handle_value() ## TODO: probably signal this shit since setget doesn't work
-	$TestingLabel.text = str(connections)
+	$TestingLabel.text = str(input_connections, value)
+
+func is_input(connection : Connection) -> bool:
+	return connection.input == self
 
 func handle_value() -> void:
-	## NOTE: handle the one inputs here (not and end)
-	
-	if len(connections) < 2:
+	input_connections = connections.filter(is_input)
+	if self.gate_type == "start" or self.gate_type == "end":
 		return
 	
-	var input_one : int = connections[0].output.value
-	var input_two : int = connections[1].output.value
-	match gate_type:
-		"and":
-			self.value = input_one and input_two
-		"or":
-			self.value = input_one or input_two
-			## TODO: do the rest
+	if len(input_connections) < input_max:
+		self.value = 2
+		return
+	
+	var input_one : int = input_connections[0].output.value
+	if input_max == 1:
+		match gate_type:
+			"not":
+				self.value = !value
+			"end":
+				self.value = value
+	if input_max == 2:
+		var input_two : int = input_connections[1].output.value
+		match gate_type:
+			"and":
+				self.value = input_one and input_two
+			"or":
+				self.value = input_one or input_two
+			"xor":
+				self.value = input_one ^ input_two
+			"nand":
+				self.value = !(input_one and input_two)
+			"nor":
+				self.value = !(input_one or input_two)
+			"xnor":
+				self.value = !(input_one ^ input_two)
+
 
 func handle_textures(type : String) -> void:
 	if value == 0: # false

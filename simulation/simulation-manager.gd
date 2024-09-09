@@ -9,6 +9,7 @@ enum {
 var state : int = IDLE
 
 var all_gates : Array[Gate]
+var active_gates : Array[Gate]
 
 @export var GATE_SCENE : PackedScene
 @export var LEVEL : JSON
@@ -34,37 +35,48 @@ func _on_child_order_changed() -> void:
 	
 	for gate in all_gates:
 		if gate not in children:
-			children.erase(gate)
+			all_gates.erase(gate)
+			active_gates.erase(gate)
 	
-	## BUG: tokens should be removed if gate is deleted
-	
-	## NOTE: so this system will collect all the connections from a gate
-	## that has the right amount of connections
-	## like an and gate that has two connections
-	## then it'll generate connection[0].output self.gate_name connection[1].output
-	## will need TODO: value generation for each gate
-	
-	## BUG: isn't run when connections are made
-	var tokens : Array[Connection]
 	for gate in all_gates:
-		if (is_instance_valid(gate) and 
-			gate.gate_type != "start" and
-			gate.value != 2 and
-			gate.connections.is_empty() != true):
-			
-			## BUG: doesn't work with outputs/ other 1 input gates
-			## a sentence shoudl have the main gate, it's connections
-			## so basically a sentence is a gates lmao
-			print(gate.connections[0].output.gate_name, 
-			gate.gate_type, ## THIS WORKS, now to put it in a datatype
-			gate.connections[1].output.gate_name)
-			
-			for connection in gate.connections:
-				if connection not in tokens:
-					tokens.append(connection)
+		if len(gate.input_connections) == gate.input_max and gate not in active_gates:
+			active_gates.append(gate)
+		if len(gate.input_connections) < gate.input_max and gate in active_gates:
+			active_gates.erase(gate)
 	
-	print(tokens, "\n")
-	
+	#print(active_gates)
+	### BUG: tokens should be removed if gate is deleted
+	#
+	### NOTE: so this system will collect all the connections from a gate
+	### that has the right amount of connections
+	### like an and gate that has two connections
+	### then it'll generate connection[0].output self.gate_name connection[1].output
+	### will need TODO: value generation for each gate
+	#
+	### BUG: isn't run when connections are made
+	#var tokens : Array[Gate]
+	#for gate in all_gates:
+		#if (is_instance_valid(gate) and 
+			#gate.gate_type != "start" and
+			#gate.value != 2 and
+			#gate.connections.is_empty() != true):
+			#
+			### BUG: doesn't work with outputs/ other 1 input gates
+			### a sentence shoudl have the main gate, it's connections
+			### so basically a sentence is a gates lmao
+			#
+			#tokens.append(gate)
+	#
+	#for gate in tokens:
+		#print(gate.connections)
+		#if len(gate.connections) == 2:
+			#print(gate.connections[0].output.gate_name, 
+				#gate.gate_type, ## THIS WORKS, now to put it in a datatype
+				#gate.connections[1].output.gate_name)
+		#elif len(gate.connections) == 1:
+			#print(gate.gate_type, ## THIS WORKS, now to put it in a datatype
+				#gate.connections[0].output.gate_name)
+	#
 
 
 func _ready() -> void:
@@ -134,7 +146,9 @@ func remove_item() -> void:
 		if area.is_in_group("connections"):
 			var connection : Connection = area.get_parent()
 			connection.input.connections.erase(connection)
+			connection.input.handle_value()
 			connection.output.connections.erase(connection)
+			connection.output.handle_value()
 			remove_child(connection)
 			return
 		if area.is_in_group("gates"):
@@ -149,8 +163,10 @@ func remove_connections(gate : Gate) -> void:
 		
 		if connection.input == gate: # left side of gate
 			connection.output.connections.erase(connection)
+			connection.output.handle_value()
 		if connection.output == gate:
 			connection.input.connections.erase(connection)
+			connection.input.handle_value()
 	
 
 ## Processes
@@ -198,7 +214,7 @@ func _process(_delta: float) -> void:
 			tween.set_ease(Tween.EASE_OUT)
 			tween.set_trans(Tween.TRANS_QUART)
 			tween.tween_property(
-				camera, "global_position", camera.global_position + mouse_vector, 0.1
+				camera, "global_position", camera.global_position + mouse_vector, 0.05
 			)
 			
 			if Input.is_action_just_released("left_click"):
@@ -233,8 +249,14 @@ func _process(_delta: float) -> void:
 
 
 func complete_connection() -> void:
-	temp_connection.input.connections.append(temp_connection)
+	# limits connection inputs
+	if len(temp_connection.input.input_connections) >= temp_connection.input.input_max:
+		return
+	
 	temp_connection.output.connections.append(temp_connection)
+	temp_connection.input.connections.append(temp_connection)
+	temp_connection.output.handle_value()
+	temp_connection.input.handle_value()
 	add_child(temp_connection)
 	temp_connection = null
 
