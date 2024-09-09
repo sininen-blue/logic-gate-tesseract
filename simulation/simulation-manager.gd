@@ -44,39 +44,16 @@ func _on_child_order_changed() -> void:
 		if len(gate.input_connections) < gate.input_max and gate in active_gates:
 			active_gates.erase(gate)
 	
-	#print(active_gates)
-	### BUG: tokens should be removed if gate is deleted
-	#
-	### NOTE: so this system will collect all the connections from a gate
-	### that has the right amount of connections
-	### like an and gate that has two connections
-	### then it'll generate connection[0].output self.gate_name connection[1].output
-	### will need TODO: value generation for each gate
-	#
-	### BUG: isn't run when connections are made
-	#var tokens : Array[Gate]
-	#for gate in all_gates:
-		#if (is_instance_valid(gate) and 
-			#gate.gate_type != "start" and
-			#gate.value != 2 and
-			#gate.connections.is_empty() != true):
-			#
-			### BUG: doesn't work with outputs/ other 1 input gates
-			### a sentence shoudl have the main gate, it's connections
-			### so basically a sentence is a gates lmao
-			#
-			#tokens.append(gate)
-	#
-	#for gate in tokens:
-		#print(gate.connections)
-		#if len(gate.connections) == 2:
-			#print(gate.connections[0].output.gate_name, 
-				#gate.gate_type, ## THIS WORKS, now to put it in a datatype
-				#gate.connections[1].output.gate_name)
-		#elif len(gate.connections) == 1:
-			#print(gate.gate_type, ## THIS WORKS, now to put it in a datatype
-				#gate.connections[0].output.gate_name)
-	#
+	## BUG: crashes if freed
+	## NOTE: works but needs to be set up so I can get ((b and c) or a)
+	## look up abstract syntax trees
+	for gate in active_gates:
+		if gate.input_max == 1:
+			print(gate.gate_type, gate.input_connections[0].output.gate_name)
+		else:
+			print(gate.connections[0].output.gate_name, 
+				gate.gate_type,
+				gate.connections[1].output.gate_name)
 
 
 func _ready() -> void:
