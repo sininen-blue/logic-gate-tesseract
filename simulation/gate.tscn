@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://psym6w7moids"]
 
-[ext_resource type="Script" path="res://simulation/gate.gd" id="1_nyuu7"]
+[ext_resource type="Script" path="res://simulation/gate.gd" id="1_a5p5t"]
 [ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="2_boiif"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8st0f"]
@@ -14,7 +14,7 @@ radius = 33.0
 radius = 33.0
 
 [node name="Gate" type="Area2D" groups=["gates"]]
-script = ExtResource("1_nyuu7")
+script = ExtResource("1_a5p5t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_boiif")

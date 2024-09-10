@@ -27,6 +27,13 @@ var active_gates : Array[Gate]
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
 
 
+var root : node
+class node:
+	var gate : Gate
+	var left : node
+	var right : node
+
+
 func _on_child_order_changed() -> void:
 	var children : Array[Node] = get_children()
 	for child in children:
@@ -45,15 +52,41 @@ func _on_child_order_changed() -> void:
 			active_gates.erase(gate)
 	
 	## BUG: crashes if freed
+	## should run after every connection creation and deletion
 	## NOTE: works but needs to be set up so I can get ((b and c) or a)
 	## look up abstract syntax trees
 	for gate in active_gates:
 		if gate.input_max == 1:
+			
+				
+			
 			print(gate.gate_type, gate.input_connections[0].output.gate_name)
 		else:
-			print(gate.connections[0].output.gate_name, 
-				gate.gate_type,
-				gate.connections[1].output.gate_name)
+			var new_node : node = node.new()
+			new_node.gate = gate
+			
+			if gate.input_connections[0].output.gate_type == "start":
+				var left_leaf : node = node.new()
+				left_leaf.gate = gate.input_connections[0].output
+				new_node.left = left_leaf
+			if gate.input_connections[1].output.gate_type == "start":
+				var right_leaf : node = node.new()
+				right_leaf.gate = gate.input_connections[1].output
+				new_node.left = right_leaf
+			
+			if root == null:
+				root = new_node
+			else:
+				if gate.input_connections[0].output == root.gate:
+					new_node.left = root
+					root = new_node
+				# if the output of the gate is the root itself, it becomes the branch
+				# of that new root
+				# else
+				# the new node is placed in the left or right side of the node
+				pass
+	
+	print(root) ## note, traverse tree here
 
 
 func _ready() -> void:
