@@ -18,6 +18,7 @@ var active_gates : Array[Gate]
 @onready var mouse_area: Area2D = $MouseArea
 @onready var camera : Camera2D = $Camera2D
 
+@onready var text_edit: TextEdit = $CanvasLayer/UI/TextEdit
 @onready var and_button: Button = $CanvasLayer/UI/FlowContainer/AndButton
 @onready var or_button: Button = $CanvasLayer/UI/FlowContainer/OrButton
 @onready var xor_button: Button = $CanvasLayer/UI/FlowContainer/XorButton
@@ -25,68 +26,6 @@ var active_gates : Array[Gate]
 @onready var nor_button: Button = $CanvasLayer/UI/FlowContainer/NorButton
 @onready var xnor_button: Button = $CanvasLayer/UI/FlowContainer/XnorButton
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
-
-
-var root : node
-class node:
-	var gate : Gate
-	var left : node
-	var right : node
-
-
-func _on_child_order_changed() -> void:
-	var children : Array[Node] = get_children()
-	for child in children:
-		if child.is_in_group("gates") and child not in all_gates:
-			all_gates.append(child)
-	
-	for gate in all_gates:
-		if gate not in children:
-			all_gates.erase(gate)
-			active_gates.erase(gate)
-	
-	for gate in all_gates:
-		if len(gate.input_connections) == gate.input_max and gate not in active_gates:
-			active_gates.append(gate)
-		if len(gate.input_connections) < gate.input_max and gate in active_gates:
-			active_gates.erase(gate)
-	
-	## BUG: crashes if freed
-	## should run after every connection creation and deletion
-	## NOTE: works but needs to be set up so I can get ((b and c) or a)
-	## look up abstract syntax trees
-	for gate in active_gates:
-		if gate.input_max == 1:
-			
-				
-			
-			print(gate.gate_type, gate.input_connections[0].output.gate_name)
-		else:
-			var new_node : node = node.new()
-			new_node.gate = gate
-			
-			if gate.input_connections[0].output.gate_type == "start":
-				var left_leaf : node = node.new()
-				left_leaf.gate = gate.input_connections[0].output
-				new_node.left = left_leaf
-			if gate.input_connections[1].output.gate_type == "start":
-				var right_leaf : node = node.new()
-				right_leaf.gate = gate.input_connections[1].output
-				new_node.left = right_leaf
-			
-			if root == null:
-				root = new_node
-			else:
-				if gate.input_connections[0].output == root.gate:
-					new_node.left = root
-					root = new_node
-				# if the output of the gate is the root itself, it becomes the branch
-				# of that new root
-				# else
-				# the new node is placed in the left or right side of the node
-				pass
-	
-	print(root) ## note, traverse tree here
 
 
 func _ready() -> void:
@@ -132,6 +71,7 @@ func create_gate(type : String, location : String = "") -> void:
 	gate_scene.global_position = start_location
 	
 	add_child(gate_scene)
+	all_gates.append(gate_scene)
 
 
 ## Deletion
@@ -148,36 +88,45 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_whee_down") and camera.zoom >= Vector2(0.5, 0.5):
 		var tween : Tween = get_tree().create_tween()
 		tween.tween_property(camera, "zoom", camera.zoom - Vector2(0.2, 0.2), 0.1)
-	
-	
+
+
 func remove_item() -> void:
 	var areas : Array[Area2D] = mouse_area.get_overlapping_areas()
 	for area in areas:
 		if area.is_in_group("connections"):
-			var connection : Connection = area.get_parent()
-			connection.input.connections.erase(connection)
-			connection.input.handle_value()
-			connection.output.connections.erase(connection)
-			connection.output.handle_value()
-			remove_child(connection)
+			delete_connection(area.get_parent())
 			return
 		if area.is_in_group("gates"):
 			if !(area.gate_type == "start" or area.gate_type == "end"):
-				remove_connections(area)
+				var to_delete : Array[Connection]
+				for connection : Connection in area.connections:
+					to_delete.append(connection)
+				for connection in to_delete:
+					delete_connection(connection)
 				remove_child(area)
 				return
 
-func remove_connections(gate : Gate) -> void:
-	for connection in gate.connections:
-		remove_child(connection)
-		
-		if connection.input == gate: # left side of gate
-			connection.output.connections.erase(connection)
-			connection.output.handle_value()
-		if connection.output == gate:
-			connection.input.connections.erase(connection)
-			connection.input.handle_value()
+
+func delete_connection(connection : Connection) -> void:
+	# erase from gate array
+	connection.output.connections.erase(connection)
+	connection.input.connections.erase(connection)
+	connection.input.input_connections.erase(connection)
+	# frees node
+	remove_child(connection)
+
+
+func complete_connection() -> void:
+	# limits connection inputs
+	if len(temp_connection.input.input_connections) >= temp_connection.input.input_max:
+		return
 	
+	temp_connection.output.connections.append(temp_connection)
+	temp_connection.input.connections.append(temp_connection)
+	temp_connection.input.input_connections.append(temp_connection)
+	add_child(temp_connection)
+	temp_connection = null
+
 
 ## Processes
 var start_position : Vector2
@@ -189,6 +138,15 @@ func _process(_delta: float) -> void:
 	
 	match state:
 		IDLE:
+			var output : String = ""
+			active_gates = all_gates.filter(is_active)
+			
+			for gate in active_gates:
+				output += gate.gate_name
+			
+			text_edit.text = output
+			
+			## transitions
 			if Input.is_action_just_pressed("left_click"):
 				if mouse_area.has_overlapping_areas() == false:
 					start_position = get_global_mouse_position()
@@ -257,18 +215,10 @@ func _process(_delta: float) -> void:
 				
 				state = IDLE
 
-
-func complete_connection() -> void:
-	# limits connection inputs
-	if len(temp_connection.input.input_connections) >= temp_connection.input.input_max:
-		return
-	
-	temp_connection.output.connections.append(temp_connection)
-	temp_connection.input.connections.append(temp_connection)
-	temp_connection.output.handle_value()
-	temp_connection.input.handle_value()
-	add_child(temp_connection)
-	temp_connection = null
+func is_active(gate : Gate) -> bool:
+	if gate.gate_type == "start":
+		return false
+	return gate.value != 2
 
 
 func run_simulation() -> void:

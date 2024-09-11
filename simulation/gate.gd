@@ -29,14 +29,10 @@ func _ready() -> void:
 	start_label.text = gate_name
 
 func _process(_delta: float) -> void:
-	$TestingLabel.text = str(input_connections, value)
+	$TestingLabel.text = str(connections, input_connections, value)
 
-func is_input(connection : Connection) -> bool:
-	return connection.input == self
-
-func handle_value() -> void:
-	input_connections = connections.filter(is_input)
-	if self.gate_type == "start" or self.gate_type == "end":
+	# value handling
+	if self.gate_type == "start":
 		return
 	
 	if len(input_connections) < input_max:
@@ -47,9 +43,9 @@ func handle_value() -> void:
 	if input_max == 1:
 		match gate_type:
 			"not":
-				self.value = !value
+				self.value = !input_one
 			"end":
-				self.value = value
+				self.value = input_one
 	if input_max == 2:
 		var input_two : int = input_connections[1].output.value
 		match gate_type:
