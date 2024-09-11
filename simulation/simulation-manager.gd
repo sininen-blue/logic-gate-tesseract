@@ -1,20 +1,5 @@
 extends Node2D
 
-var gates : Array[Gate]
-class Gate:
-	var node : GateNode
-	# contains connections where the end is equal to the node
-	var connections : Array[Connection] 
-	var type : String
-
-
-var connections : Array[Connection]
-class Connection:
-	var line : Line2D
-	var start : Gate
-	var end : Gate
-	var value : bool
-
 enum {
 	IDLE,
 	MOVING_CAMERA,
@@ -23,281 +8,245 @@ enum {
 }
 var state : int = IDLE
 
-@export var GATE_SCENE : PackedScene
+var all_gates : Array[Gate]
+var active_gates : Array[Gate]
 
+@export var GATE_SCENE : PackedScene
+@export var LEVEL : JSON
+
+@onready var temp_line: Line2D = $TempLine
 @onready var mouse_area: Area2D = $MouseArea
+@onready var camera : Camera2D = $Camera2D
+
+@onready var text_edit: TextEdit = $CanvasLayer/UI/TextEdit
+@onready var and_button: Button = $CanvasLayer/UI/FlowContainer/AndButton
+@onready var or_button: Button = $CanvasLayer/UI/FlowContainer/OrButton
+@onready var xor_button: Button = $CanvasLayer/UI/FlowContainer/XorButton
+@onready var nand_button: Button = $CanvasLayer/UI/FlowContainer/NandButton
+@onready var nor_button: Button = $CanvasLayer/UI/FlowContainer/NorButton
+@onready var xnor_button: Button = $CanvasLayer/UI/FlowContainer/XnorButton
+@onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
 
 
 func _ready() -> void:
-	var gate_scene : GateNode = GATE_SCENE.instantiate()
-	gate_scene.gate_type = "Start"
-	gate_scene.value = true
-	gate_scene.global_position = Vector2(200, 200) # NOTE: temp start location
+	randomize()
+	and_button.pressed.connect(create_gate.bind("and"))
+	or_button.pressed.connect(create_gate.bind("or"))
+	xor_button.pressed.connect(create_gate.bind("xor"))
+	nand_button.pressed.connect(create_gate.bind("nand"))
+	nor_button.pressed.connect(create_gate.bind("nor"))
+	xnor_button.pressed.connect(create_gate.bind("xnor"))
+	not_button.pressed.connect(create_gate.bind("not"))
 	
-	var new_gate : Gate = Gate.new()
-	new_gate.node = gate_scene
-	new_gate.type = gate_scene.gate_type
+	## NOTE: these are temporary testing nodes
+	## this should be replaced by a json reader
+	## that reads level data and places all the parts
+	create_level()
+
+
+func create_level() -> void:
+	var level_data : Dictionary = LEVEL.data
+	var truth_table : Array = level_data["truth_table"]
+	var end_count : int = int(level_data["end_count"])
+	var start_count : int = truth_table[0].length() - end_count
 	
-	gates.append(new_gate)
-	add_child(gate_scene)
-
-	gate_scene = GATE_SCENE.instantiate()
-	gate_scene.gate_type = "Start"
-	gate_scene.value = true
-	gate_scene.global_position = Vector2(200, 400) # NOTE: temp start location
-	
-	new_gate = Gate.new()
-	new_gate.node = gate_scene
-	new_gate.type = gate_scene.gate_type
-	
-	gates.append(new_gate)
-	add_child(gate_scene)
+	for start in range(start_count):
+		create_gate("start", "left")
+	for end in range(end_count):
+		create_gate("end", "right")
 
 
-## Gate Creation
-func _on_and_pressed() -> void:
-	create_gate("And")
-
-func _on_or_pressed() -> void:
-	create_gate("Or")
-
-func _on_xor_pressed() -> void:
-	create_gate("Xor")
-
-func _on_nand_pressed() -> void:
-	create_gate("Nand")
-
-func _on_nor_pressed() -> void:
-	create_gate("Nor")
-
-func _on_xnor_pressed() -> void:
-	create_gate("Xnor")
-
-func _on_not_pressed() -> void:
-	create_gate("Not")
-
-
-func create_gate(type : String):
-	var gate_scene : GateNode = GATE_SCENE.instantiate()
+func create_gate(type : String, location : String = "") -> void:
+	var gate_scene : Gate = GATE_SCENE.instantiate()
 	gate_scene.gate_type = type
-	gate_scene.global_position = Vector2(500, 500) # NOTE: temp start location
+	gate_scene.gate_name = String.chr(97 + len(all_gates)) # NOTE: will die after Z
 	
-	var new_gate : Gate = Gate.new()
-	new_gate.node = gate_scene
-	new_gate.type = gate_scene.gate_type
+	var start_location : Vector2
+	if location == "left":
+		start_location = Vector2(200, randi_range(50, 600))
+	elif location == "right":
+		start_location = Vector2(700, randi_range(50, 600))
+	else:
+		start_location = Vector2(500, 500)
+	gate_scene.global_position = start_location
 	
-	gates.append(new_gate)
 	add_child(gate_scene)
-
-
-
-## Gate Moving Signals
-func _on_gate_dragging_start(_source : Area2D):
-	state = MOVING_GATE
-
-func _on_gate_dragging_stop(_source : Area2D):
-	state = IDLE
-
-
-## Connection Creation
-var new_connection : Connection
-func _on_connection_start(source : Area2D, type : String):
-	state = CREATING_CONNECTION
-	
-	new_connection = Connection.new()
-	var source_gate : Gate
-	for gate in gates:
-		if gate.node == source:
-			source_gate = gate
-	
-	if type == "output":
-		new_connection.start = source_gate
-	if type == "input":
-		new_connection.end = source_gate
-
-## TODO: clean this up at some point
-func _on_connection_stop(source : Area2D):
-	state = IDLE
-	
-	if mouse_area.has_overlapping_areas() == false:
-		new_connection = null
-	
-	# check if the area under the mouse position is an input
-	var areas = mouse_area.get_overlapping_areas()
-	for area in areas:
-		# if connection started with an output
-		if new_connection.end == null:
-			# check if input area and not the same as the start of the connection
-			if area.is_in_group("inputs") and area.parent != source:
-				for gate in gates:
-					if gate.node == area.parent:
-						new_connection.end = gate
-				
-				create_line()
-				break
-			
-		# if connection started with an input
-		if new_connection.start == null:
-			if area.is_in_group("outputs") and area.parent != source:
-				for gate in gates:
-					if gate.node == area.parent:
-						new_connection.start = gate
-				
-				create_line()
-				break
-
-func create_line():
-	# checks for duplicates
-	for connection in connections:
-		if (connection.start == new_connection.start and
-			connection.end == new_connection.end):
-			new_connection = null
-			return
-	
-	# connection limits for specific types
-	match new_connection.end.type:
-		"Start":
-			if len(new_connection.end.connections) >= 0:
-				new_connection = null
-				return
-		"End":
-			if len(new_connection.start.connections) >= 0:
-				new_connection = null
-				return
-		"Not":
-			if len(new_connection.end.connections) >= 1:
-				new_connection = null
-				return
-		_:
-			if len(new_connection.end.connections) >= 2:
-				new_connection = null
-				return
-		
-	
-	new_connection.line = ConnectionLine.new()
-	new_connection.line.add_point(Vector2.ZERO)
-	new_connection.line.add_point(Vector2.ZERO)
-	add_child(new_connection.line)
-				
-	new_connection.end.connections.append(new_connection)
-	connections.append(new_connection)
-	new_connection = null
+	all_gates.append(gate_scene)
 
 
 ## Deletion
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
+	if event.is_action_pressed("quit"):
+		get_tree().quit()
+	
+	if event.is_action_pressed("right_click") and mouse_area.has_overlapping_areas():
 		remove_item()
 	
-func remove_item():
-	var areas = mouse_area.get_overlapping_areas()
+	if event.is_action_pressed("mouse_wheel_up"):
+		var tween : Tween = get_tree().create_tween()
+		tween.tween_property(camera, "zoom", camera.zoom + Vector2(0.2, 0.2), 0.1)
+	if event.is_action_pressed("mouse_whee_down") and camera.zoom >= Vector2(0.5, 0.5):
+		var tween : Tween = get_tree().create_tween()
+		tween.tween_property(camera, "zoom", camera.zoom - Vector2(0.2, 0.2), 0.1)
+
+
+func remove_item() -> void:
+	var areas : Array[Area2D] = mouse_area.get_overlapping_areas()
 	for area in areas:
-		if in_connections(area):
-			remove_connection(area)
+		if area.is_in_group("connections"):
+			delete_connection(area.get_parent())
 			return
-		if in_gates(area):
-			remove_gate(area)
-			return
+		if area.is_in_group("gates"):
+			if !(area.gate_type == "start" or area.gate_type == "end"):
+				var to_delete : Array[Connection]
+				for connection : Connection in area.connections:
+					to_delete.append(connection)
+				for connection in to_delete:
+					delete_connection(connection)
+				remove_child(area)
+				return
 
-func remove_gate(source : Area2D):
-	var gate_item : Gate
-	
-	# grabs corresponding gate class the source is in
-	for gate in gates:
-		if gate.node == source:
-			gate_item = gate
-	
-	# deletes all related connections
-	var connection_items : Array[Connection]
-	for connection in connections:
-		if connection.start == gate_item or connection.end == gate_item:
-			connection_items.append(connection)
-	
-	
-	remove_child(gate_item.node)
-	gates.erase(gate_item)
-	
-	for to_delete in connection_items:
-		to_delete.end.connections.erase(to_delete)
-		remove_child(to_delete.line)
-		connections.erase(to_delete)
 
-func remove_connection(target : Area2D):
-	var connection_item : Connection
-	for connection in connections:
-		if connection.line == target.get_parent():
-			remove_child(connection.line)
-			connection_item = connection
-	
-	for gate in gates:
-		if connection_item in gate.connections:
-			gate.connections.erase(connection_item)
-	
-	connections.erase(connection_item)
+func delete_connection(connection : Connection) -> void:
+	# erase from gate array
+	connection.output.connections.erase(connection)
+	connection.input.connections.erase(connection)
+	connection.input.input_connections.erase(connection)
+	# frees node
+	remove_child(connection)
 
-func in_gates(node : Area2D) -> bool:
-	for gate in gates:
-		if gate.node == node:
-			return true
-	return false
 
-func in_connections(line : Area2D) -> bool:
-	for connection in connections:
-		if connection.line == line.get_parent():
-			return true
-	return false
+func complete_connection() -> void:
+	# limits connection inputs
+	if len(temp_connection.input.input_connections) >= temp_connection.input.input_max:
+		return
+	
+	temp_connection.output.connections.append(temp_connection)
+	temp_connection.input.connections.append(temp_connection)
+	temp_connection.input.input_connections.append(temp_connection)
+	add_child(temp_connection)
+	temp_connection = null
 
 
 ## Processes
 var start_position : Vector2
+var gate_offset : Vector2
+var gate_held : Gate
+var temp_connection : Connection
 func _process(_delta: float) -> void:
-	# NOTE: this label is for testing
-	$MouseArea/Label.text = str(get_global_mouse_position())
-	for gate in gates:
-		gate.node.testing_label.text = str(gate.type, "->", gate.connections)
-		
-		## TODO: Testing purposes, put this somewhere else at some point
-		match gate.type:
-			"And":
-				if len(gate.connections) == 2:
-					gate.node.value = gate.connections[0].value and gate.connections[1].value
-				else:
-					gate.node.value = false
-			"Or":
-				if len(gate.connections) == 2:
-					gate.node.value = gate.connections[0].value or gate.connections[1].value
-				else:
-					gate.node.value = false
-	
-	for connection in connections:
-		connection.value = connection.start.node.value
-	
 	mouse_area.global_position = get_global_mouse_position()
-	
-	if connections.is_empty() == false:
-		for connection in connections:
-			var last_point_index : int = connection.line.get_point_count() -1
-			connection.line.set_point_position(0, connection.start.node.output_area.global_position)
-			connection.line.set_point_position(last_point_index, connection.end.node.input_area.global_position)
 	
 	match state:
 		IDLE:
-			## TODO: put this in a state transition instead to save compute time
-			for connection in connections:
-				connection.line.distribute_areas()
+			var output : String = ""
+			active_gates = all_gates.filter(is_active)
 			
+			for gate in active_gates:
+				output += gate.gate_name
+			
+			text_edit.text = output
+			
+			## transitions
 			if Input.is_action_just_pressed("left_click"):
 				if mouse_area.has_overlapping_areas() == false:
 					start_position = get_global_mouse_position()
 					state = MOVING_CAMERA
+				
+				var areas : Array[Area2D] = mouse_area.get_overlapping_areas()
+				for area in areas:
+					if area.is_in_group("gates"):
+						gate_held = area
+						gate_offset = area.global_position - get_global_mouse_position()
+						state = MOVING_GATE
+						break
+					
+					if area.is_in_group("outputs") or area.is_in_group("inputs"):
+						temp_connection = Connection.new()
+						
+						var gate : Gate = area.get_parent()
+						if area.is_in_group("outputs"):
+							temp_connection.output = gate
+							temp_line.points[0] = gate.output_area.global_position
+						elif area.is_in_group("inputs"):
+							temp_connection.input = gate
+							temp_line.points[0] = gate.input_area.global_position
+						
+						temp_line.points[-1] = get_global_mouse_position()
+						temp_line.visible = true
+						state = CREATING_CONNECTION
+						break
 		MOVING_CAMERA:
-			## TODO: Tween this position change at some point
 			var mouse_vector : Vector2 = start_position - get_global_mouse_position()
-			$Camera2D.global_position += mouse_vector
+			
+			var tween : Tween = get_tree().create_tween()
+			tween.set_ease(Tween.EASE_OUT)
+			tween.set_trans(Tween.TRANS_QUART)
+			tween.tween_property(
+				camera, "global_position", camera.global_position + mouse_vector, 0.05
+			)
 			
 			if Input.is_action_just_released("left_click"):
 				state = IDLE
+		
 		MOVING_GATE:
-			pass
+			gate_held.global_position = get_global_mouse_position() + gate_offset
+			
+			if Input.is_action_just_released("left_click"):
+				state = IDLE
+		
+		## TODO: never implemented connection limits
 		CREATING_CONNECTION:
-			pass
+			temp_line.points[-1] = get_global_mouse_position()
+			
+			if Input.is_action_just_released("left_click"):
+				temp_line.visible = false
+				
+				for area in mouse_area.get_overlapping_areas():
+					if temp_connection.input == null and area.is_in_group("inputs"):
+						temp_connection.input = area.get_parent()
+					if temp_connection.output == null and area.is_in_group("outputs"):
+						temp_connection.output = area.get_parent()
+					
+					if (temp_connection.input != temp_connection.output and
+						temp_connection.input != null and
+						temp_connection.output != null):
+						complete_connection()
+						break
+				
+				state = IDLE
+
+func is_active(gate : Gate) -> bool:
+	if gate.gate_type == "start":
+		return false
+	return gate.value != 2
+
+
+func run_simulation() -> void:
+	pass
+	### TODO: label start nodes
+	### TODO: make a recursive function that allows for multiple depths
+	#var end_values : Array[Array]
+	#
+	#for x in range(2):
+		#for y in range(2):
+			#for z in range(2):
+				#start_nodes[0].value = x
+				#start_nodes[1].value = y
+				#start_nodes[2].value = z
+				#
+				#await get_tree().create_timer(.2).timeout
+				#
+				#var row = [x, y, z, end_node.value]
+				#end_values.append(row)
+				#
+				#await get_tree().create_timer(.2).timeout
+	#
+	#var json_string = JSON.stringify(end_values)
+	#var file = FileAccess.open("user://temp.dat", FileAccess.WRITE)
+	#file.store_string(json_string)
+	#
+	#get_tree().change_scene_to_file("res://ui/level_complete.tscn")
+
+
+func _on_info_button_pressed() -> void:
+	$CanvasLayer/UI/LevelInfo.visible = !$CanvasLayer/UI/LevelInfo.visible

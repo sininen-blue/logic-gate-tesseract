@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=8 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
+[ext_resource type="JSON" path="res://levels/test-level.json" id="3_5axcg"]
+[ext_resource type="Texture2D" uid="uid://c4po5a0dv7iwn" path="res://assets/simulation/end.png" id="3_dkmua"]
+[ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="4_41umf"]
+[ext_resource type="Texture2D" uid="uid://c1nuetfa18n17" path="res://assets/simulation/start-false.png" id="5_o6ogc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ovty"]
 radius = 5.0
@@ -9,9 +13,13 @@ radius = 5.0
 [node name="Simulation" type="Node2D"]
 script = ExtResource("1_qo526")
 GATE_SCENE = ExtResource("2_8m28h")
+LEVEL = ExtResource("3_5axcg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(581, 325)
+
+[node name="TempLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
 
 [node name="MouseArea" type="Area2D" parent="."]
 
@@ -19,6 +27,7 @@ position = Vector2(581, 325)
 shape = SubResource("CircleShape2D_6ovty")
 
 [node name="Label" type="Label" parent="MouseArea"]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -34,6 +43,12 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/UI"]
+offset_left = 46.0
+offset_top = 22.0
+offset_right = 611.0
+offset_bottom = 71.0
+
 [node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
 anchors_preset = 7
@@ -48,38 +63,127 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="and" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="AndButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "And"
 
-[node name="or" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="OrButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Or"
 
-[node name="xor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="XorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Xor"
 
-[node name="nand" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="NandButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Nand"
 
-[node name="nor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="NorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Nor"
 
-[node name="xnor" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="XnorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Xnor"
 
-[node name="not" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+[node name="NotButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
 layout_mode = 2
 text = "Not"
 
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/and" to="." method="_on_and_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/or" to="." method="_on_or_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xor" to="." method="_on_xor_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/nand" to="." method="_on_nand_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/nor" to="." method="_on_nor_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/xnor" to="." method="_on_xnor_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/FlowContainer/not" to="." method="_on_not_pressed"]
+[node name="RunButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_top = 32.0
+offset_right = -41.0
+offset_bottom = 63.0
+grow_horizontal = 0
+text = "RUN"
+
+[node name="InfoButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -167.0
+offset_top = -60.0
+offset_right = -21.0
+offset_bottom = -29.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Level Information"
+
+[node name="LevelInfo" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -432.0
+offset_top = -260.5
+offset_right = 432.0
+offset_bottom = 260.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="LevelDescription" type="Label" parent="CanvasLayer/UI/LevelInfo"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 44.0
+offset_right = 450.0
+offset_bottom = 240.0
+text = "Design a combinational logic circuit with three inputs and one output; the output is one when the binary value of the inputs is greater than or equal to three; otherwise the output will be zero. "
+autowrap_mode = 3
+
+[node name="DesiredTable" type="Label" parent="CanvasLayer/UI/LevelInfo"]
+layout_mode = 0
+offset_left = 587.0
+offset_top = 101.5
+offset_right = 702.0
+offset_bottom = 332.5
+text = "X Y Z Output
+0 0 0 0 
+0 0 1 0
+0 1 0 0
+0 1 1 0
+1 0 0 1
+1 0 1 1
+1 1 0 1
+1 1 1 1"
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/LevelInfo"]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 462.5
+offset_right = 817.0
+offset_bottom = 493.5
+text = "Play"
+
+[node name="End" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
+position = Vector2(402, 317.5)
+texture = ExtResource("3_dkmua")
+
+[node name="Start" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
+position = Vector2(103, 258.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_41umf")
+
+[node name="Start2" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
+position = Vector2(105, 341.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_41umf")
+
+[node name="Start-false" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
+position = Vector2(100, 419.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_o6ogc")
+
+[connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]

@@ -1,53 +1,72 @@
 extends Area2D
-class_name GateNode
+class_name Gate
 
-signal dragging_start(source)
-signal dragging_stop(source)
+@export_enum("and", "or", "xor", "nand", "nor", "xnor", "not", "start", "end") var gate_type : String = "and"
+var value : int = 2:
+	set(new_value):
+		value = new_value
+		handle_textures(gate_type)
+var connections : Array[Connection]
+var input_connections : Array[Connection]
+var input_max : int = 2
+var gate_name : String
 
-@export_enum("And", "Or", "Xor", "Nand", "Nor", "Xnor", "Not", "Start", "End") var gate_type : String = "And"
+@onready var start_label: Label = $StartLabel
+@onready var sprite: Sprite2D = $Sprite2D
 
-var value : bool
-var draggable : bool = false
-var dragging : bool = false
-
-var offset : Vector2
-
-@onready var main : Node2D = get_parent()
 @onready var input_area: Area2D = $InputArea
 @onready var output_area: Area2D = $OutputArea
-@onready var testing_label: Label = $TestingLabel
 
 func _ready() -> void:
-	self.mouse_entered.connect(_on_mouse_entered)
-	self.mouse_exited.connect(_on_mouse_exited)
+	if self.gate_type == 'start' or self.gate_type == 'end':
+		value = 0
+	else:
+		value = 2
 	
-	self.dragging_start.connect(main._on_gate_dragging_start)
-	self.dragging_stop.connect(main._on_gate_dragging_stop)
-
+	if self.gate_type == "not" or self.gate_type == "end":
+		input_max = 1
+	
+	start_label.text = gate_name
 
 func _process(_delta: float) -> void:
-	## NOTE: these are testing textures
-	if value == true:
-		$Sprite2D.texture = load("res://assets/simulation/var on.png")
-	if value == false:
-		$Sprite2D.texture = load("res://assets/simulation/var off.png")
-		
-	if draggable:
-		if Input.is_action_just_pressed("left_click") and main.state == 0:
-			dragging_start.emit(self)
-			
-			offset = get_global_mouse_position() - self.global_position
-			dragging = true
+	$TestingLabel.text = str(connections, input_connections, value)
+
+	# value handling
+	if self.gate_type == "start":
+		return
 	
-	if dragging:
-		self.global_position = get_global_mouse_position() - offset
-		
-		if Input.is_action_just_released("left_click"):
-			dragging_stop.emit(self)
-			dragging = false
+	if len(input_connections) < input_max:
+		self.value = 2
+		return
+	
+	var input_one : int = input_connections[0].output.value
+	if input_max == 1:
+		match gate_type:
+			"not":
+				self.value = !input_one
+			"end":
+				self.value = input_one
+	if input_max == 2:
+		var input_two : int = input_connections[1].output.value
+		match gate_type:
+			"and":
+				self.value = input_one and input_two
+			"or":
+				self.value = input_one or input_two
+			"xor":
+				self.value = input_one ^ input_two
+			"nand":
+				self.value = !(input_one and input_two)
+			"nor":
+				self.value = !(input_one or input_two)
+			"xnor":
+				self.value = !(input_one ^ input_two)
 
-func _on_mouse_entered() -> void:
-	draggable = true
 
-func _on_mouse_exited() -> void:
-	draggable = false
+func handle_textures(type : String) -> void:
+	if value == 0: # false
+		sprite.texture = load("res://assets/simulation/"+type+"-false.png")
+	elif value == 1: # true
+		sprite.texture = load("res://assets/simulation/"+type+".png")
+	elif value == 2: # inactive
+		sprite.texture = load("res://assets/simulation/"+type+"-inactive.png")

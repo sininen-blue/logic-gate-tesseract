@@ -1,49 +1,65 @@
 extends Line2D
-class_name ConnectionLine
+class_name Connection
 
-var start_point : Vector2
-var end_point : Vector2
+var output : Gate # start
+var input : Gate # end
 
 var distance : float = 30
 var index : int = 0
-
 var area_pool : Array[Area2D]
 
-func _process(_delta: float) -> void:
-	start_point = self.points[0]
-	end_point = self.points[-1]
+@onready var manager : Node2D = get_parent()
+
+func _ready() -> void:
+	self.add_point(output.output_area.global_position)
+	self.add_point(input.input_area.global_position)
 	
 	distribute_points()
+	distribute_areas()
+
+
+func _process(_delta: float) -> void:
+	self.set_point_position(0, output.output_area.global_position)
+	self.set_point_position(get_point_count()-1, input.input_area.global_position)
+	
+	distribute_points()
+	distribute_areas()
 	
 	if len(area_pool) < self.get_point_count():
-		var area : Area2D = create_area(Vector2(200,200))
+		var area : Area2D = create_area(points[0])
 		area_pool.append(area)
 		self.add_child(area)
 	if len(area_pool) > self.get_point_count():
 		var area : Area2D = area_pool.pop_back()
 		self.remove_child(area)
 
-func distribute_areas():
+
+func distribute_areas() -> void:
+	if len(area_pool) != get_point_count():
+		return
+	
 	for j in range(len(area_pool)):
 		area_pool[j].global_position = points[j]
 
-func distribute_points():
-	var unit_vec : Vector2 = start_point.direction_to(end_point)
-	var pointer : Vector2 = start_point
+
+func distribute_points() -> void:
+	var unit_vec : Vector2 = points[0].direction_to(points[-1])
+	var pointer : Vector2 = points[0]
 	var vectors : PackedVector2Array
 	
-	while pointer.distance_to(end_point) > distance:
+	while pointer.distance_to(points[-1]) > distance:
 		pointer = pointer + (unit_vec * distance)
 		vectors.append(pointer)
 	
-	vectors.insert(0, start_point)
-	vectors.append(end_point)
+	vectors.insert(0, points[0])
+	vectors.append(points[-1])
 	
 	points = vectors
 
 func create_area(target : Vector2) -> Area2D:
 	var area : Area2D = Area2D.new()
 	area.global_position = target
+	area.add_to_group("connections")
 	
 	var collision : CollisionShape2D = CollisionShape2D.new()
 	var shape: CircleShape2D = CircleShape2D.new()

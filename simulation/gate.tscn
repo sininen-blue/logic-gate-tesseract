@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://psym6w7moids"]
+[gd_scene load_steps=6 format=3 uid="uid://psym6w7moids"]
 
-[ext_resource type="Script" path="res://simulation/gate.gd" id="1_nyuu7"]
-[ext_resource type="Texture2D" uid="uid://bakndx3eqlal4" path="res://assets/simulation/and.png" id="2_ri6pc"]
-[ext_resource type="Script" path="res://simulation/connection_area.gd" id="3_t1vyd"]
+[ext_resource type="Script" path="res://simulation/gate.gd" id="1_a5p5t"]
+[ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="2_boiif"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8st0f"]
 radius = 40.0
@@ -14,11 +13,11 @@ radius = 33.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nvyvh"]
 radius = 33.0
 
-[node name="Gate" type="Area2D"]
-script = ExtResource("1_nyuu7")
+[node name="Gate" type="Area2D" groups=["gates"]]
+script = ExtResource("1_a5p5t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ri6pc")
+texture = ExtResource("2_boiif")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -26,23 +25,32 @@ shape = SubResource("CapsuleShape2D_8st0f")
 
 [node name="InputArea" type="Area2D" parent="." groups=["inputs"]]
 position = Vector2(-68, 0)
-script = ExtResource("3_t1vyd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InputArea"]
 shape = SubResource("CircleShape2D_mxu3q")
 
 [node name="OutputArea" type="Area2D" parent="." groups=["outputs"]]
 position = Vector2(70, 0)
-script = ExtResource("3_t1vyd")
-type = "output"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OutputArea"]
 position = Vector2(-3, 0)
 shape = SubResource("CircleShape2D_nvyvh")
 
-[node name="TempLine" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 0, 0)
+[node name="StartLabel" type="Label" parent="."]
+offset_left = -44.0
+offset_top = -76.0
+offset_right = 17.0
+offset_bottom = -53.0
+text = "arstarst
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TestingLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -82.0
+offset_top = 62.0
+offset_right = -21.0
+offset_bottom = 85.0
+text = "arstarst
+"
