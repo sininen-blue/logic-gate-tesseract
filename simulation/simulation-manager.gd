@@ -9,6 +9,8 @@ enum {
 var state : int = IDLE
 
 var all_gates : Array[Gate]
+var start_gates : Array[Gate]
+var end_gates : Array[Gate]
 var active_gates : Array[Gate]
 
 @export var GATE_SCENE : PackedScene
@@ -26,6 +28,7 @@ var active_gates : Array[Gate]
 @onready var nor_button: Button = $CanvasLayer/UI/FlowContainer/NorButton
 @onready var xnor_button: Button = $CanvasLayer/UI/FlowContainer/XnorButton
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
+@onready var run_button: Button = $CanvasLayer/UI/RunButton
 
 
 func _ready() -> void:
@@ -37,6 +40,8 @@ func _ready() -> void:
 	nor_button.pressed.connect(create_gate.bind("nor"))
 	xnor_button.pressed.connect(create_gate.bind("xnor"))
 	not_button.pressed.connect(create_gate.bind("not"))
+	
+	run_button.pressed.connect(run_simulation)
 	
 	## NOTE: these are temporary testing nodes
 	## this should be replaced by a json reader
@@ -72,6 +77,10 @@ func create_gate(type : String, location : String = "") -> void:
 	
 	add_child(gate_scene)
 	all_gates.append(gate_scene)
+	if gate_scene.gate_type == "start":
+		start_gates.append(gate_scene)
+	if gate_scene.gate_type == "end":
+		end_gates.append(gate_scene)
 
 
 ## Deletion
@@ -179,7 +188,7 @@ func _process(_delta: float) -> void:
 			var mouse_vector : Vector2 = start_position - get_global_mouse_position()
 			
 			var tween : Tween = get_tree().create_tween()
-			tween.set_ease(Tween.EASE_OUT)
+
 			tween.set_trans(Tween.TRANS_QUART)
 			tween.tween_property(
 				camera, "global_position", camera.global_position + mouse_vector, 0.05
@@ -222,31 +231,40 @@ func is_active(gate : Gate) -> bool:
 
 
 func run_simulation() -> void:
-	pass
-	### TODO: label start nodes
-	### TODO: make a recursive function that allows for multiple depths
-	#var end_values : Array[Array]
-	#
-	#for x in range(2):
-		#for y in range(2):
-			#for z in range(2):
-				#start_nodes[0].value = x
-				#start_nodes[1].value = y
-				#start_nodes[2].value = z
-				#
-				#await get_tree().create_timer(.2).timeout
-				#
-				#var row = [x, y, z, end_node.value]
-				#end_values.append(row)
-				#
-				#await get_tree().create_timer(.2).timeout
-	#
-	#var json_string = JSON.stringify(end_values)
-	#var file = FileAccess.open("user://temp.dat", FileAccess.WRITE)
-	#file.store_string(json_string)
-	#
-	#get_tree().change_scene_to_file("res://ui/level_complete.tscn")
+	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
+	var end_values : Array[Array]
+	for row in truth_table:
+		for i in range(len(start_gates)):
+			start_gates[i].value = row[i]
+		await get_tree().create_timer(.2).timeout
+		
+		var row_results : Array
+		for start in start_gates:
+			row_results.append(start.value)
+		for end in end_gates:
+			row_results.append(end.value)
+		end_values.append(row_results)
+		
+	
+	var json_string = JSON.stringify(end_values)
+	var file = FileAccess.open("user://temp.dat", FileAccess.WRITE)
+	file.store_string(json_string)
+	
+	get_tree().change_scene_to_file("res://ui/level_complete.tscn")
 
+func generate_truth_table(start_count : int) -> Array[Array]:
+	var num_rows : int = pow(2, start_count)
+	var output : Array[Array]
+	
+	for i in range(num_rows):
+		var row : Array
+		for j in range(start_count):
+			var bit_value : int = (i >> j) & 1
+			row.append(bit_value)
+		row.reverse()
+		output.append(row)
+	
+	return output
 
 func _on_info_button_pressed() -> void:
 	$CanvasLayer/UI/LevelInfo.visible = !$CanvasLayer/UI/LevelInfo.visible

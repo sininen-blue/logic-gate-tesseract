@@ -7,9 +7,11 @@ var correct_count : int = 0
 func _ready():
 	var file = FileAccess.open("user://temp.dat", FileAccess.READ)
 	var content = file.get_as_text()
+	print(content)
 	var results = JSON.parse_string(content)
 	
 	## TODO: proper formatting
+	## TODO: make it work with multiple end outputs
 	var table : String
 	for x in range(len(results)):
 		table += str(results[x]) 

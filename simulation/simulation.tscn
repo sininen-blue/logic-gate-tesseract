@@ -44,6 +44,7 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/UI"]
+layout_mode = 0
 offset_left = 46.0
 offset_top = 22.0
 offset_right = 611.0
