@@ -60,7 +60,7 @@ func create_level() -> void:
 	for end in range(end_count):
 		create_gate("end", "right")
 
-
+## TODO: change the random creaton thing and just have set positions
 func create_gate(type : String, location : String = "") -> void:
 	var gate_scene : Gate = GATE_SCENE.instantiate()
 	gate_scene.gate_type = type
