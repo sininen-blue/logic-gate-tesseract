@@ -72,10 +72,18 @@ custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 text = "Truth Table"
 
-[node name="OutputNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
+[node name="InputNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
 offset_top = 33.0
-offset_right = 195.0
+offset_right = 176.0
+offset_bottom = 75.0
+placeholder_text = "Number of  Inputs"
+
+[node name="OutputNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
+layout_mode = 1
+offset_left = 208.0
+offset_top = 33.0
+offset_right = 390.0
 offset_bottom = 75.0
 placeholder_text = "Number of Outputs"
 
@@ -83,7 +91,7 @@ placeholder_text = "Number of Outputs"
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 206.0
+offset_left = 457.0
 offset_top = 32.0
 offset_bottom = 75.0
 grow_horizontal = 2
@@ -98,15 +106,16 @@ anchor_bottom = 1.0
 offset_top = -313.0
 grow_horizontal = 2
 grow_vertical = 0
-placeholder_text = "0000
-0011
-0101
-0111
-0001
-1111
-1100
-1010
-1000
+placeholder_text = "0
+0
+0
+1
+1
+1
+1
+1
+
+desired outputs
 
 each new line is a row"
 
