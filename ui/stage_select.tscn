@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1xu7c0fhg4at"]
+[gd_scene load_steps=3 format=3 uid="uid://b1xu7c0fhg4at"]
 
 [ext_resource type="Script" path="res://ui/stage_select.gd" id="1_1iel2"]
+[ext_resource type="PackedScene" uid="uid://cj2adegb284b8" path="res://ui/components/stage_panel.tscn" id="2_faydu"]
 
 [node name="StageSelect" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1iel2")
+STAGE_PANEL = ExtResource("2_faydu")
 metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -44,111 +46,6 @@ offset_bottom = 72.0
 text = "0/12"
 
 [node name="PlayButton" type="Button" parent="VBoxContainer/StagePanel"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -55.0
-offset_top = -15.5
-offset_right = -14.0
-offset_bottom = 15.5
-grow_horizontal = 0
-grow_vertical = 2
-text = "Play"
-
-[node name="StagePanel6" type="Panel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(242, 87)
-layout_mode = 2
-
-[node name="StageLabel" type="Label" parent="VBoxContainer/StagePanel6"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 14.0
-offset_right = 127.0
-offset_bottom = 37.0
-text = "Basic Concepts"
-
-[node name="ProgressLabel" type="Label" parent="VBoxContainer/StagePanel6"]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 49.0
-offset_right = 59.0
-offset_bottom = 72.0
-text = "0/12"
-
-[node name="PlayButton" type="Button" parent="VBoxContainer/StagePanel6"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -55.0
-offset_top = -15.5
-offset_right = -14.0
-offset_bottom = 15.5
-grow_horizontal = 0
-grow_vertical = 2
-text = "Play"
-
-[node name="StagePanel7" type="Panel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(242, 87)
-layout_mode = 2
-
-[node name="StageLabel" type="Label" parent="VBoxContainer/StagePanel7"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 14.0
-offset_right = 127.0
-offset_bottom = 37.0
-text = "Decoders"
-
-[node name="ProgressLabel" type="Label" parent="VBoxContainer/StagePanel7"]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 49.0
-offset_right = 59.0
-offset_bottom = 72.0
-text = "0/12"
-
-[node name="PlayButton" type="Button" parent="VBoxContainer/StagePanel7"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -55.0
-offset_top = -15.5
-offset_right = -14.0
-offset_bottom = 15.5
-grow_horizontal = 0
-grow_vertical = 2
-text = "Play"
-
-[node name="StagePanel8" type="Panel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(242, 87)
-layout_mode = 2
-
-[node name="StageLabel" type="Label" parent="VBoxContainer/StagePanel8"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 14.0
-offset_right = 127.0
-offset_bottom = 37.0
-text = "Encoders"
-
-[node name="ProgressLabel" type="Label" parent="VBoxContainer/StagePanel8"]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 49.0
-offset_right = 59.0
-offset_bottom = 72.0
-text = "0/12"
-
-[node name="PlayButton" type="Button" parent="VBoxContainer/StagePanel8"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
