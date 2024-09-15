@@ -12,6 +12,7 @@ func _ready() -> void:
 	for level in stage_dir.get_files():
 		var new_level_button : Button = LEVEL_BUTTON.instantiate()
 		new_level_button.global_position = start_position + (distance * count)
+		new_level_button.level_title = level
 		
 		## NOTE: this should open the info popup not the actual level
 		## TODO: goes directly to level for testing
