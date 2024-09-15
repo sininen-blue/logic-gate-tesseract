@@ -10,7 +10,9 @@ func _ready() -> void:
 		#new_stage_panel.current_level ## TODO: player local save
 		
 		## NOTE: messy but works well enough for now
-		stage_directory.change_dir(stage) 
+		stage_directory.change_dir(stage)
 		new_stage_panel.max_level = len(stage_directory.get_files())
 		stage_directory.change_dir("..")
+		
+		new_stage_panel.dir = DirAccess.open("res://levels/"+stage)
 		$VBoxContainer.add_child(new_stage_panel)
