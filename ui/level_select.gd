@@ -8,6 +8,7 @@ var start_position : Vector2 = Vector2(250, 250)
 var distance : Vector2 = Vector2(300, 0)
 
 func _ready() -> void:
+	$Back.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/stage_select.tscn"))
 	var count : int = 0
 	for level in stage_dir.get_files():
 		var new_level_button : Button = LEVEL_BUTTON.instantiate()

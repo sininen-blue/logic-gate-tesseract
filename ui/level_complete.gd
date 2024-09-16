@@ -1,10 +1,7 @@
 extends Control
 
-@export var LEVEL : JSON
-
-var correct_count : int = 0
-
 func _ready():
+	var LEVEL : JSON = DataManager.current_level
 	var level_data : Dictionary = LEVEL.data
 	var truth_table : Array = level_data["truth_table"]
 	var end_count : int = int(level_data["end_count"])
@@ -26,9 +23,6 @@ func _ready():
 		
 	
 	$TruthTable/Label2.text = str(table)
-	
-	
-	$LevelPass/Accuracy.text = str(correct_count," / ", len(results))
 
 
 func _on_retry_button_pressed() -> void:
