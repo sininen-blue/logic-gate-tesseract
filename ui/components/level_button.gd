@@ -1,7 +1,5 @@
 extends Button
 
-@export var simulation_scene : PackedScene
-
 var level_title : String
 var level : JSON
 #var is_completed NOTE: might not be needed
@@ -13,4 +11,3 @@ func _ready() -> void:
 
 func play_level() -> void:
 	DataManager.current_level = level
-	get_tree().change_scene_to_packed(simulation_scene)

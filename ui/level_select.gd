@@ -7,8 +7,12 @@ var stage_dir : DirAccess = DataManager.current_stage
 var start_position : Vector2 = Vector2(250, 250)
 var distance : Vector2 = Vector2(300, 0)
 
+
+@onready var level_info: Panel = $LevelInfo
+
 func _ready() -> void:
 	$Back.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/stage_select.tscn"))
+	
 	var count : int = 0
 	for level in stage_dir.get_files():
 		var new_level_button : Button = LEVEL_BUTTON.instantiate()
@@ -21,8 +25,12 @@ func _ready() -> void:
 		var pwd : String = stage_dir.get_current_dir() + "/"
 		var level_file : FileAccess = FileAccess.open(pwd+level, FileAccess.READ)
 		var level_json : JSON = JSON.new()
-		level_json.data = level_json.parse_string(level_file.get_as_text())
+		level_json.data = JSON.parse_string(level_file.get_as_text())
 		new_level_button.level = level_json
 		
 		add_child(new_level_button)
+		new_level_button.pressed.connect(show_panel)
 		count += 1
+
+func show_panel() -> void:
+	level_info.visible = !level_info.visible
