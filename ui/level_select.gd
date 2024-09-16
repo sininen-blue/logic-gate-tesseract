@@ -4,7 +4,6 @@ extends Control
 func _ready() -> void:
 	$LevelButton.pressed.connect(_on_button_pressed)
 	$LevelButton2.pressed.connect(_on_button_pressed)
-	$LevelButton3.pressed.connect(_on_button_pressed)
 	$LevelButton4.pressed.connect(_on_button_pressed)
 	$LevelButton5.pressed.connect(_on_button_pressed)
 	

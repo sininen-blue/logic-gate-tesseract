@@ -1,6 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://bitv0k63w6aiq"]
+[gd_scene load_steps=5 format=3 uid="uid://bitv0k63w6aiq"]
 
 [ext_resource type="Script" path="res://ui/title_page.gd" id="1_ulqil"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pc4n"]
+bg_color = Color(0.419813, 0.419813, 0.419813, 1)
+border_width_bottom = 5
+border_color = Color(0.237539, 0.237539, 0.237539, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.144063, 0.144063, 0.144063, 0.6)
+shadow_size = 4
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uy4xb"]
+border_width_bottom = 5
+border_color = Color(0.237539, 0.237539, 0.237539, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.144063, 0.144063, 0.144063, 0.6)
+shadow_size = 4
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="Theme" id="Theme_lk8m3"]
+Button/styles/hover = SubResource("StyleBoxFlat_4pc4n")
+Button/styles/normal = SubResource("StyleBoxFlat_uy4xb")
+Label/styles/normal = null
 
 [node name="TitlePage" type="Control"]
 layout_mode = 3
@@ -9,6 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_lk8m3")
 script = ExtResource("1_ulqil")
 metadata/_edit_lock_ = true
 
@@ -52,6 +81,12 @@ offset_top = 88.0
 offset_right = 67.5
 offset_bottom = 111.0
 grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "GAME TITLE HERE"
 uppercase = true

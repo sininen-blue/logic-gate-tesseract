@@ -16,7 +16,7 @@ script = ExtResource("1_6kh77")
 metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(162, 415, 350, 296)
+points = PackedVector2Array(162, 415, 364, 416)
 width = 6.0
 default_color = Color(0.180392, 0.180392, 0.180392, 1)
 joint_mode = 2
@@ -25,7 +25,7 @@ end_cap_mode = 2
 
 [node name="Line2D2" type="Line2D" parent="."]
 position = Vector2(306, -121)
-points = PackedVector2Array(161, 401, 415, 362)
+points = PackedVector2Array(164, 536, 295, 531, 435, 531)
 width = 6.0
 default_color = Color(0.180392, 0.180392, 0.180392, 1)
 joint_mode = 2
@@ -34,25 +34,7 @@ end_cap_mode = 2
 
 [node name="Line2D3" type="Line2D" parent="."]
 position = Vector2(694, -159)
-points = PackedVector2Array(161, 401, 333, 469)
-width = 6.0
-default_color = Color(0.180392, 0.180392, 0.180392, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-
-[node name="Line2D4" type="Line2D" parent="."]
-position = Vector2(3, 33)
-points = PackedVector2Array(157, 400, 466, 532)
-width = 6.0
-default_color = Color(0.180392, 0.180392, 0.180392, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-
-[node name="Line2D5" type="Line2D" parent="."]
-position = Vector2(427, 159)
-points = PackedVector2Array(161, 401, 590, 175)
+points = PackedVector2Array(153, 574, 325, 569)
 width = 6.0
 default_color = Color(0.180392, 0.180392, 0.180392, 1)
 joint_mode = 2
@@ -65,34 +47,32 @@ offset_left = 55.0
 offset_top = 375.0
 offset_right = 142.0
 offset_bottom = 462.0
+text = "Level 1"
 
 [node name="LevelButton2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 361.0
-offset_top = 244.0
-offset_right = 448.0
-offset_bottom = 331.0
-
-[node name="LevelButton3" type="Button" parent="."]
-layout_mode = 0
-offset_left = 483.0
-offset_top = 513.0
-offset_right = 570.0
-offset_bottom = 600.0
+offset_left = 373.0
+offset_top = 374.0
+offset_right = 460.0
+offset_bottom = 461.0
+text = "level 2"
 
 [node name="LevelButton4" type="Button" parent="."]
 layout_mode = 0
-offset_left = 742.0
-offset_top = 192.0
-offset_right = 829.0
-offset_bottom = 279.0
+offset_left = 754.0
+offset_top = 370.0
+offset_right = 841.0
+offset_bottom = 457.0
+text = "level 3 "
 
 [node name="LevelButton5" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1035.0
-offset_top = 268.0
-offset_right = 1122.0
-offset_bottom = 355.0
+offset_left = 1042.0
+offset_top = 361.0
+offset_right = 1129.0
+offset_bottom = 448.0
+text = "level 4
+"
 
 [node name="LevelInfo" type="Panel" parent="."]
 visible = false
@@ -169,3 +149,12 @@ offset_top = 16.0
 offset_right = 92.0
 offset_bottom = 64.0
 text = "Back"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 53.0
+offset_right = 931.0
+offset_bottom = 183.0
+text = "Description
+"

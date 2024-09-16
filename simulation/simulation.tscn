@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=10 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
@@ -9,6 +9,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ovty"]
 radius = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8q08"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_jycw4"]
+TextEdit/styles/normal = SubResource("StyleBoxFlat_y8q08")
 
 [node name="Simulation" type="Node2D"]
 script = ExtResource("1_qo526")
@@ -45,10 +51,12 @@ metadata/_edit_lock_ = true
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/UI"]
 layout_mode = 0
-offset_left = 46.0
-offset_top = 22.0
-offset_right = 611.0
-offset_bottom = 71.0
+offset_left = 261.0
+offset_top = 55.0
+offset_right = 826.0
+offset_bottom = 104.0
+text = "Description/equation/question
+"
 
 [node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -97,10 +105,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -84.0
-offset_top = 32.0
-offset_right = -41.0
-offset_bottom = 63.0
+offset_left = -98.0
+offset_top = 587.0
+offset_right = -38.0
+offset_bottom = 629.0
 grow_horizontal = 0
 text = "RUN"
 
@@ -111,10 +119,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -167.0
-offset_top = -60.0
-offset_right = -21.0
-offset_bottom = -29.0
+offset_left = -251.0
+offset_top = -583.0
+offset_right = -105.0
+offset_bottom = -552.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Level Information"
@@ -186,5 +194,88 @@ texture = ExtResource("4_41umf")
 position = Vector2(100, 419.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_o6ogc")
+
+[node name="quit" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 52.0
+offset_bottom = 41.0
+text = "Quit
+"
+
+[node name="Button" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 217.0
+offset_right = 132.0
+offset_bottom = 270.0
+text = "+"
+
+[node name="Button4" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 259.0
+offset_top = 215.0
+offset_right = 321.0
+offset_bottom = 268.0
+text = "+"
+
+[node name="Button5" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 321.0
+offset_right = 320.0
+offset_bottom = 374.0
+text = "+"
+
+[node name="Button3" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 427.0
+offset_right = 135.0
+offset_bottom = 480.0
+text = "+"
+
+[node name="Button2" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 317.0
+offset_right = 132.0
+offset_bottom = 370.0
+text = "+"
+
+[node name="TextEdit2" type="TextEdit" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 190.0
+offset_right = 122.0
+offset_bottom = 220.0
+theme = SubResource("Theme_jycw4")
+text = "A"
+
+[node name="TextEdit3" type="TextEdit" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 289.0
+offset_right = 124.0
+offset_bottom = 319.0
+theme = SubResource("Theme_jycw4")
+text = "B"
+
+[node name="TextEdit4" type="TextEdit" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 397.0
+offset_top = 299.0
+offset_right = 710.0
+offset_bottom = 547.0
+text = "So instead na mag select ka diri sa 
+ubos, imo nlng e click ang + to select
+gates, then afte ug select  mo auto 
+matic butang ang letters na kadtong
+ingon ni sir, ug another click box para
+maka select ug new gate, then after
+select e connect then after connect 
+naa nasab new automatic letters with
+select box so on and so far"
 
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]
