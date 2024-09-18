@@ -12,7 +12,21 @@ grow_vertical = 2
 script = ExtResource("1_ulqil")
 metadata/_edit_lock_ = true
 
-[node name="Button" type="Button" parent="."]
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -208.0
+offset_top = 88.0
+offset_right = 208.0
+offset_bottom = 176.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "Logic Magic"
+uppercase = true
+
+[node name="PlayButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -27,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Play"
 
-[node name="Settings" type="Button" parent="."]
+[node name="SettingsButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,17 +55,3 @@ offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Settings"
-
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -67.5
-offset_top = 88.0
-offset_right = 67.5
-offset_bottom = 111.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 64
-text = "GAME TITLE HERE"
-uppercase = true

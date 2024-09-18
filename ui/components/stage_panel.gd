@@ -1,4 +1,4 @@
-extends Panel
+extends Button
 
 @export var level_scene : PackedScene
 @export var title : String
