@@ -2,9 +2,7 @@ extends Button
 
 var level_title : String
 var level : JSON
-#var is_completed NOTE: might not be needed
 
-# when pressed go to level
 func _ready() -> void:
 	self.text = level_title
 	self.pressed.connect(play_level)
