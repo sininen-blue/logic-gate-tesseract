@@ -13,7 +13,7 @@ func _ready() -> void:
 	make_panel("custom_levels")
 	for stage in stage_directory.get_directories():
 		if stage == "custom_levels":
-			return
+			continue
 		make_panel(stage)
 
 
