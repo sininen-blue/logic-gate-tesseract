@@ -13,6 +13,8 @@ func _ready():
 	
 	
 	var table : String
+	print(truth_table)
+	print(results)
 	for x in range(len(truth_table)):
 		table += str(results[x])
 		for end_index in range(end_count):
