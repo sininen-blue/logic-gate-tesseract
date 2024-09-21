@@ -5,12 +5,17 @@ extends Button
 @export var title : String
 @export var current_level : int
 @export var max_level : int
+
 var dir : DirAccess
 
+@onready var stage_label: Label = $StageLabel
+@onready var progress_label: Label = $ProgressLabel
+@onready var play_button: Button = $PlayButton
+
 func _ready() -> void:
-	$StageLabel.text = title
-	$ProgressLabel.text = str(current_level, "/", max_level)
-	$PlayButton.pressed.connect(play_level)
+	stage_label.text = title
+	progress_label.text = str(current_level, "/", max_level)
+	play_button.pressed.connect(play_level)
 
 
 func play_level() -> void:

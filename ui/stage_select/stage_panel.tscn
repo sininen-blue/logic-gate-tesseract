@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cj2adegb284b8"]
 
-[ext_resource type="Script" path="res://ui/components/stage_panel.gd" id="1_dwvly"]
-[ext_resource type="PackedScene" uid="uid://yrih2e5sant0" path="res://ui/level_select.tscn" id="2_lx8lr"]
-[ext_resource type="PackedScene" uid="uid://bwlvlfljyekts" path="res://ui/custom_levels.tscn" id="3_2vajt"]
+[ext_resource type="Script" path="res://ui/stage_select/stage_panel.gd" id="1_dwvly"]
+[ext_resource type="PackedScene" uid="uid://yrih2e5sant0" path="res://ui/level_select/level_select.tscn" id="2_lx8lr"]
+[ext_resource type="PackedScene" uid="uid://bwlvlfljyekts" path="res://ui/custom_levels/custom_levels.tscn" id="3_2vajt"]
 
 [node name="StagePanel" type="Button"]
 custom_minimum_size = Vector2(320, 88)

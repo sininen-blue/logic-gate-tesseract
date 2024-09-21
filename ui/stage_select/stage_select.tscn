@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1xu7c0fhg4at"]
 
-[ext_resource type="Script" path="res://ui/stage_select.gd" id="1_1iel2"]
-[ext_resource type="PackedScene" uid="uid://cj2adegb284b8" path="res://ui/components/stage_panel.tscn" id="2_faydu"]
+[ext_resource type="Script" path="res://ui/stage_select/stage_select.gd" id="1_1iel2"]
+[ext_resource type="PackedScene" uid="uid://cj2adegb284b8" path="res://ui/stage_select/stage_panel.tscn" id="2_faydu"]
 
 [node name="StageSelect" type="Control"]
 layout_mode = 3

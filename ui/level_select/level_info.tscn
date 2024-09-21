@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dttx53vhtgwy1"]
 
-[ext_resource type="Script" path="res://ui/components/level_info.gd" id="1_dbdb1"]
+[ext_resource type="Script" path="res://ui/level_select/level_info.gd" id="1_dbdb1"]
 [ext_resource type="PackedScene" uid="uid://swjkfmyam37c" path="res://simulation/simulation.tscn" id="2_6gbl3"]
-[ext_resource type="PackedScene" uid="uid://bbinj3e4ms0sl" path="res://ui/components/input_node.tscn" id="3_ak1m1"]
-[ext_resource type="PackedScene" uid="uid://dumop2qw31tk5" path="res://ui/components/output_node.tscn" id="4_b1ryx"]
+[ext_resource type="PackedScene" uid="uid://bbinj3e4ms0sl" path="res://ui/level_select/input_node.tscn" id="3_ak1m1"]
+[ext_resource type="PackedScene" uid="uid://dumop2qw31tk5" path="res://ui/level_select/output_node.tscn" id="4_b1ryx"]
 
 [node name="LevelInfo" type="Panel"]
 anchors_preset = 8

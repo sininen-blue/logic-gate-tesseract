@@ -1,5 +1,6 @@
 extends Control
 
+@export var stage_select: PackedScene
 @export var create_custom : PackedScene
 @export var custom_stage_panel : PackedScene
 
@@ -11,7 +12,7 @@ var stage_dir : DirAccess = DataManager.current_stage
 
 func _ready() -> void:
 	create_custom_button.pressed.connect(get_tree().change_scene_to_packed.bind(create_custom))
-	back_button.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/stage_select.tscn"))
+	back_button.pressed.connect(get_tree().change_scene_to_packed.bind(stage_select))
 	
 	for level in stage_dir.get_files():
 		var new_panel : Panel = custom_stage_panel.instantiate()

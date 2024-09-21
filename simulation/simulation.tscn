@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=8 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
+[ext_resource type="PackedScene" uid="uid://drcweefw840r3" path="res://ui/level_complete/level_complete.tscn" id="2_sweks"]
 [ext_resource type="Texture2D" uid="uid://c4po5a0dv7iwn" path="res://assets/simulation/end.png" id="3_dkmua"]
 [ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="4_41umf"]
 [ext_resource type="Texture2D" uid="uid://c1nuetfa18n17" path="res://assets/simulation/start-false.png" id="5_o6ogc"]
@@ -11,6 +12,7 @@ radius = 5.0
 
 [node name="Simulation" type="Node2D"]
 script = ExtResource("1_qo526")
+level_complete = ExtResource("2_sweks")
 GATE_SCENE = ExtResource("2_8m28h")
 
 [node name="Camera2D" type="Camera2D" parent="."]

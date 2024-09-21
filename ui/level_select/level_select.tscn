@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://yrih2e5sant0"]
+[gd_scene load_steps=5 format=3 uid="uid://yrih2e5sant0"]
 
-[ext_resource type="Script" path="res://ui/level_select.gd" id="1_6kh77"]
-[ext_resource type="PackedScene" uid="uid://ckh2s38lodfvg" path="res://ui/components/level_button.tscn" id="2_5e32k"]
-[ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/components/level_info.tscn" id="3_7seht"]
+[ext_resource type="Script" path="res://ui/level_select/level_select.gd" id="1_6kh77"]
+[ext_resource type="PackedScene" uid="uid://ckh2s38lodfvg" path="res://ui/level_select/level_button.tscn" id="2_5e32k"]
+[ext_resource type="PackedScene" uid="uid://b1xu7c0fhg4at" path="res://ui/stage_select/stage_select.tscn" id="2_pxta7"]
+[ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/level_select/level_info.tscn" id="3_7seht"]
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -16,6 +17,7 @@ offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6kh77")
+stage_select = ExtResource("2_pxta7")
 LEVEL_BUTTON = ExtResource("2_5e32k")
 
 [node name="Main" type="Control" parent="."]

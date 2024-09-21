@@ -1,5 +1,6 @@
 extends Control
 
+@export var stage_select: PackedScene
 @export var LEVEL_BUTTON : PackedScene
 var stage_dir : DirAccess = DataManager.current_stage
 
@@ -18,7 +19,7 @@ var moving_camera : bool = false
 
 ## TODO: still need to make challenge levels have a different thing
 func _ready() -> void:
-	back_button.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/stage_select.tscn"))
+	back_button.pressed.connect(get_tree().change_scene_to_packed.bind(stage_select))
 	
 	var count : int = 0
 	for level in stage_dir.get_files():

@@ -13,6 +13,7 @@ var start_gates : Array[Gate]
 var end_gates : Array[Gate]
 var active_gates : Array[Gate]
 
+@export var level_complete: PackedScene
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
 
@@ -250,7 +251,7 @@ func run_simulation() -> void:
 	var file : FileAccess = FileAccess.open("user://temp.dat", FileAccess.WRITE)
 	file.store_string(json_string)
 	
-	get_tree().change_scene_to_file("res://ui/level_complete.tscn")
+	get_tree().change_scene_to_packed(level_complete)
 
 func generate_truth_table(start_count : int) -> Array[Array]:
 	var num_rows : int = int(pow(2, start_count))

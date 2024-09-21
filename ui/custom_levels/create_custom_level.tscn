@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c20nqruvjtxah"]
 
-[ext_resource type="Script" path="res://ui/create_custom_level.gd" id="1_uiy2w"]
+[ext_resource type="Script" path="res://ui/custom_levels/create_custom_level.gd" id="1_uiy2w"]
 
 [node name="CreateCustomLevel" type="Control"]
 layout_mode = 3
