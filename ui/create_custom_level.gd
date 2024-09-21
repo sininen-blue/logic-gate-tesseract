@@ -56,7 +56,7 @@ func create_level() -> void:
 	print("saved")
 
 func generate_truth_table(start_count : int) -> Array[String]:
-	var num_rows : int = pow(2, start_count)
+	var num_rows : int = int(pow(2, start_count))
 	var output : Array[String]
 	
 	for i in range(num_rows):
@@ -66,8 +66,8 @@ func generate_truth_table(start_count : int) -> Array[String]:
 			row.append(bit_value)
 		row.reverse()
 		var string_row : String = ""
-		for char in row:
-			string_row += str(char)
+		for character : String in row:
+			string_row += str(character)
 		output.append(string_row)
 	
 	return output

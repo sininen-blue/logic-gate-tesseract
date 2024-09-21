@@ -66,7 +66,7 @@ func _input(event: InputEvent) -> void:
 		tween.tween_property(camera, "zoom", camera.zoom - Vector2(0.2, 0.2), 0.1)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	level_info.position = camera.position - level_info.size/2
 	if moving_camera == false:
 		return
