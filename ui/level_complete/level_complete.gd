@@ -1,20 +1,18 @@
 extends Control
 
-func _ready():
+func _ready() -> void:
 	var LEVEL : JSON = DataManager.current_level
 	var level_data : Dictionary = LEVEL.data
 	var truth_table : Array = level_data["truth_table"]
 	var end_count : int = int(level_data["end_count"])
 	var start_count : int = truth_table[0].length() - end_count
 	
-	var file = FileAccess.open("user://temp.dat", FileAccess.READ)
-	var content = file.get_as_text()
-	var results = JSON.parse_string(content)
+	var file : FileAccess = FileAccess.open("user://temp.dat", FileAccess.READ)
+	var content : String = file.get_as_text()
+	var results : Dictionary = JSON.parse_string(content)
 	
 	
-	var table : String
-	print(truth_table)
-	print(results)
+	var table : String = ""
 	for x in range(len(truth_table)):
 		table += str(results[x])
 		for end_index in range(end_count):
