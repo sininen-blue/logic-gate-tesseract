@@ -48,6 +48,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="TestingLabel" type="Label" parent="."]
+visible = false
 offset_left = -82.0
 offset_top = 62.0
 offset_right = -21.0

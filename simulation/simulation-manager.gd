@@ -147,14 +147,6 @@ func _process(_delta: float) -> void:
 	
 	match state:
 		IDLE:
-			var output : String = ""
-			active_gates = all_gates.filter(is_active)
-			
-			for gate in active_gates:
-				output += gate.gate_name
-			
-			text_edit.text = output
-			
 			## transitions
 			if Input.is_action_just_pressed("left_click"):
 				if mouse_area.has_overlapping_areas() == false:

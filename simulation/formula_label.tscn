@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dpd7dfojh77bw"]
+
+[node name="FormulaLabel" type="Label"]
+offset_left = 45.0
+offset_top = 25.0
+offset_right = 404.0
+offset_bottom = 48.0

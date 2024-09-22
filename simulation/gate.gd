@@ -29,7 +29,7 @@ func _ready() -> void:
 	start_label.text = gate_name
 
 func _process(_delta: float) -> void:
-	$TestingLabel.text = str(connections, input_connections, value)
+	# $TestingLabel.text = str(connections, input_connections, value)
 
 	# value handling
 	if self.gate_type == "start":
