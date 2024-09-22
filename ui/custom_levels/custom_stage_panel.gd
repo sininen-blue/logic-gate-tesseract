@@ -10,11 +10,14 @@ extends Panel
 var level_data : Dictionary
 
 func _ready() -> void:
+	play_button.pressed.connect(play_custom)
+	
+	stage_label.text = level_data["title"]
+	author_label.text = level_data["author"]
+
+func play_custom() -> void:
 	var level_json : JSON = JSON.new()
 	level_json.data = level_data
 	DataManager.current_level = level_json
 	
-	play_button.pressed.connect(get_tree().change_scene_to_packed.bind(simulation_scene))
-	
-	stage_label.text = level_data["title"]
-	author_label.text = level_data["author"]
+	get_tree().change_scene_to_packed(simulation_scene)
