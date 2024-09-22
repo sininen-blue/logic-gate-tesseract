@@ -12,44 +12,26 @@ func new_node(gate: Gate) -> logic_node:
 	var node: logic_node = logic_node.new()
 	node.gate = gate
 	
-	if roots.is_empty():
-		roots.append(node)
-	else:
-		## TODO: should just have a function where it checks if
-		## it shouild be a new root
-		## or if it choul be a child of a root
-		for root in roots:
-			## I can't check becuase I never put root.left or root.right
-			## it shoudl be root.left.gate
-			if root.left.gate == node.gate or root.right.gate == node.gate:
-				print("shouldn't be root")
-				continue
-			else:
-				roots.append(node)
-				break
-	## NOTE: f shouldn't be a null
-	## I think it's because I don't check upwards
-	## so It'll only work if I already have f
-	## and then make e
-	
-	# this seems dumb
-	## TODO: new plan, walk from start gates only
 	for connection in node.gate.input_connections:
-		if connection.output.gate_type == "start":
-			var child_node: logic_node = logic_node.new()
-			child_node.gate = connection.output
-			if node.left == null:
-				node.left = child_node
-				continue
-			node.right = child_node
+		var child_node: logic_node = logic_node.new()
+		child_node.gate = connection.output
+		if node.left == null:
+			node.left = child_node
+			continue
+		node.right = child_node
 	
-	## testing
-	print(roots)
-	for root in roots:
-		print(root.gate.gate_name, root.left, root.right)
-	
+	roots.append(node)
+	trim_roots()
 	
 	return node
+
+## NOTE: because I made a new logic_node, I can just remove it from the roots without
+## needing to combine
+func trim_roots() -> void:
+	for x in roots:
+		for y in roots:
+			if x.left.gate == y.gate or x.right.gate == y.gate:
+				roots.erase(y)
 
 
 func walk(curr: logic_node, path: Array[logic_node]) -> Array[logic_node]:
