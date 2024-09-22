@@ -8,7 +8,7 @@ class logic_node:
 	var left: logic_node = null
 	var right: logic_node = null
 
-func new_node(gate: Gate) -> logic_node:
+func new_node(gate: Gate):
 	var node: logic_node = logic_node.new()
 	node.gate = gate
 	
@@ -22,29 +22,22 @@ func new_node(gate: Gate) -> logic_node:
 	
 	roots.append(node)
 	trim_roots()
-	
-	return node
 
 ## NOTE: because I made a new logic_node, I can just remove it from the roots without
 ## needing to combine
 func trim_roots() -> void:
+	var bin: Array[logic_node]
 	for x in roots:
 		for y in roots:
 			if x.left.gate == y.gate or x.right.gate == y.gate:
-				roots.erase(y)
-
-
-func walk(curr: logic_node, path: Array[logic_node]) -> Array[logic_node]:
-	if curr == null:
-		return path
+				bin.append(y)
 	
-	path.append(curr)
+	for item in bin:
+		roots.erase(item)
 	
-	# NOTE: doesn't work with not and end gates
-	walk(curr.left, path)
-	walk(curr.right, path)
-	
-	return path
+	for root in roots:
+		print(root.gate.gate_name)
+	print("---")
 
 # what do I want to happen
 # when a connection is made
