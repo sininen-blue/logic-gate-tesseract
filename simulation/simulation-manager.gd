@@ -11,7 +11,6 @@ var state : int = IDLE
 var all_gates : Array[Gate]
 var start_gates : Array[Gate]
 var end_gates : Array[Gate]
-var active_gates : Array[Gate]
 
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
@@ -20,7 +19,8 @@ var active_gates : Array[Gate]
 @onready var mouse_area: Area2D = $MouseArea
 @onready var camera : Camera2D = $Camera2D
 
-@onready var text_edit: TextEdit = $CanvasLayer/UI/TextEdit
+@onready var formula_container: VBoxContainer = $CanvasLayer/UI/FormulaContainer
+
 @onready var and_button: Button = $CanvasLayer/UI/FlowContainer/AndButton
 @onready var or_button: Button = $CanvasLayer/UI/FlowContainer/OrButton
 @onready var xor_button: Button = $CanvasLayer/UI/FlowContainer/XorButton
@@ -134,6 +134,11 @@ func complete_connection() -> void:
 	temp_connection.input.connections.append(temp_connection)
 	temp_connection.input.input_connections.append(temp_connection)
 	add_child(temp_connection)
+	
+	var gate: Gate = temp_connection.input
+	if len(gate.connections) == gate.input_max:
+		formula_container.new_node(gate)
+	
 	temp_connection = null
 
 
@@ -215,11 +220,6 @@ func _process(_delta: float) -> void:
 						break
 				
 				state = IDLE
-
-func is_active(gate : Gate) -> bool:
-	if gate.gate_type == "start":
-		return false
-	return gate.value != 2
 
 
 func run_simulation() -> void:

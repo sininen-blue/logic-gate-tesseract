@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=9 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
 [ext_resource type="Texture2D" uid="uid://c4po5a0dv7iwn" path="res://assets/simulation/end.png" id="3_dkmua"]
+[ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
+[ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
 [ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="4_41umf"]
 [ext_resource type="Texture2D" uid="uid://c1nuetfa18n17" path="res://assets/simulation/start-false.png" id="5_o6ogc"]
 
@@ -40,6 +42,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+
+[node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(359, 183)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 23.0
+offset_right = 391.0
+offset_bottom = 206.0
+script = ExtResource("3_qlwgx")
+formula_label = ExtResource("3_qwkcl")
 
 [node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
