@@ -14,7 +14,7 @@ var end_gates : Array[Gate]
 var active_gates : Array[Gate]
 
 @export var GATE_SCENE : PackedScene
-@export var LEVEL : JSON
+@onready var LEVEL : JSON = DataManager.current_level
 
 @onready var temp_line: Line2D = $TempLine
 @onready var mouse_area: Area2D = $MouseArea
@@ -246,14 +246,14 @@ func run_simulation() -> void:
 		end_values.append(row_results)
 		
 	
-	var json_string = JSON.stringify(end_values)
-	var file = FileAccess.open("user://temp.dat", FileAccess.WRITE)
+	var json_string : String= JSON.stringify(end_values)
+	var file : FileAccess = FileAccess.open("user://temp.dat", FileAccess.WRITE)
 	file.store_string(json_string)
 	
 	get_tree().change_scene_to_file("res://ui/level_complete.tscn")
 
 func generate_truth_table(start_count : int) -> Array[Array]:
-	var num_rows : int = pow(2, start_count)
+	var num_rows : int = int(pow(2, start_count))
 	var output : Array[Array]
 	
 	for i in range(num_rows):

@@ -15,6 +15,10 @@ run/main_scene="res://ui/title_page.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DataManager="*res://simulation/data_manager.gd"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1

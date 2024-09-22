@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://drcweefw840r3"]
+[gd_scene load_steps=2 format=3 uid="uid://drcweefw840r3"]
 
 [ext_resource type="Script" path="res://ui/level_complete.gd" id="1_336ks"]
-[ext_resource type="JSON" path="res://levels/test-level.json" id="2_u6d35"]
 
 [node name="LevelComplete" type="Control"]
 layout_mode = 3
@@ -11,7 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_336ks")
-LEVEL = ExtResource("2_u6d35")
 metadata/_edit_lock_ = true
 
 [node name="Leaderboard" type="Panel" parent="."]

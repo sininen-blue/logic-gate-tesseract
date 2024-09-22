@@ -12,15 +12,37 @@ grow_vertical = 2
 script = ExtResource("1_uiy2w")
 metadata/_edit_lock_ = true
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="Back" type="Button" parent="."]
 layout_mode = 0
-offset_left = 294.0
-offset_top = 22.0
-offset_right = 856.0
-offset_bottom = 97.0
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 92.0
+offset_bottom = 64.0
+text = "Back"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_right = 330.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(600, 800)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TitleLabel" type="Label" parent="ScrollContainer/Main"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
 text = "Title"
 
-[node name="TextEdit" type="TextEdit" parent="TitleLabel"]
+[node name="TitleEdit" type="TextEdit" parent="ScrollContainer/Main/TitleLabel"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -30,74 +52,90 @@ offset_top = -43.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TitleLabel2" type="Label" parent="."]
-layout_mode = 0
-offset_left = 299.0
-offset_top = 294.0
-offset_right = 861.0
-offset_bottom = 453.0
-text = "Description"
+[node name="AuthorLabel" type="Label" parent="ScrollContainer/Main"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+text = "Author Name"
 
-[node name="TextEdit" type="TextEdit" parent="TitleLabel2"]
+[node name="AuthorEdit" type="TextEdit" parent="ScrollContainer/Main/AuthorLabel"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -116.0
+offset_top = -43.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 303.0
-offset_top = 142.0
-offset_right = 858.0
-offset_bottom = 335.0
+[node name="ButtonLabel" type="Label" parent="ScrollContainer/Main"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
 text = "Truth Table"
 
-[node name="Camera" type="Button" parent="Label"]
+[node name="InputNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -166.5
-offset_top = -41.5
-offset_right = -11.5
-offset_bottom = 33.5
+offset_top = 33.0
+offset_right = 176.0
+offset_bottom = 75.0
+placeholder_text = "Number of  Inputs"
+
+[node name="OutputNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
+layout_mode = 1
+offset_left = 208.0
+offset_top = 33.0
+offset_right = 390.0
+offset_bottom = 75.0
+placeholder_text = "Number of Outputs"
+
+[node name="CameraButton" type="Button" parent="ScrollContainer/Main/ButtonLabel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 457.0
+offset_top = 32.0
+offset_bottom = 75.0
 grow_horizontal = 2
-grow_vertical = 2
 text = "Camera"
 
-[node name="Text Input" type="Button" parent="Label"]
+[node name="TruthTableEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 10.5
-offset_top = -39.5
-offset_right = 165.5
-offset_bottom = 35.5
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -313.0
 grow_horizontal = 2
-grow_vertical = 2
-text = "Text Input"
+grow_vertical = 0
+placeholder_text = "0
+0
+0
+1
+1
+1
+1
+1
 
-[node name="Create" type="Button" parent="."]
-layout_mode = 0
-offset_left = 696.0
-offset_top = 486.0
-offset_right = 863.0
-offset_bottom = 569.0
+desired outputs
+
+each new line is a row"
+
+[node name="DescriptionLabel" type="Label" parent="ScrollContainer/Main"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+text = "Description"
+
+[node name="DescriptionEdit" type="TextEdit" parent="ScrollContainer/Main/DescriptionLabel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Create" type="Button" parent="ScrollContainer/Main"]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 2
+size_flags_horizontal = 8
 text = "Create"
-
-[node name="Back" type="Button" parent="."]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 16.0
-offset_right = 92.0
-offset_bottom = 64.0
-text = "Back"
