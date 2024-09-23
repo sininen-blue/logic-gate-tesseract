@@ -2,6 +2,7 @@ extends VBoxContainer
 
 @export var formula_label: PackedScene
 
+var label_pool: Array[Label]
 var roots: Array[logic_node]
 class logic_node:
 	var gate: Gate
@@ -57,18 +58,18 @@ func trim_roots() -> void:
 	for item in bin:
 		roots.erase(item)
 
-func _ready() -> void:
-	var new_label: Label = formula_label.instantiate()
-	add_child(new_label)
-
 
 func _process(_delta: float) -> void:
-	for label in get_children():
-		var output: String = ""
-		for root in roots:
-			output += root.gate.gate_name
-		
-		label.text = output
+	if len(label_pool) < len(roots):
+		var new_label: Label = formula_label.instantiate()
+		label_pool.append(new_label)
+		add_child(new_label)
+	if len(label_pool) > len(roots):
+		remove_child(label_pool[0])
+		label_pool.erase(label_pool[0])
+	
+	for i in range(len(roots)):
+		label_pool[i].text = roots[i].gate.gate_name
 
 # what do I want to happen
 # when a connection is made
