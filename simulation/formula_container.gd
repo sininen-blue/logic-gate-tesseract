@@ -8,7 +8,7 @@ class logic_node:
 	var left: logic_node = null
 	var right: logic_node = null
 
-func new_node(gate: Gate):
+func new_node(gate: Gate) -> void:
 	var node: logic_node = logic_node.new()
 	node.gate = gate
 	
@@ -23,6 +23,28 @@ func new_node(gate: Gate):
 	roots.append(node)
 	trim_roots()
 
+func delete_node(gate: Gate) -> void:
+	# if the child isn't a start node
+	# and those children aren't already roots (can't happen)
+	# turn those children into roots
+	var to_delete: logic_node
+	for root in roots:
+		if root.gate == gate:
+			to_delete = root
+			break
+	
+	if to_delete == null:
+		return
+		
+	roots.erase(to_delete)
+	if to_delete.left.gate.gate_type != "start":
+		new_node(to_delete.left.gate)
+		trim_roots()
+	if to_delete.right.gate.gate_type != "start":
+		new_node(to_delete.right.gate)
+		trim_roots()
+
+
 ## NOTE: because I made a new logic_node, I can just remove it from the roots without
 ## needing to combine
 func trim_roots() -> void:
@@ -34,10 +56,19 @@ func trim_roots() -> void:
 	
 	for item in bin:
 		roots.erase(item)
-	
-	for root in roots:
-		print(root.gate.gate_name)
-	print("---")
+
+func _ready() -> void:
+	var new_label: Label = formula_label.instantiate()
+	add_child(new_label)
+
+
+func _process(_delta: float) -> void:
+	for label in get_children():
+		var output: String = ""
+		for root in roots:
+			output += root.gate.gate_name
+		
+		label.text = output
 
 # what do I want to happen
 # when a connection is made

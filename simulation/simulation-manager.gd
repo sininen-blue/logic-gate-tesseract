@@ -121,6 +121,10 @@ func delete_connection(connection : Connection) -> void:
 	connection.output.connections.erase(connection)
 	connection.input.connections.erase(connection)
 	connection.input.input_connections.erase(connection)
+	
+	var gate: Gate = connection.input
+	formula_container.delete_node(gate)
+	
 	# frees node
 	remove_child(connection)
 
