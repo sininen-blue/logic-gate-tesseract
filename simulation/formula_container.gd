@@ -46,15 +46,20 @@ func delete_node(gate: Gate) -> void:
 		trim_roots()
 
 
-## NOTE: because I made a new logic_node, I can just remove it from the roots without
-## needing to combine
 func trim_roots() -> void:
 	var bin: Array[logic_node]
 	for x in roots:
 		for y in roots:
-			if x.left.gate == y.gate or x.right.gate == y.gate:
+			if x.left.gate == y.gate:
 				bin.append(y)
+				x.left.left = y.left
+				x.left.right = y.right
+			elif x.right.gate == y.gate:
+				bin.append(y)
+				x.right.left = y.left
+				x.right.right = y.right
 	
+	# i wonder if I can merge it here
 	for item in bin:
 		roots.erase(item)
 
