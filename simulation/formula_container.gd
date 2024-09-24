@@ -74,7 +74,23 @@ func _process(_delta: float) -> void:
 		label_pool.erase(label_pool[0])
 	
 	for i in range(len(roots)):
-		label_pool[i].text = roots[i].gate.gate_name
+		print(walk(roots[i], []))
+		var output: String = ""
+		output += roots[i].left.gate.gate_name + " "
+		output += roots[i].gate.gate_type + " "
+		output += roots[i].right.gate.gate_name + " "
+		label_pool[i].text = output
+
+func walk(curr: logic_node, path: Array[String]) -> Array[String]:
+	if curr.left == null and curr.right == null:
+		return path
+	
+	path.append(curr.gate.gate_name)
+	
+	walk(curr.left, path)
+	walk(curr.right, path)
+	
+	return path
 
 # what do I want to happen
 # when a connection is made
