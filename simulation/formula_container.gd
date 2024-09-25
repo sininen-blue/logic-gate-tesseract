@@ -50,6 +50,8 @@ func trim_roots() -> void:
 	var bin: Array[logic_node]
 	for x in roots:
 		for y in roots:
+			## TODO, deletion problem
+			## TODO, single point problem
 			if x.left.gate == y.gate:
 				bin.append(y)
 				x.left.left = y.left
@@ -74,23 +76,42 @@ func _process(_delta: float) -> void:
 		label_pool.erase(label_pool[0])
 	
 	for i in range(len(roots)):
-		print(walk(roots[i], []))
-		var output: String = ""
-		output += roots[i].left.gate.gate_name + " "
-		output += roots[i].gate.gate_type + " "
-		output += roots[i].right.gate.gate_name + " "
+		var output: String = format(walk(roots[i], []))
 		label_pool[i].text = output
 
-func walk(curr: logic_node, path: Array[String]) -> Array[String]:
+
+func walk(curr: logic_node, path: Array[Array]) -> Array[Array]:
 	if curr.left == null and curr.right == null:
 		return path
 	
-	path.append(curr.gate.gate_name)
+	var output: Array[String]
+	output.append(curr.gate.gate_name)
+	output.append(curr.left.gate.gate_name)
+	output.append(curr.gate.gate_type)
+	output.append(curr.right.gate.gate_name)
+	path.append(output)
 	
 	walk(curr.left, path)
 	walk(curr.right, path)
 	
 	return path
+
+func format(arr: Array[Array]) -> String:
+	var output: String = ""
+	
+	for x in range(len(arr)):
+		output += arr[x][0]
+		output += " is "
+		for y in range(len(arr[x])):
+			if y == 0: # skip first
+				continue
+			output += arr[x][y]
+			output += " "
+		
+		if x < len(arr)-1:
+			output += ", "
+	
+	return output
 
 # what do I want to happen
 # when a connection is made
