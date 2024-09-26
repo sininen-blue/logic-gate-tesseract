@@ -38,10 +38,10 @@ func delete_node(gate: Gate) -> void:
 		return
 		
 	roots.erase(to_delete)
-	if to_delete.left.gate.gate_type != "start":
+	if to_delete.left != null and to_delete.left.gate.gate_type != "start":
 		new_node(to_delete.left.gate)
 		trim_roots()
-	if to_delete.right.gate.gate_type != "start":
+	if to_delete.right != null and to_delete.right.gate.gate_type != "start":
 		new_node(to_delete.right.gate)
 		trim_roots()
 
@@ -52,11 +52,11 @@ func trim_roots() -> void:
 		for y in roots:
 			## TODO, deletion problem
 			## TODO, single point problem
-			if x.left.gate == y.gate:
+			if x.left != null and x.left.gate == y.gate:
 				bin.append(y)
 				x.left.left = y.left
 				x.left.right = y.right
-			elif x.right.gate == y.gate:
+			elif x.right != null and x.right.gate == y.gate:
 				bin.append(y)
 				x.right.left = y.left
 				x.right.right = y.right
@@ -84,15 +84,20 @@ func walk(curr: logic_node, path: Array[Array]) -> Array[Array]:
 	if curr.left == null and curr.right == null:
 		return path
 	
+	## TODO: format for single's aren't very good
 	var output: Array[String]
 	output.append(curr.gate.gate_name)
-	output.append(curr.left.gate.gate_name)
+	if curr.left != null:
+		output.append(curr.left.gate.gate_name)
 	output.append(curr.gate.gate_type)
-	output.append(curr.right.gate.gate_name)
+	if curr.right != null:
+		output.append(curr.right.gate.gate_name)
 	path.append(output)
 	
-	walk(curr.left, path)
-	walk(curr.right, path)
+	if curr.left != null:
+		walk(curr.left, path)
+	if curr.right != null:
+		walk(curr.right, path)
 	
 	return path
 

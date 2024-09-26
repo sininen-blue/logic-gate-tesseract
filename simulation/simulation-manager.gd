@@ -140,7 +140,7 @@ func complete_connection() -> void:
 	add_child(temp_connection)
 	
 	var gate: Gate = temp_connection.input
-	if len(gate.connections) == gate.input_max:
+	if len(gate.input_connections) == gate.input_max:
 		formula_container.new_node(gate)
 	
 	temp_connection = null
