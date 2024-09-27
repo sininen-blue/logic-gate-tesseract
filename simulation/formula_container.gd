@@ -80,18 +80,17 @@ func _process(_delta: float) -> void:
 		label_pool[i].text = output
 
 
-func walk(curr: logic_node, path: Array[Array]) -> Array[Array]:
+func walk(curr: logic_node, path: Array[Dictionary]) -> Array[Dictionary]:
 	if curr.left == null and curr.right == null:
 		return path
 	
 	## TODO: format for single's aren't very good
-	var output: Array[String]
-	output.append(curr.gate.gate_name)
+	var output: Dictionary
+	output["parent"]= curr
 	if curr.left != null:
-		output.append(curr.left.gate.gate_name)
-	output.append(curr.gate.gate_type)
+		output["left"] = curr.left
 	if curr.right != null:
-		output.append(curr.right.gate.gate_name)
+		output["right"] = curr.right
 	path.append(output)
 	
 	if curr.left != null:
@@ -101,19 +100,32 @@ func walk(curr: logic_node, path: Array[Array]) -> Array[Array]:
 	
 	return path
 
-func format(arr: Array[Array]) -> String:
+func format(arr: Array[Dictionary]) -> String:
 	var output: String = ""
 	
-	for x in range(len(arr)):
-		output += arr[x][0]
-		output += " is "
-		for y in range(len(arr[x])):
-			if y == 0: # skip first
-				continue
-			output += arr[x][y]
-			output += " "
+	for dict in arr:
+		if dict.get("left") == null and dict.get("right") == null:
+			print("error")
+			continue
 		
-		if x < len(arr)-1:
+		if dict.get("left") == null:
+			output += dict["parent"].gate.gate_name
+			output += " is "
+			output += dict["parent"].gate.gate_type + " "
+			output += dict["right"].gate.gate_name
+		elif dict.get("right") == null:
+			output += dict["parent"].gate.gate_name
+			output += " is "
+			output += dict["parent"].gate.gate_type + " "
+			output += dict["left"].gate.gate_name
+		else:
+			output += dict["parent"].gate.gate_name
+			output += " is "
+			output += dict["left"].gate.gate_name + " "
+			output += dict["parent"].gate.gate_type + " "
+			output += dict["right"].gate.gate_name
+		
+		if arr.find(dict) < len(arr)-1:
 			output += ", "
 	
 	return output
