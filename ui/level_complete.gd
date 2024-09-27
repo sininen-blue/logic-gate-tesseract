@@ -1,5 +1,7 @@
 extends Control
 
+@onready var truth_table_label: Label = $HBoxContainer/TruthTable/TruthTableLabel
+
 func _ready():
 	var LEVEL : JSON = DataManager.current_level
 	var level_data : Dictionary = LEVEL.data
@@ -22,7 +24,7 @@ func _ready():
 				table += "incorrect\n"
 		
 	
-	$TruthTable/Label2.text = str(table)
+	truth_table_label.text = str(table)
 
 
 func _on_retry_button_pressed() -> void:
