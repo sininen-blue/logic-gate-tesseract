@@ -21,6 +21,8 @@ func change_visibility() -> void:
 func _on_visibility_changed() -> void:
 	if DataManager.current_level == null:
 		return
+	if level_title == null:
+		return
 	
 	var level_data : Dictionary = DataManager.current_level.data
 	level_title.text = level_data["title"]
