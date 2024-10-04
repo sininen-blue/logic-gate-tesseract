@@ -50,8 +50,6 @@ func trim_roots() -> void:
 	var bin: Array[logic_node]
 	for x in roots:
 		for y in roots:
-			## TODO, deletion problem
-			## TODO, single point problem
 			if x.left != null and x.left.gate == y.gate:
 				bin.append(y)
 				x.left.left = y.left
@@ -61,7 +59,6 @@ func trim_roots() -> void:
 				x.right.left = y.left
 				x.right.right = y.right
 	
-	# i wonder if I can merge it here
 	for item in bin:
 		roots.erase(item)
 
@@ -84,7 +81,6 @@ func walk(curr: logic_node, path: Array[Dictionary]) -> Array[Dictionary]:
 	if curr.left == null and curr.right == null:
 		return path
 	
-	## TODO: format for single's aren't very good
 	var output: Dictionary
 	output["parent"]= curr
 	if curr.left != null:

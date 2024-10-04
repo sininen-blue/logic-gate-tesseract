@@ -263,4 +263,5 @@ func generate_truth_table(start_count : int) -> Array[Array]:
 	return output
 
 func _on_info_button_pressed() -> void:
+	## TODO: make this take from the current level
 	$CanvasLayer/UI/LevelInfo.visible = !$CanvasLayer/UI/LevelInfo.visible
