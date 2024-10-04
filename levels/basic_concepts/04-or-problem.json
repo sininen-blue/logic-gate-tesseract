@@ -1,0 +1,10 @@
+{
+  "title": "Checlist 2",
+  "author": "game",
+  "create_date": "6-9-2024",
+  "description": "I also make sure that I'm either bringing extra money, or snacks, or both, before leaving the house",
+  "end_count": "1",
+  "truth_table": [
+	"000", "011", "101", "111"
+  ]
+}

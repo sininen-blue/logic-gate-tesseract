@@ -1,0 +1,10 @@
+{
+  "title": "The NOT version of all the GATES",
+  "author": "game",
+  "create_date": "6-9-2024",
+  "description": "Each gate has its own corresponding not versions, which is essentially, the gate + not",
+  "end_count": "3",
+  "truth_table": [
+	"00111", "01100", "10100", "11001"
+  ]
+}

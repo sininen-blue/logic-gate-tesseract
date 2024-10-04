@@ -1,0 +1,10 @@
+{
+  "title": "My clothes shouldn't be outside",
+  "author": "game",
+  "create_date": "6-9-2024",
+  "description": "I have to make sure that my clothes and my towels aren't outside when it rains, if they are, they get wet",
+  "end_count": "1",
+  "truth_table": [
+	"001", "010", "100", "110"
+  ]
+}
