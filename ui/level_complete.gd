@@ -28,7 +28,6 @@ func _ready():
 
 
 func _on_retry_button_pressed() -> void:
-	## TODO: load the simulation level with the appropriate json file info
 	get_tree().change_scene_to_file("res://simulation/simulation.tscn")
 
 
