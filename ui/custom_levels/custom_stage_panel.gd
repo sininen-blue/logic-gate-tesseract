@@ -19,5 +19,6 @@ func play_custom() -> void:
 	var level_json : JSON = JSON.new()
 	level_json.data = level_data
 	DataManager.current_level = level_json
+	DataManager.is_custom = true
 	
 	get_tree().change_scene_to_packed(simulation_scene)

@@ -9,3 +9,4 @@ func _ready() -> void:
 
 func play_level() -> void:
 	DataManager.current_level = level
+	DataManager.is_custom = false

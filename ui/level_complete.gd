@@ -32,4 +32,7 @@ func _on_retry_button_pressed() -> void:
 
 
 func _on_continue_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/level_select.tscn")
+	if DataManager.is_custom == true:
+		get_tree().change_scene_to_file("res://ui/custom_levels.tscn")
+	else:
+		get_tree().change_scene_to_file("res://ui/level_select.tscn")
