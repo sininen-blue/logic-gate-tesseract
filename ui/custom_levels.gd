@@ -18,7 +18,7 @@ func _ready() -> void:
 		
 		var pwd : String = stage_dir.get_current_dir() + "/"
 		var level_file : FileAccess = FileAccess.open(pwd+level, FileAccess.READ)
-		var level_data = JSON.parse_string(level_file.get_as_text())
+		var level_data : Dictionary = JSON.parse_string(level_file.get_as_text())
 		
 		new_panel.level_data = level_data
 		levels_container.add_child(new_panel)
