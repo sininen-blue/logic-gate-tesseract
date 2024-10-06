@@ -1,19 +1,16 @@
 extends Panel
 
-@export var simulation_scene : PackedScene
 @export var input_node : PackedScene
 @export var output_node : PackedScene
 
 @onready var level_title: Label = $LevelTitle
 @onready var level_description: Label = $LevelDescription
 @onready var desired_table: Label = $DesiredTable
-@onready var play_button: Button = $PlayButton
 @onready var input_variables: VBoxContainer = $InputVariables
 @onready var output_variables: VBoxContainer = $OutputVariables
 
 func _ready() -> void:
 	$CloseButton.pressed.connect(change_visibility)
-	play_button.pressed.connect(get_tree().change_scene_to_packed.bind(simulation_scene))
 
 func change_visibility() -> void:
 	self.visible = false

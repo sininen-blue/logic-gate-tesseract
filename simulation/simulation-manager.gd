@@ -11,7 +11,6 @@ var state : int = IDLE
 var all_gates : Array[Gate]
 var start_gates : Array[Gate]
 var end_gates : Array[Gate]
-var active_gates : Array[Gate]
 
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
@@ -20,7 +19,8 @@ var active_gates : Array[Gate]
 @onready var mouse_area: Area2D = $MouseArea
 @onready var camera : Camera2D = $Camera2D
 
-@onready var text_edit: TextEdit = $CanvasLayer/UI/TextEdit
+@onready var formula_container: VBoxContainer = $CanvasLayer/UI/FormulaContainer
+
 @onready var and_button: Button = $CanvasLayer/UI/FlowContainer/AndButton
 @onready var or_button: Button = $CanvasLayer/UI/FlowContainer/OrButton
 @onready var xor_button: Button = $CanvasLayer/UI/FlowContainer/XorButton
@@ -121,6 +121,10 @@ func delete_connection(connection : Connection) -> void:
 	connection.output.connections.erase(connection)
 	connection.input.connections.erase(connection)
 	connection.input.input_connections.erase(connection)
+	
+	var gate: Gate = connection.input
+	formula_container.delete_node(gate)
+	
 	# frees node
 	remove_child(connection)
 
@@ -134,6 +138,11 @@ func complete_connection() -> void:
 	temp_connection.input.connections.append(temp_connection)
 	temp_connection.input.input_connections.append(temp_connection)
 	add_child(temp_connection)
+	
+	var gate: Gate = temp_connection.input
+	if len(gate.input_connections) == gate.input_max:
+		formula_container.new_node(gate)
+	
 	temp_connection = null
 
 
@@ -147,14 +156,6 @@ func _process(_delta: float) -> void:
 	
 	match state:
 		IDLE:
-			var output : String = ""
-			active_gates = all_gates.filter(is_active)
-			
-			for gate in active_gates:
-				output += gate.gate_name
-			
-			text_edit.text = output
-			
 			## transitions
 			if Input.is_action_just_pressed("left_click"):
 				if mouse_area.has_overlapping_areas() == false:
@@ -224,11 +225,6 @@ func _process(_delta: float) -> void:
 				
 				state = IDLE
 
-func is_active(gate : Gate) -> bool:
-	if gate.gate_type == "start":
-		return false
-	return gate.value != 2
-
 
 func run_simulation() -> void:
 	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
@@ -267,4 +263,4 @@ func generate_truth_table(start_count : int) -> Array[Array]:
 	return output
 
 func _on_info_button_pressed() -> void:
-	$CanvasLayer/UI/LevelInfo.visible = !$CanvasLayer/UI/LevelInfo.visible
+	$CanvasLayer/UI/LevelInfoInGame.visible = true

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
-[ext_resource type="Texture2D" uid="uid://c4po5a0dv7iwn" path="res://assets/simulation/end.png" id="3_dkmua"]
-[ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="4_41umf"]
-[ext_resource type="Texture2D" uid="uid://c1nuetfa18n17" path="res://assets/simulation/start-false.png" id="5_o6ogc"]
+[ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
+[ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
+[ext_resource type="PackedScene" uid="uid://dx0bq08e6x52w" path="res://ui/components/level_info_in_game.tscn" id="5_wbtnj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ovty"]
 radius = 5.0
@@ -41,12 +41,15 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/UI"]
+[node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(359, 183)
 layout_mode = 0
-offset_left = 46.0
-offset_top = 22.0
-offset_right = 611.0
-offset_bottom = 71.0
+offset_left = 32.0
+offset_top = 23.0
+offset_right = 391.0
+offset_bottom = 206.0
+script = ExtResource("3_qlwgx")
+formula_label = ExtResource("3_qwkcl")
 
 [node name="FlowContainer" type="FlowContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -117,72 +120,12 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Level Information"
 
-[node name="LevelInfo" type="Panel" parent="CanvasLayer/UI"]
+[node name="LevelInfoInGame" parent="CanvasLayer/UI" instance=ExtResource("5_wbtnj")]
 visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -432.0
 offset_top = -260.5
 offset_right = 432.0
 offset_bottom = 260.5
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="LevelDescription" type="Label" parent="CanvasLayer/UI/LevelInfo"]
-layout_mode = 0
-offset_left = 41.0
-offset_top = 44.0
-offset_right = 450.0
-offset_bottom = 240.0
-text = "Design a combinational logic circuit with three inputs and one output; the output is one when the binary value of the inputs is greater than or equal to three; otherwise the output will be zero. "
-autowrap_mode = 3
-
-[node name="DesiredTable" type="Label" parent="CanvasLayer/UI/LevelInfo"]
-layout_mode = 0
-offset_left = 587.0
-offset_top = 101.5
-offset_right = 702.0
-offset_bottom = 332.5
-text = "X Y Z Output
-0 0 0 0 
-0 0 1 0
-0 1 0 0
-0 1 1 0
-1 0 0 1
-1 0 1 1
-1 1 0 1
-1 1 1 1"
-
-[node name="Button" type="Button" parent="CanvasLayer/UI/LevelInfo"]
-layout_mode = 0
-offset_left = 776.0
-offset_top = 462.5
-offset_right = 817.0
-offset_bottom = 493.5
-text = "Play"
-
-[node name="End" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
-position = Vector2(402, 317.5)
-texture = ExtResource("3_dkmua")
-
-[node name="Start" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
-position = Vector2(103, 258.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_41umf")
-
-[node name="Start2" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
-position = Vector2(105, 341.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_41umf")
-
-[node name="Start-false" type="Sprite2D" parent="CanvasLayer/UI/LevelInfo"]
-position = Vector2(100, 419.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_o6ogc")
 
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]

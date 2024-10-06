@@ -1,5 +1,7 @@
 extends Control
 
+@onready var truth_table_label: Label = $HBoxContainer/TruthTable/TruthTableLabel
+
 func _ready():
 	var LEVEL : JSON = DataManager.current_level
 	var level_data : Dictionary = LEVEL.data
@@ -22,11 +24,10 @@ func _ready():
 				table += "incorrect\n"
 		
 	
-	$TruthTable/Label2.text = str(table)
+	truth_table_label.text = str(table)
 
 
 func _on_retry_button_pressed() -> void:
-	## TODO: load the simulation level with the appropriate json file info
 	get_tree().change_scene_to_file("res://simulation/simulation.tscn")
 
 
