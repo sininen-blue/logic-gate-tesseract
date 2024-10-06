@@ -68,11 +68,11 @@ func create_gate(type : String, location : String = "") -> void:
 	
 	var start_location : Vector2
 	if location == "left":
-		start_location = Vector2(200, randi_range(50, 600))
+		start_location = Vector2(200, 200*len(start_gates))
 	elif location == "right":
-		start_location = Vector2(700, randi_range(50, 600))
+		start_location = Vector2(700, 200*len(end_gates))
 	else:
-		start_location = Vector2(500, 500)
+		start_location = Vector2(randi_range(400, 500), randi_range(400, 500))
 	gate_scene.global_position = start_location
 	
 	add_child(gate_scene)
