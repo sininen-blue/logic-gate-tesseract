@@ -228,19 +228,19 @@ func _process(_delta: float) -> void:
 
 func run_simulation() -> void:
 	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
-	var end_values : Array[Array]
+	var end_values : Array[String]
 	for row in truth_table:
 		for i in range(len(start_gates)):
 			start_gates[i].value = row[i]
-		await get_tree().create_timer(.2).timeout
+		
+		await get_tree().create_timer(.5).timeout
 		
 		var row_results : Array
 		for start in start_gates:
-			row_results.append(start.value)
+			row_results.append(str(start.value))
 		for end in end_gates:
-			row_results.append(end.value)
-		end_values.append(row_results)
-		
+			row_results.append(str(end.value))
+		end_values.append("".join(row_results))
 	
 	var json_string : String= JSON.stringify(end_values)
 	var file : FileAccess = FileAccess.open("user://temp.dat", FileAccess.WRITE)
