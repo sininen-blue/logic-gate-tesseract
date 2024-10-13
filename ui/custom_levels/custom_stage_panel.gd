@@ -30,7 +30,7 @@ func delete_level() -> void:
 	var dir_access: DirAccess = DirAccess.open("res://levels/custom_levels/")
 	var pwd : String = dir_access.get_current_dir()+"/"
 	for file in dir_access.get_files():
-		var file_access = FileAccess.open(pwd+file, FileAccess.READ)
+		var file_access: FileAccess = FileAccess.open(pwd+file, FileAccess.READ)
 		var file_content : String = file_access.get_as_text()
 		var file_data : Dictionary = JSON.parse_string(file_content)
 		
