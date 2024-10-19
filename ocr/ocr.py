@@ -34,7 +34,7 @@ def format(text: str) -> str:
     return output
 
 
-def detect_border(image, binary):
+def crop_image(image, binary):
     horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
     horizontal_lines = cv2.morphologyEx(
         binary, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
@@ -58,7 +58,7 @@ def detect_border(image, binary):
         return cropped_image, cropped_binary
 
 
-def remove_lines(image, binary):
+def remove_table_lines(image, binary):
     horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
     vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 25))
 
@@ -100,8 +100,8 @@ def main():
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)
 
-    cropped_image, cropped_binary = detect_border(image, binary)
-    cleaned_img = remove_lines(cropped_image, cropped_binary)
+    cropped_image, cropped_binary = crop_image(image, binary)
+    cleaned_img = remove_table_lines(cropped_image, cropped_binary)
     data = {
         "truth_table": read_table(cleaned_img),
     }
