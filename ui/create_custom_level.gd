@@ -57,7 +57,8 @@ func create_level() -> void:
 	
 	var json_string : String = JSON.stringify(level_data, "\t")
 	var filename : String = title_edit.text.replace(" ", "")
-	var level_file : FileAccess = FileAccess.open("user://"+filename+".json", FileAccess.WRITE)
+	var level_file : FileAccess = FileAccess.open("user://custom_levels/"+filename+".json", FileAccess.WRITE)
+	print(FileAccess.get_open_error())
 	level_file.store_string(json_string)
 	
 	print("saved")
@@ -73,7 +74,7 @@ func generate_truth_table(start_count : int) -> Array[String]:
 			row.append(bit_value)
 		row.reverse()
 		var string_row : String = ""
-		for character : String in row:
+		for character: int in row:
 			string_row += str(character)
 		output.append(string_row)
 	
