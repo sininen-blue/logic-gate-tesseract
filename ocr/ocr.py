@@ -1,25 +1,32 @@
 import pytesseract
 import cv2
+import argparse
+import json
+import sys
 
 
-# Plan
-# *get the image
-# *set the bounds of the table
-# *figure out how many columns and rows there are in
-# *   the table (might need manual input)
-# preprocess to remove straight lines
+# TODO: pyinstaller and tesseract bin, for packaging
+# TODO: need to generate a standard table for non standard tables (test2.png)
 
-# separate each cell
-# read each cell
-# return a json with a ["001", "011", ...] output
+
+parser = argparse.ArgumentParser()
+parser.add_argument("input_file", help="Input file path")
+parser.add_argument("-c", "--columns", required=True, dest="columns",
+                    type=int, help="Number of columns")
+parser.add_argument("-r", "--rows", required=True, dest="rows",
+                    type=int, help="Number of rows")
+args = parser.parse_args()
+
 
 custom_config = r'--psm 10 --oem 3'
-image_path = "test2.png"
+image_path = args.input_file
+row_count = args.rows
+column_count = args.columns
 
 
 def format(text: str) -> str:
     output = text.replace("\n", "")
-    possible_ones = ["l", "L", "|"]
+    possible_ones = ["l", "L", "|", "i"]
     possible_zeroes = ["o", "O"]
 
     if output in possible_ones:
@@ -55,7 +62,7 @@ def remove_lines(image):
     return cleaned_image
 
 
-def read_table(row_count, column_count, table_image):
+def read_table(table_image):
     height, width = table_image.shape
     cell_height, cell_width = height // row_count, width // column_count
 
@@ -80,21 +87,23 @@ def read_table(row_count, column_count, table_image):
 
 
 def main():
+    # auto detect borders at some point
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     roi = cv2.selectROI("Select Region", img,
                         showCrosshair=True, fromCenter=False)
     x, y, w, h = roi
+
     cropped_img = img[int(y):int(y + h), int(x):int(x + w)]
     cv2.imshow("Cropped Image", cropped_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
     cleaned_img = remove_lines(cropped_img)
-
-    columns = int(input("enter number of columns: "))
-    rows = int(input("Enter number of rows (including headers): "))
-    for row in read_table(rows, columns, cleaned_img):
-        print(row)
+    data = {
+        "truth_table": read_table(cleaned_img),
+    }
+    json_string = json.dumps(data)
+    sys.stdout.write(json_string)
 
 
 if __name__ == "__main__":
