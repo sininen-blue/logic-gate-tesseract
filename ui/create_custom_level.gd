@@ -94,13 +94,14 @@ func _on_file_dialog_file_selected(image_path: String) -> void:
 	
 	const program_path: String = "ocr/dist/ocr.exe"
 	var column_count: int = input_count+output_count 
-	var row_count: int = int(pow(2, input_count))
+	var row_count: int = int(pow(2, input_count)) + 1
 	
 	var args: Array = [image_path, "-c", column_count, "-r", row_count]
 	OS.execute(program_path, args, output, false, false)
 	
 	var json_string: String = output[0].get_slice("\n", 0)
-	var truth_table: Dictionary = JSON.parse_string(json_string)
+	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	
-	for row: String in truth_table["truth_table"]:
+	
+	for row: String in truth_table.slice(1, truth_table.size()):
 		truth_table_edit.text += row.right(output_count)+"\n"
