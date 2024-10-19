@@ -89,10 +89,18 @@ func _on_photo_button_pressed() -> void:
 func _on_file_dialog_file_selected(image_path: String) -> void:
 	var output: Array = []
 	
-	const program_path: String = "ocr/ocr.py"
-	var column_count: int = input_count+output_count
+	input_count = int(input_num_edit.text)
+	output_count = int(output_num_edit.text)
+	
+	const program_path: String = "ocr/dist/ocr.exe"
+	var column_count: int = input_count+output_count 
 	var row_count: int = int(pow(2, input_count))
 	
-	var args: Array = [program_path, image_path, "-c", column_count, "-r", row_count]
-	OS.execute("python", args, output, true, true)
-	print(output)
+	var args: Array = [image_path, "-c", column_count, "-r", row_count]
+	OS.execute(program_path, args, output, false, false)
+	
+	var json_string: String = output[0].get_slice("\n", 0)
+	var truth_table: Dictionary = JSON.parse_string(json_string)
+	
+	for row: String in truth_table["truth_table"]:
+		truth_table_edit.text += row.right(output_count)+"\n"

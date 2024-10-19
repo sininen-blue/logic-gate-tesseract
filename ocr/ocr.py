@@ -2,7 +2,6 @@ import pytesseract
 import cv2
 import argparse
 import json
-import sys
 
 
 # TODO: pyinstaller and tesseract bin, for packaging
@@ -26,7 +25,7 @@ column_count = args.columns
 
 def format(text: str) -> str:
     output = text.replace("\n", "")
-    possible_ones = ["l", "L", "|", "i"]
+    possible_ones = ["l", "L", "|", "i", "7"]
     possible_zeroes = ["o", "O"]
 
     if output in possible_ones:
@@ -103,7 +102,7 @@ def main():
         "truth_table": read_table(cleaned_img),
     }
     json_string = json.dumps(data)
-    sys.stdout.write(json_string)
+    print(json_string)
 
 
 if __name__ == "__main__":
