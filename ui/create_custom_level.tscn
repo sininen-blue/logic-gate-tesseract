@@ -12,6 +12,15 @@ grow_vertical = 2
 script = ExtResource("1_uiy2w")
 metadata/_edit_lock_ = true
 
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+position = Vector2i(0, 36)
+size = Vector2i(713, 525)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
 offset_left = 23.0
@@ -87,7 +96,7 @@ offset_right = 390.0
 offset_bottom = 75.0
 placeholder_text = "Number of Outputs"
 
-[node name="CameraButton" type="Button" parent="ScrollContainer/Main/ButtonLabel"]
+[node name="PhotoButton" type="Button" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -95,7 +104,7 @@ offset_left = 457.0
 offset_top = 32.0
 offset_bottom = 75.0
 grow_horizontal = 2
-text = "Camera"
+text = "Use Photo"
 
 [node name="TruthTableEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
@@ -139,3 +148,6 @@ custom_minimum_size = Vector2(180, 90)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Create"
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="ScrollContainer/Main/ButtonLabel/PhotoButton" to="." method="_on_photo_button_pressed"]

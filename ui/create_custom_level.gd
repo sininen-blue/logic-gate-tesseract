@@ -8,7 +8,13 @@ extends Control
 @onready var output_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/OutputNumEdit
 @onready var truth_table_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/TruthTableEdit
 
+@onready var file_dialog: FileDialog = $FileDialog
+@onready var photo_button: Button = $ScrollContainer/Main/ButtonLabel/PhotoButton
+
 @onready var create_button: Button = $ScrollContainer/Main/Create
+
+var input_count: int
+var output_count: int
 
 func _ready() -> void:
 	$Back.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/custom_levels.tscn"))
@@ -35,7 +41,8 @@ func create_level() -> void:
 	# TODO:
 	# maybe make the table dynamic basedo on number of inputs
 	# error checking
-	var input_count : int = int(input_num_edit.text)
+	input_count = int(input_num_edit.text)
+	output_count = int(output_num_edit.text)
 	var truth_table : Array[String] = generate_truth_table(input_count)
 	var output_array : PackedStringArray = truth_table_edit.text.split("\n", false)
 	if len(output_array[0]) != int(output_num_edit.text):
@@ -71,3 +78,21 @@ func generate_truth_table(start_count : int) -> Array[String]:
 		output.append(string_row)
 	
 	return output
+
+
+func _on_photo_button_pressed() -> void:
+	## TODO: disallow pressing withotu putthing input and output
+	file_dialog.visible = true
+	file_dialog.add_filter("*.jpg, *.jpeg, *.png", "Images")
+
+
+func _on_file_dialog_file_selected(image_path: String) -> void:
+	var output: Array = []
+	
+	const program_path: String = "ocr/ocr.py"
+	var column_count: int = input_count+output_count
+	var row_count: int = int(pow(2, input_count))
+	
+	var args: Array = [program_path, image_path, "-c", column_count, "-r", row_count]
+	OS.execute("python", args, output, true, true)
+	print(output)
