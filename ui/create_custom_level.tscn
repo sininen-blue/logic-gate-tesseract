@@ -35,13 +35,13 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -288.0
-offset_right = 330.0
+offset_left = -404.0
+offset_right = 396.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Main" type="VBoxContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(600, 800)
+custom_minimum_size = Vector2(770, 800)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
@@ -84,23 +84,31 @@ text = "Truth Table"
 [node name="InputNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
 offset_top = 33.0
-offset_right = 176.0
+offset_right = 155.0
 offset_bottom = 75.0
 placeholder_text = "Number of  Inputs"
 
 [node name="OutputNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
-offset_left = 208.0
+offset_left = 167.0
 offset_top = 33.0
-offset_right = 390.0
+offset_right = 329.0
 offset_bottom = 75.0
 placeholder_text = "Number of Outputs"
+
+[node name="RowNumEdit" type="TextEdit" parent="ScrollContainer/Main/ButtonLabel"]
+layout_mode = 1
+offset_left = 481.0
+offset_top = 31.0
+offset_right = 603.0
+offset_bottom = 73.0
+placeholder_text = "rows in photo"
 
 [node name="PhotoButton" type="Button" parent="ScrollContainer/Main/ButtonLabel"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 457.0
+offset_left = 617.0
 offset_top = 32.0
 offset_bottom = 75.0
 grow_horizontal = 2

@@ -7,6 +7,7 @@ extends Control
 @onready var input_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/InputNumEdit
 @onready var output_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/OutputNumEdit
 @onready var truth_table_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/TruthTableEdit
+@onready var row_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/RowNumEdit
 
 @onready var file_dialog: FileDialog = $FileDialog
 @onready var photo_button: Button = $ScrollContainer/Main/ButtonLabel/PhotoButton
@@ -95,14 +96,15 @@ func _on_file_dialog_file_selected(image_path: String) -> void:
 	
 	const program_path: String = "ocr/dist/ocr.exe"
 	var column_count: int = input_count+output_count 
-	var row_count: int = int(pow(2, input_count)) + 1
+	var row_count: int = int(row_num_edit.text)
 	
-	var args: Array = [image_path, "-c", column_count, "-r", row_count]
+	var args: Array = [image_path, "-c", column_count, "-r", row_count, "-i", input_count]
 	OS.execute(program_path, args, output, false, false)
 	
 	var json_string: String = output[0].get_slice("\n", 0)
 	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	
-	
+	print(args)
+	print(json_string)
 	for row: String in truth_table.slice(1, truth_table.size()):
 		truth_table_edit.text += row.right(output_count)+"\n"
