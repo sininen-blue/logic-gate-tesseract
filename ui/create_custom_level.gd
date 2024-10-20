@@ -7,8 +7,17 @@ extends Control
 @onready var input_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/InputNumEdit
 @onready var output_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/OutputNumEdit
 @onready var truth_table_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/TruthTableEdit
+@onready var row_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/RowNumEdit
+
+@onready var file_dialog: FileDialog = $FileDialog
+@onready var photo_button: Button = $ScrollContainer/Main/ButtonLabel/PhotoButton
 
 @onready var create_button: Button = $ScrollContainer/Main/Create
+
+@onready var error_panel: Panel = $ErrorPanel
+
+var input_count: int
+var output_count: int
 
 func _ready() -> void:
 	$Back.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/custom_levels.tscn"))
@@ -21,8 +30,9 @@ func create_level() -> void:
 		description_edit.text == "" or
 		input_num_edit.text == "" or
 		output_num_edit.text == "" or
-		truth_table_edit.text == ""):
-		print("not all inputs are filled")
+		truth_table_edit.text == "" or
+		row_num_edit.text == ""):
+		error_panel.show_error("not all input boxes were filled")
 		return
 	
 	var level_data : Dictionary
@@ -35,7 +45,8 @@ func create_level() -> void:
 	# TODO:
 	# maybe make the table dynamic basedo on number of inputs
 	# error checking
-	var input_count : int = int(input_num_edit.text)
+	input_count = int(input_num_edit.text)
+	output_count = int(output_num_edit.text)
 	var truth_table : Array[String] = generate_truth_table(input_count)
 	var output_array : PackedStringArray = truth_table_edit.text.split("\n", false)
 	if len(output_array[0]) != int(output_num_edit.text):
@@ -50,7 +61,8 @@ func create_level() -> void:
 	
 	var json_string : String = JSON.stringify(level_data, "\t")
 	var filename : String = title_edit.text.replace(" ", "")
-	var level_file : FileAccess = FileAccess.open("user://"+filename+".json", FileAccess.WRITE)
+	var level_file : FileAccess = FileAccess.open("user://custom_levels/"+filename+".json", FileAccess.WRITE)
+	print(FileAccess.get_open_error())
 	level_file.store_string(json_string)
 	
 	print("saved")
@@ -66,8 +78,40 @@ func generate_truth_table(start_count : int) -> Array[String]:
 			row.append(bit_value)
 		row.reverse()
 		var string_row : String = ""
-		for character : String in row:
+		for character: int in row:
 			string_row += str(character)
 		output.append(string_row)
 	
 	return output
+
+
+func _on_photo_button_pressed() -> void:
+	if (input_num_edit.text == "" or
+		output_num_edit.text == "" or
+		row_num_edit.text == ""):
+		error_panel.show_error("input, output, and row numbers are required")
+		return
+	
+	file_dialog.visible = true
+	file_dialog.add_filter("*.jpg, *.jpeg, *.png", "Images")
+
+
+func _on_file_dialog_file_selected(image_path: String) -> void:
+	var output: Array = []
+	
+	input_count = int(input_num_edit.text)
+	output_count = int(output_num_edit.text)
+	
+	const program_path: String = "ocr/dist/ocr.exe"
+	var column_count: int = input_count+output_count 
+	var row_count: int = int(row_num_edit.text)
+	
+	var args: Array = [image_path, "-c", column_count, "-r", row_count, "-i", input_count]
+	OS.execute(program_path, args, output, false, false)
+	
+	var json_string: String = output[0].get_slice("\n", 0)
+	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
+	
+	
+	for row: String in truth_table.slice(1, truth_table.size()):
+		truth_table_edit.text += row.right(output_count)+"\n"

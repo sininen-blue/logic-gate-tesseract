@@ -29,7 +29,10 @@ func make_panel(stage : String) -> void:
 	new_stage_panel.max_level = len(stage_directory.get_files())
 	stage_directory.change_dir("..")
 	
-	new_stage_panel.dir = DirAccess.open("res://levels/"+stage)
+	if stage == "custom_levels":
+		new_stage_panel.dir = DirAccess.open("user://custom_levels/")
+	else:
+		new_stage_panel.dir = DirAccess.open("res://levels/"+stage)
 	
 	stages_container.add_child(new_stage_panel)
 	new_stage_panel.pressed.connect(show_info.bind(content))
