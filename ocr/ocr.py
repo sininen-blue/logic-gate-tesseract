@@ -1,4 +1,5 @@
 import pytesseract
+from itertools import product
 import cv2
 import argparse
 import json
@@ -11,11 +12,14 @@ parser.add_argument("-c", "--columns", required=True, dest="columns",
                     type=int, help="Number of columns")
 parser.add_argument("-r", "--rows", required=True, dest="rows",
                     type=int, help="Number of rows")
+parser.add_argument("-i", "--inputs", required=True, dest="inputs",
+                    type=int, help="Number of input variables")
 args = parser.parse_args()
 
 
 custom_config = r'--psm 10 --oem 3'
 image_path = args.input_file
+input_count = args.inputs
 row_count = args.rows
 column_count = args.columns
 
@@ -96,14 +100,43 @@ def read_table(table_image):
     return table
 
 
+def normalize(table):
+    header = ""
+    if table[0].isdecimal() is False:
+        header = table.pop(0)
+
+    temp_table = list(product([0, 1], repeat=input_count))
+    ideal_table = ["".join(map(str, row)) for row in temp_table]
+
+    output_table = []
+    end_count = len(table[0])-input_count
+
+    for i in range(len(ideal_table)):
+        found_flag = False
+        for row in table:
+            if row[:input_count] == ideal_table[i]:
+                output_table.append(row)
+                found_flag = True
+                break
+
+        if found_flag is False:
+            output_table.append(ideal_table[i] + "0"*end_count)
+
+    output_table.insert(0, header)  # reattach header
+    return output_table
+
+
 def main():
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)
 
     cropped_image, cropped_binary = crop_image(image, binary)
     cleaned_img = remove_table_lines(cropped_image, cropped_binary)
+    table = read_table(cleaned_img)
+    normalized_table = normalize(table)
+
     data = {
-        "truth_table": read_table(cleaned_img),
+        "truth_table": normalized_table,
     }
     json_string = json.dumps(data)
     print(json_string)
