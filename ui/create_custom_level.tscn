@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c20nqruvjtxah"]
+[gd_scene load_steps=3 format=3 uid="uid://c20nqruvjtxah"]
 
 [ext_resource type="Script" path="res://ui/create_custom_level.gd" id="1_uiy2w"]
+[ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="2_1ogc4"]
 
 [node name="CreateCustomLevel" type="Control"]
 layout_mode = 3
@@ -156,6 +157,9 @@ custom_minimum_size = Vector2(180, 90)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Create"
+
+[node name="ErrorPanel" parent="." instance=ExtResource("2_1ogc4")]
+layout_mode = 1
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="ScrollContainer/Main/ButtonLabel/PhotoButton" to="." method="_on_photo_button_pressed"]

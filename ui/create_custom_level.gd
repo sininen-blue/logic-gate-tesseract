@@ -14,6 +14,8 @@ extends Control
 
 @onready var create_button: Button = $ScrollContainer/Main/Create
 
+@onready var error_panel: Panel = $ErrorPanel
+
 var input_count: int
 var output_count: int
 
@@ -28,8 +30,9 @@ func create_level() -> void:
 		description_edit.text == "" or
 		input_num_edit.text == "" or
 		output_num_edit.text == "" or
-		truth_table_edit.text == ""):
-		print("not all inputs are filled")
+		truth_table_edit.text == "" or
+		row_num_edit.text == ""):
+		error_panel.show_error("not all input boxes were filled")
 		return
 	
 	var level_data : Dictionary
@@ -83,7 +86,12 @@ func generate_truth_table(start_count : int) -> Array[String]:
 
 
 func _on_photo_button_pressed() -> void:
-	## TODO: disallow pressing withotu putthing input and output
+	if (input_num_edit.text == "" or
+		output_num_edit.text == "" or
+		row_num_edit.text == ""):
+		error_panel.show_error("input, output, and row numbers are required")
+		return
+	
 	file_dialog.visible = true
 	file_dialog.add_filter("*.jpg, *.jpeg, *.png", "Images")
 
@@ -104,7 +112,6 @@ func _on_file_dialog_file_selected(image_path: String) -> void:
 	var json_string: String = output[0].get_slice("\n", 0)
 	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	
-	print(args)
-	print(json_string)
+	
 	for row: String in truth_table.slice(1, truth_table.size()):
 		truth_table_edit.text += row.right(output_count)+"\n"
