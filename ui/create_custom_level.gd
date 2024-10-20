@@ -50,10 +50,10 @@ func create_level() -> void:
 	var truth_table : Array[String] = generate_truth_table(input_count)
 	var output_array : PackedStringArray = truth_table_edit.text.split("\n", false)
 	if len(output_array[0]) != int(output_num_edit.text):
-		print("not the correct amount of output values")
+		error_panel.show_error("not the correct amount of output values")
 		return
 	if len(output_array) != pow(2, input_count):
-		print("not the correct amount of rows")
+		error_panel.show_error("not the correct amount of rows")
 		return
 	for i in range(len(truth_table)):
 		truth_table[i] += output_array[i]
@@ -62,10 +62,10 @@ func create_level() -> void:
 	var json_string : String = JSON.stringify(level_data, "\t")
 	var filename : String = title_edit.text.replace(" ", "")
 	var level_file : FileAccess = FileAccess.open("user://custom_levels/"+filename+".json", FileAccess.WRITE)
-	print(FileAccess.get_open_error())
+	error_panel.show_error(FileAccess.get_open_error())
 	level_file.store_string(json_string)
 	
-	print("saved")
+	error_panel.show_error("Created Level")
 
 func generate_truth_table(start_count : int) -> Array[String]:
 	var num_rows : int = int(pow(2, start_count))
