@@ -62,7 +62,7 @@ func create_level() -> void:
 	var json_string : String = JSON.stringify(level_data, "\t")
 	var filename : String = title_edit.text.replace(" ", "")
 	var level_file : FileAccess = FileAccess.open("user://custom_levels/"+filename+".json", FileAccess.WRITE)
-	error_panel.show_error(FileAccess.get_open_error())
+	error_panel.show_error(str(FileAccess.get_open_error()))
 	level_file.store_string(json_string)
 	
 	error_panel.show_error("Created Level")
@@ -102,7 +102,7 @@ func _on_file_dialog_file_selected(image_path: String) -> void:
 	input_count = int(input_num_edit.text)
 	output_count = int(output_num_edit.text)
 	
-	const program_path: String = "ocr/dist/ocr.exe"
+	var program_path: String = "ocr/dist/ocr.exe"
 	var column_count: int = input_count+output_count 
 	var row_count: int = int(row_num_edit.text)
 	
