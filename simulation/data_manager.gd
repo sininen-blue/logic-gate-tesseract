@@ -24,12 +24,9 @@ func read_settings() -> void:
 	
 	var json_string: String = settings_file.get_as_text()
 	settings = JSON.parse_string(json_string)
-	print(settings)
 
 
 func save_settings() -> void:
 	var file: FileAccess = FileAccess.open("user://settings.json", FileAccess.WRITE)
 	var json_string: String = JSON.stringify(settings)
 	file.store_string(json_string)
-	
-	print(settings)
