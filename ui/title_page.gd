@@ -1,25 +1,19 @@
 extends Control
 
-
 @onready var play_button: Button = $PlayButton
 @onready var settings_button: Button = $SettingsButton
 
 func _ready() -> void:
 	generate_files()
-	play_button.pressed.connect(_on_button_pressed)
 
-func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/stage_select.tscn")
+func _on_play_button_pressed() -> void:
+	get_tree().change_scene_to_file("uid://b1xu7c0fhg4at")
 
 func _on_settings_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://ui/settings/settings.tscn")
+	get_tree().change_scene_to_file("uid://1deothsca8o8")
 
 func generate_files() -> void:
-	var exists: bool = DirAccess.dir_exists_absolute("user://custom_levels/")
-	if exists == false:
-		DirAccess.make_dir_absolute("user://custom_levels/")
-	
-	exists = DirAccess.dir_exists_absolute("user://levels/")
+	var exists: bool = DirAccess.dir_exists_absolute("user://levels/")
 	if exists == false:
 		DirAccess.make_dir_absolute("user://levels/")
 	

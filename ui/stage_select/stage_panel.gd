@@ -17,5 +17,5 @@ func play_level() -> void:
 	DataManager.current_stage = dir
 	if title == "Custom Levels":
 		get_tree().change_scene_to_packed(custom_level_scene)
-		return
-	get_tree().change_scene_to_packed(level_scene)
+	else:
+		get_tree().change_scene_to_packed(level_scene)
