@@ -107,6 +107,10 @@ func _on_file_dialog_file_selected(image_path: String) -> void:
 	var row_count: int = int(row_num_edit.text)
 	
 	var args: Array = [image_path, "-c", column_count, "-r", row_count, "-i", input_count]
+	if DataManager.settings["use_path"] == false:
+		args.append("-a")
+		args.append(DataManager.settings["tesseract_path"])
+	
 	OS.execute(program_path, args, output, false, false)
 	
 	var json_string: String = output[0].get_slice("\n", 0)

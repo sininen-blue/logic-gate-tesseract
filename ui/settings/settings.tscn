@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://1deothsca8o8"]
+
+[ext_resource type="Script" path="res://ui/settings/settings.gd" id="1_e6bnv"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 32.0
+offset_right = -24.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_e6bnv")
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 45.0
+offset_bottom = 31.0
+text = "Back"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PathSetting" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/PathSetting"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Label" type="Label" parent="VBoxContainer/PathSetting"]
+layout_mode = 2
+text = "Use tesseract ocr from PATH"
+
+[node name="TesseractPathSetting" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="PathTextEdit" type="TextEdit" parent="VBoxContainer/TesseractPathSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Absolute Path to Tesseract.exe"
+editable = false
+
+[node name="BrowseButton" type="Button" parent="VBoxContainer/TesseractPathSetting"]
+layout_mode = 2
+disabled = true
+text = "Browse
+"
+
+[node name="ConfirmButton" type="Button" parent="VBoxContainer/TesseractPathSetting"]
+layout_mode = 2
+disabled = true
+text = "OK"
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer/TesseractPathSetting"]
+title = "Open a File"
+size = Vector2i(303, 180)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="toggled" from="VBoxContainer/PathSetting/CheckBox" to="." method="_on_path_setting_check_box_toggled"]
+[connection signal="pressed" from="VBoxContainer/TesseractPathSetting/BrowseButton" to="." method="_on_tess_browse_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/TesseractPathSetting/ConfirmButton" to="." method="_on_tess_confirm_button_pressed"]
+[connection signal="file_selected" from="VBoxContainer/TesseractPathSetting/FileDialog" to="." method="_on_tess_file_dialog_file_selected"]

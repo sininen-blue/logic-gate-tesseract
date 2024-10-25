@@ -6,10 +6,11 @@ import json
 
 # TODO: need to generate a standard table for non standard tables (test2.png)
 
-pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input_file", help="Input file path")
+parser.add_argument("-a", "--absolute-path", dest="absolute_path",
+                    help="Absolute path to tesseract.exe if it isn't in PATH")
 parser.add_argument("-c", "--columns", required=True, dest="columns",
                     type=int, help="Number of columns")
 parser.add_argument("-r", "--rows", required=True, dest="rows",
@@ -18,6 +19,10 @@ parser.add_argument("-i", "--inputs", required=True, dest="inputs",
                     type=int, help="Number of input variables")
 args = parser.parse_args()
 
+
+if args.absolute_path is not None:
+    # 'C:/Program Files/Tesseract-OCR/tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = args.absolute_path
 
 custom_config = r'--psm 10 --oem 3'
 image_path = args.input_file
