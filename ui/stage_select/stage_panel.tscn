@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj2adegb284b8"]
+[gd_scene load_steps=3 format=3 uid="uid://cj2adegb284b8"]
 
 [ext_resource type="Script" path="res://ui/stage_select/stage_panel.gd" id="1_dwvly"]
-[ext_resource type="PackedScene" uid="uid://yrih2e5sant0" path="res://ui/level_select.tscn" id="2_lx8lr"]
-[ext_resource type="PackedScene" uid="uid://bwlvlfljyekts" path="res://ui/custom_levels.tscn" id="3_2vajt"]
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="4_10ees"]
 
 [node name="StagePanel" type="Panel"]
@@ -10,8 +8,6 @@ custom_minimum_size = Vector2(392, 120)
 offset_right = 392.0
 offset_bottom = 120.0
 script = ExtResource("1_dwvly")
-level_scene = ExtResource("2_lx8lr")
-custom_level_scene = ExtResource("3_2vajt")
 
 [node name="StageLabel" type="Label" parent="."]
 layout_mode = 1
@@ -50,3 +46,5 @@ grow_vertical = 2
 text = "Play"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

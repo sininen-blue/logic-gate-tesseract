@@ -1,32 +1,32 @@
 [gd_resource type="Theme" load_steps=11 format=3 uid="uid://clyg10fflr645"]
 
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_brsmb"]
-[ext_resource type="Texture2D" uid="uid://bwj0ophs26yh7" path="res://assets/UI/theme/button-hover.png" id="2_0g62n"]
-[ext_resource type="Texture2D" uid="uid://boal43ceudwbv" path="res://assets/UI/theme/button.png" id="2_ifghy"]
-[ext_resource type="Texture2D" uid="uid://dbaqsilf2am1t" path="res://assets/UI/theme/button-pressed.png" id="4_1hcek"]
+[ext_resource type="Texture2D" uid="uid://ipbqmev13lf0" path="res://assets/UI/theme/small-button-hovered.png" id="2_dphkn"]
+[ext_resource type="Texture2D" uid="uid://bjaxkmuwi8hck" path="res://assets/UI/theme/small-button.png" id="3_rh4a3"]
+[ext_resource type="Texture2D" uid="uid://b1h0i5eses3rk" path="res://assets/UI/theme/small-button-pressed.png" id="4_ajafa"]
 [ext_resource type="FontFile" uid="uid://cgpcvl2txv5ox" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Regular.otf" id="5_hwtk4"]
 [ext_resource type="Texture2D" uid="uid://dm4jw85pllln7" path="res://assets/UI/theme/panel.png" id="6_74i6u"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4b3ye"]
-texture = ExtResource("2_0g62n")
-texture_margin_left = 25.0
-texture_margin_top = 25.0
-texture_margin_right = 25.0
-texture_margin_bottom = 40.0
+texture = ExtResource("2_dphkn")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 35.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ke05v"]
-texture = ExtResource("2_ifghy")
-texture_margin_left = 25.0
-texture_margin_top = 25.0
-texture_margin_right = 25.0
-texture_margin_bottom = 40.0
+texture = ExtResource("3_rh4a3")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 35.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxqi5"]
-texture = ExtResource("4_1hcek")
-texture_margin_left = 25.0
-texture_margin_top = 25.0
-texture_margin_right = 25.0
-texture_margin_bottom = 29.0
+texture = ExtResource("4_ajafa")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 25.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4u5v"]
 texture = ExtResource("6_74i6u")
