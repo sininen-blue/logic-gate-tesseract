@@ -12,7 +12,7 @@ texture = ExtResource("2_dphkn")
 texture_margin_left = 15.0
 texture_margin_top = 15.0
 texture_margin_right = 15.0
-texture_margin_bottom = 35.0
+texture_margin_bottom = 25.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ke05v"]
 texture = ExtResource("3_rh4a3")

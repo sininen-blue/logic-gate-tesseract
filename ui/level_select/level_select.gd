@@ -1,6 +1,5 @@
 extends Control
 
-@export var LEVEL_BUTTON : PackedScene
 var stage_dir : DirAccess = DataManager.current_stage
 
 # NOTE: arbitrary number, might replace
@@ -9,6 +8,9 @@ var start_position : Vector2 = Vector2(25, 250)
 var distance : Vector2 = Vector2(300, 0)
 var prev_button : Button
 var moving_camera : bool = false
+
+@onready var level_button: PackedScene = preload("uid://ckh2s38lodfvg")
+@onready var level_line: PackedScene = preload("uid://4whmf1flbabh")
 
 @onready var level_info: Panel = $LevelInfo
 @onready var main: Control = $Main
@@ -23,8 +25,9 @@ func _on_back_button_pressed() -> void:
 func _ready() -> void:
 	var count : int = 0
 	for level in stage_dir.get_files():
-		var new_level_button : Button = LEVEL_BUTTON.instantiate()
+		var new_level_button : Button = level_button.instantiate()
 		new_level_button.position = start_position + (distance * count)
+		new_level_button.position.y = new_level_button.position.y + randf_range(-10, 10)
 		new_level_button.level_title = level.get_slice("-", 0)
 		
 		var pwd : String = stage_dir.get_current_dir() + "/"
@@ -34,7 +37,7 @@ func _ready() -> void:
 		new_level_button.level = level_json
 		
 		if count != 0:
-			var new_line : Line2D = Line2D.new()
+			var new_line : Line2D = level_line.instantiate()
 			var left_offset : Vector2 = Vector2(10, -new_level_button.size.y/2)
 			var right_offset : Vector2 = Vector2(prev_button.size.x + 10, prev_button.size.y/2)
 			new_line.add_point(new_level_button.position - left_offset)
