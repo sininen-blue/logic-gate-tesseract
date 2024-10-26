@@ -1,0 +1,47 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://clyg10fflr645"]
+
+[ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_brsmb"]
+[ext_resource type="Texture2D" uid="uid://bwj0ophs26yh7" path="res://assets/UI/theme/button-hover.png" id="2_0g62n"]
+[ext_resource type="Texture2D" uid="uid://boal43ceudwbv" path="res://assets/UI/theme/button.png" id="2_ifghy"]
+[ext_resource type="Texture2D" uid="uid://dbaqsilf2am1t" path="res://assets/UI/theme/button-pressed.png" id="4_1hcek"]
+[ext_resource type="FontFile" uid="uid://cgpcvl2txv5ox" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Regular.otf" id="5_hwtk4"]
+[ext_resource type="Texture2D" uid="uid://dm4jw85pllln7" path="res://assets/UI/theme/panel.png" id="6_74i6u"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4b3ye"]
+texture = ExtResource("2_0g62n")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 40.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ke05v"]
+texture = ExtResource("2_ifghy")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 40.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxqi5"]
+texture = ExtResource("4_1hcek")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 29.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4u5v"]
+texture = ExtResource("6_74i6u")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+
+[resource]
+Button/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
+Button/colors/font_hover_color = Color(0.117647, 0.117647, 0.117647, 1)
+Button/fonts/font = ExtResource("1_brsmb")
+Button/styles/hover = SubResource("StyleBoxTexture_4b3ye")
+Button/styles/normal = SubResource("StyleBoxTexture_ke05v")
+Button/styles/pressed = SubResource("StyleBoxTexture_qxqi5")
+Label/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
+Label/fonts/font = ExtResource("5_hwtk4")
+Panel/styles/panel = SubResource("StyleBoxTexture_i4u5v")

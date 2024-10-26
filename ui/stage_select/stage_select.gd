@@ -27,7 +27,7 @@ func make_panel(stage : String) -> void:
 	var stage_file : FileAccess = FileAccess.open("user://"+stage+".json", FileAccess.READ)
 	var content : Dictionary = JSON.parse_string(stage_file.get_as_text())
 	
-	var new_stage_panel : Button = stage_panel.instantiate()
+	var new_stage_panel : Panel = stage_panel.instantiate()
 	new_stage_panel.title = content["title"]
 	
 	## TODO: player local save
