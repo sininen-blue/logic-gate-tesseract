@@ -16,10 +16,11 @@ var moving_camera : bool = false
 @onready var camera: Camera2D = $Camera2D
 
 
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("uid://b1xu7c0fhg4at")
+
 ## TODO: still need to make challenge levels have a different thing
 func _ready() -> void:
-	back_button.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/stage_select.tscn"))
-	
 	var count : int = 0
 	for level in stage_dir.get_files():
 		var new_level_button : Button = LEVEL_BUTTON.instantiate()
