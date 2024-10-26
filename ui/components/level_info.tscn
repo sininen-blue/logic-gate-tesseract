@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dttx53vhtgwy1"]
+[gd_scene load_steps=6 format=3 uid="uid://dttx53vhtgwy1"]
 
 [ext_resource type="Script" path="res://ui/components/level_info.gd" id="1_dbdb1"]
 [ext_resource type="PackedScene" uid="uid://swjkfmyam37c" path="res://simulation/simulation.tscn" id="2_6gbl3"]
 [ext_resource type="PackedScene" uid="uid://bbinj3e4ms0sl" path="res://ui/components/input_node.tscn" id="3_ak1m1"]
 [ext_resource type="PackedScene" uid="uid://dumop2qw31tk5" path="res://ui/components/output_node.tscn" id="4_b1ryx"]
+[ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="5_xk1bm"]
 
 [node name="LevelInfo" type="Panel"]
 anchors_preset = 8
@@ -29,6 +30,8 @@ offset_left = 41.0
 offset_top = 29.5
 offset_right = 450.0
 offset_bottom = 70.5
+theme_override_fonts/font = ExtResource("5_xk1bm")
+theme_override_font_sizes/font_size = 20
 autowrap_mode = 3
 
 [node name="LevelDescription" type="Label" parent="."]
@@ -48,10 +51,10 @@ offset_bottom = 332.5
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 776.0
-offset_top = 462.5
-offset_right = 817.0
-offset_bottom = 493.5
+offset_left = 710.0
+offset_top = 421.0
+offset_right = 841.0
+offset_bottom = 503.0
 text = "Play"
 
 [node name="InputVariables" type="VBoxContainer" parent="."]
@@ -73,10 +76,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -47.0
-offset_top = 11.0
-offset_right = -14.0
-offset_bottom = 42.0
+offset_left = -93.0
+offset_top = 15.0
+offset_right = -18.0
+offset_bottom = 88.0
 grow_horizontal = 0
 text = "X"
 
