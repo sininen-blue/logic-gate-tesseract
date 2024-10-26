@@ -13,6 +13,7 @@ var gate_name : String
 
 @onready var start_label: Label = $StartLabel
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var input_area: Area2D = $InputArea
 @onready var output_area: Area2D = $OutputArea
@@ -27,6 +28,13 @@ func _ready() -> void:
 		input_max = 1
 	
 	start_label.text = gate_name
+	
+	bump()
+
+
+func bump() -> void:
+	animation_player.play("bump")
+
 
 func _process(_delta: float) -> void:
 	# $TestingLabel.text = str(connections, input_connections, value)

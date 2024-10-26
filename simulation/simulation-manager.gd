@@ -139,6 +139,9 @@ func complete_connection() -> void:
 	temp_connection.input.input_connections.append(temp_connection)
 	add_child(temp_connection)
 	
+	temp_connection.input.bump()
+	temp_connection.output.bump()
+	
 	var gate: Gate = temp_connection.input
 	if len(gate.input_connections) == gate.input_max:
 		formula_container.new_node(gate)
