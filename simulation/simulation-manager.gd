@@ -204,7 +204,6 @@ func _process(_delta: float) -> void:
 			if Input.is_action_just_released("left_click"):
 				state = IDLE
 		
-		## TODO: never implemented connection limits
 		CREATING_CONNECTION:
 			temp_line.points[-1] = get_global_mouse_position()
 			

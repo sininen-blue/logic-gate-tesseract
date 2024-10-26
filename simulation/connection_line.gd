@@ -11,6 +11,12 @@ var area_pool : Array[Area2D]
 @onready var manager : Node2D = get_parent()
 
 func _ready() -> void:
+	self.default_color = Color("#1e1e1e")
+	self.width = 6
+	self.joint_mode = Line2D.LINE_JOINT_ROUND
+	self.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	self.end_cap_mode = Line2D.LINE_CAP_ROUND
+	
 	self.add_point(output.output_area.global_position)
 	self.add_point(input.input_area.global_position)
 	
