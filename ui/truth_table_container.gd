@@ -38,5 +38,6 @@ func start() -> void:
 func create_row(vars: String, outputs: String, is_correct: bool) -> void:
 	var new_row: Panel = truth_table_row.instantiate()
 	new_row.variables = vars
+	new_row.outputs = outputs
 	new_row.correct = is_correct
 	add_child(new_row)
