@@ -33,6 +33,7 @@ connections="a group of areas that a connection has spawned"
 [gui]
 
 theme/custom="res://ui/main_theme.tres"
+theme/custom_font="res://assets/UI/font/ShantellSans[BNCE,INFM,SPAC,ital,wght].ttf"
 
 [input]
 

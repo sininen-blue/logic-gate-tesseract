@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://clyg10fflr645"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://clyg10fflr645"]
 
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_brsmb"]
 [ext_resource type="Texture2D" uid="uid://88mx8heumvb7" path="res://assets/UI/theme/button-disabled.png" id="2_ywuiv"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cfdr0wt2lho1j" path="res://assets/UI/theme/button-pressed.png" id="5_0ad6y"]
 [ext_resource type="FontFile" uid="uid://cgpcvl2txv5ox" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Regular.otf" id="5_hwtk4"]
 [ext_resource type="Texture2D" uid="uid://dm4jw85pllln7" path="res://assets/UI/theme/panel.png" id="6_74i6u"]
+[ext_resource type="Texture2D" uid="uid://bc46jgwu8gjdx" path="res://assets/UI/theme/textedit-normal.png" id="8_3te6a"]
+[ext_resource type="Texture2D" uid="uid://bjr6p4ppvokdv" path="res://assets/UI/theme/textedit-disabled.png" id="9_d1d8f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_climm"]
 texture = ExtResource("2_ywuiv")
@@ -43,6 +45,20 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 15.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_42ggf"]
+texture = ExtResource("8_3te6a")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y24yv"]
+texture = ExtResource("9_d1d8f")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
 [resource]
 Button/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
 Button/colors/font_hover_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -54,3 +70,6 @@ Button/styles/pressed = SubResource("StyleBoxTexture_qxqi5")
 Label/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
 Label/fonts/font = ExtResource("5_hwtk4")
 Panel/styles/panel = SubResource("StyleBoxTexture_i4u5v")
+TextEdit/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
+TextEdit/styles/normal = SubResource("StyleBoxTexture_42ggf")
+TextEdit/styles/read_only = SubResource("StyleBoxTexture_y24yv")
