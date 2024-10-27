@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ocj6bmrft80d" path="res://assets/UI/icons/check.png" id="2_8tb15"]
 
 [node name="TruthTableRow" type="Panel"]
-custom_minimum_size = Vector2(320, 40)
+custom_minimum_size = Vector2(200, 40)
 script = ExtResource("1_2kjam")
 
 [node name="VariablesLabel" type="Label" parent="."]
@@ -14,21 +14,22 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
-offset_right = -48.0
+offset_right = -96.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_md0bv")
 text = "11111001010110111010101"
 vertical_alignment = 1
+clip_text = true
 
 [node name="OutputLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 216.0
-offset_right = -56.0
+offset_left = 129.0
+offset_right = -42.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2

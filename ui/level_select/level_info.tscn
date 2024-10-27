@@ -1,9 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dttx53vhtgwy1"]
+[gd_scene load_steps=3 format=3 uid="uid://dttx53vhtgwy1"]
 
-[ext_resource type="Script" path="res://ui/components/level_info.gd" id="1_dbdb1"]
-[ext_resource type="PackedScene" uid="uid://swjkfmyam37c" path="res://simulation/simulation.tscn" id="2_6gbl3"]
-[ext_resource type="PackedScene" uid="uid://bbinj3e4ms0sl" path="res://ui/components/input_node.tscn" id="3_ak1m1"]
-[ext_resource type="PackedScene" uid="uid://dumop2qw31tk5" path="res://ui/components/output_node.tscn" id="4_b1ryx"]
+[ext_resource type="Script" path="res://ui/level_select/level_info.gd" id="1_dbdb1"]
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="5_xk1bm"]
 
 [node name="LevelInfo" type="Panel"]
@@ -19,9 +16,6 @@ offset_bottom = 197.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dbdb1")
-simulation_scene = ExtResource("2_6gbl3")
-input_node = ExtResource("3_ak1m1")
-output_node = ExtResource("4_b1ryx")
 metadata/_edit_lock_ = true
 
 [node name="LevelTitle" type="Label" parent="."]

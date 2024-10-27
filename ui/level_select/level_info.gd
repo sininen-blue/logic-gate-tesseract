@@ -1,9 +1,8 @@
 extends Panel
 
-@export var simulation_scene : PackedScene
-@export var input_node : PackedScene
-@export var output_node : PackedScene
-
+var simulation_scene: PackedScene = preload("uid://swjkfmyam37c")
+var input_node: PackedScene = preload("uid://bbinj3e4ms0sl")
+var output_node: PackedScene = preload("uid://dumop2qw31tk5")
 var table_row: PackedScene = preload("uid://57o5uax0nrfc")
 
 @onready var level_title: Label = $LevelTitle

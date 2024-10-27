@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://yrih2e5sant0"]
 
 [ext_resource type="Script" path="res://ui/level_select/level_select.gd" id="1_6kh77"]
-[ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/components/level_info.tscn" id="3_7seht"]
+[ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/level_select/level_info.tscn" id="3_7seht"]
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
