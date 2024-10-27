@@ -4,9 +4,11 @@ extends Panel
 @export var input_node : PackedScene
 @export var output_node : PackedScene
 
+var table_row: PackedScene = preload("uid://57o5uax0nrfc")
+
 @onready var level_title: Label = $LevelTitle
 @onready var level_description: Label = $LevelDescription
-@onready var desired_table: Label = $DesiredTable
+@onready var truth_table: VBoxContainer = $ScrollContainer/TruthTable
 @onready var play_button: Button = $PlayButton
 @onready var input_variables: VBoxContainer = $InputVariables
 @onready var output_variables: VBoxContainer = $OutputVariables
@@ -28,13 +30,19 @@ func _on_visibility_changed() -> void:
 	level_title.text = level_data["title"]
 	level_description.text = level_data["description"]
 	
-	desired_table.text = ""
-	for row : String in level_data["truth_table"]:
-		desired_table.text += row + "\n"
-	
-	
 	var output_count : int = int(level_data["end_count"])
 	var input_count : int = len(level_data["truth_table"][0]) - output_count
+	
+	var truth_table_rows: Array[Node] = truth_table.get_children()
+	for row in truth_table_rows:
+		truth_table.remove_child(row)
+	for row : String in level_data["truth_table"]:
+		var new_row: Panel = table_row.instantiate()
+		new_row.variables = row.left(input_count)
+		new_row.outputs = row.right(output_count)
+		new_row.correct = true
+		
+		truth_table.add_child(new_row)
 	
 	if input_variables.get_child_count() < input_count:
 		for i in range(input_count):
