@@ -14,14 +14,14 @@ extends Control
 @onready var error_panel: Panel = %ErrorPanel
 @onready var create_button: Button = %CreateButton
 
-const stage_select_scene: String = "uid://b1xu7c0fhg4at"
+const custom_levels_scene: String = "uid://bwlvlfljyekts"
 
 var input_count: int
 var output_count: int
 
 
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file(stage_select_scene)
+	get_tree().change_scene_to_file(custom_levels_scene)
 
 
 func _ready() -> void:
