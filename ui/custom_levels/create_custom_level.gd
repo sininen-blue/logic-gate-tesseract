@@ -1,20 +1,19 @@
 extends Control
 
+@onready var title_edit: TextEdit = %TitleEdit
+@onready var author_edit: TextEdit = %AuthorEdit
+@onready var description_edit: TextEdit = %DescriptionEdit
 
-@onready var title_edit: TextEdit = $ScrollContainer/Main/TitleLabel/TitleEdit
-@onready var author_edit: TextEdit = $ScrollContainer/Main/AuthorLabel/AuthorEdit
-@onready var description_edit: TextEdit = $ScrollContainer/Main/DescriptionLabel/DescriptionEdit
-@onready var input_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/InputNumEdit
-@onready var output_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/OutputNumEdit
-@onready var truth_table_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/TruthTableEdit
-@onready var row_num_edit: TextEdit = $ScrollContainer/Main/ButtonLabel/RowNumEdit
+@onready var file_dialog: FileDialog = %FileDialog
+@onready var input_num_edit: TextEdit = %InputNumEdit
+@onready var output_num_edit: TextEdit = %OutputNumEdit
+@onready var row_num_edit: TextEdit = %RowNumEdit
+@onready var photo_button: Button = %PhotoButton
+@onready var truth_table_edit: TextEdit = %TruthTableEdit
 
-@onready var file_dialog: FileDialog = $FileDialog
-@onready var photo_button: Button = $ScrollContainer/Main/ButtonLabel/PhotoButton
+@onready var error_panel: Panel = %ErrorPanel
+@onready var create_button: Button = %CreateButton
 
-@onready var create_button: Button = $ScrollContainer/Main/Create
-
-@onready var error_panel: Panel = $ErrorPanel
 
 var input_count: int
 var output_count: int
