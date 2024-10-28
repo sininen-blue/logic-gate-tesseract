@@ -8,6 +8,8 @@ enum {
 }
 var state : int = IDLE
 
+var simulation_running: bool = false
+
 var all_gates : Array[Gate]
 var start_gates : Array[Gate]
 var end_gates : Array[Gate]
@@ -229,6 +231,10 @@ func _process(_delta: float) -> void:
 
 
 func run_simulation() -> void:
+	if simulation_running:
+		return
+	
+	simulation_running = true
 	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
 	var end_values : Array[String]
 	for row in truth_table:
