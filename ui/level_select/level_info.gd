@@ -1,6 +1,8 @@
 extends Panel
 
-var simulation_scene: PackedScene = preload("uid://swjkfmyam37c")
+@export var in_game: bool = false
+
+var simulation_scene: String = "uid://swjkfmyam37c"
 var input_node: PackedScene = preload("uid://bbinj3e4ms0sl")
 var output_node: PackedScene = preload("uid://dumop2qw31tk5")
 var table_row: PackedScene = preload("uid://57o5uax0nrfc")
@@ -14,7 +16,11 @@ var table_row: PackedScene = preload("uid://57o5uax0nrfc")
 
 func _ready() -> void:
 	$CloseButton.pressed.connect(change_visibility)
-	play_button.pressed.connect(get_tree().change_scene_to_packed.bind(simulation_scene))
+	
+	if in_game:
+		play_button.queue_free()
+	else:
+		play_button.pressed.connect(get_tree().change_scene_to_file.bind(simulation_scene))
 
 func change_visibility() -> void:
 	self.visible = false

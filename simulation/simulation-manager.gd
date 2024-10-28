@@ -265,4 +265,4 @@ func generate_truth_table(start_count : int) -> Array[Array]:
 	return output
 
 func _on_info_button_pressed() -> void:
-	$CanvasLayer/UI/LevelInfoInGame.visible = true
+	$CanvasLayer/UI/LevelInfo.visible = true
