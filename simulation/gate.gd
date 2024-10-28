@@ -4,6 +4,8 @@ class_name Gate
 @export_enum("and", "or", "xor", "nand", "nor", "xnor", "not", "start", "end") var gate_type : String = "and"
 var value : int = 2:
 	set(new_value):
+		if new_value != value:
+			bump()
 		value = new_value
 		handle_textures(gate_type)
 var connections : Array[Connection]
