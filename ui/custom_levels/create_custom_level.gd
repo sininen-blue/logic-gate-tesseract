@@ -14,12 +14,17 @@ extends Control
 @onready var error_panel: Panel = %ErrorPanel
 @onready var create_button: Button = %CreateButton
 
+const stage_select_scene: String = "uid://b1xu7c0fhg4at"
 
 var input_count: int
 var output_count: int
 
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file(stage_select_scene)
+
+
 func _ready() -> void:
-	$Back.pressed.connect(get_tree().change_scene_to_file.bind("res://ui/custom_levels.tscn"))
 	create_button.pressed.connect(create_level)
 
 ## TODO: replace all print statements with proper error handling

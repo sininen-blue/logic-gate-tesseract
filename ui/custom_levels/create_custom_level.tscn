@@ -175,7 +175,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Create"
 
-[node name="Back" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 23.0
 offset_top = 16.0
@@ -190,3 +190,4 @@ layout_mode = 1
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="ScrollContainer/Panel/Main/ButtonLabel/PhotoButton" to="." method="_on_photo_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
