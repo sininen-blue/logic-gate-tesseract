@@ -1,6 +1,7 @@
 extends Panel
 
-@export var simulation_scene: PackedScene
+const simulation_scene: String = "uid://swjkfmyam37c"
+
 @onready var stage_label: Label = $StageLabel
 @onready var author_label: Label = $AuthorLabel
 @onready var share_button: Button = $ShareButton
@@ -22,7 +23,7 @@ func play_custom() -> void:
 	DataManager.current_level = level_json
 	DataManager.is_custom = true
 	
-	get_tree().change_scene_to_packed(simulation_scene)
+	get_tree().change_scene_to_file(simulation_scene)
 
 func delete_level() -> void:
 	var level_path : String = ""

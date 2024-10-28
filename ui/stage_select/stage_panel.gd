@@ -6,8 +6,8 @@ signal pressed()
 @export var current_level: int
 @export var max_level: int
 
-@onready var level_scene: PackedScene = preload("uid://yrih2e5sant0")
-@onready var custom_level_scene: PackedScene = preload("uid://bwlvlfljyekts")
+const level_scene: String = "uid://yrih2e5sant0"
+var custom_level_scene: String = "uid://bwlvlfljyekts"
 
 var dir : DirAccess
 
@@ -32,6 +32,6 @@ func _ready() -> void:
 func play_level() -> void:
 	DataManager.current_stage = dir
 	if title == "Custom Levels":
-		get_tree().change_scene_to_packed(custom_level_scene)
+		get_tree().change_scene_to_file(custom_level_scene)
 	else:
-		get_tree().change_scene_to_packed(level_scene)
+		get_tree().change_scene_to_file(level_scene)

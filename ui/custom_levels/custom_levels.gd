@@ -3,7 +3,7 @@ extends Control
 
 var stage_dir : DirAccess = DataManager.current_stage
 
-@onready var create_custom: PackedScene = preload("uid://c20nqruvjtxah")
+const create_custom_scene: String = "uid://c20nqruvjtxah"
 @onready var custom_stage_panel: PackedScene = preload("uid://le7ov2wv1ds0")
 
 @onready var create_custom_button: Button = $ScrollContainer/LevelsContainer/CreateCustomButton
@@ -15,7 +15,7 @@ func _on_back_button_pressed() -> void:
 
 
 func _ready() -> void:
-	create_custom_button.pressed.connect(get_tree().change_scene_to_packed.bind(create_custom))
+	create_custom_button.pressed.connect(get_tree().change_scene_to_file.bind(create_custom_scene))
 	
 	for level in stage_dir.get_files():
 		var new_panel : Panel = custom_stage_panel.instantiate()
