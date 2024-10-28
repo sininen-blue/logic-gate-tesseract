@@ -1,11 +1,27 @@
-extends Button
+extends Panel
 
-@export var level_scene : PackedScene
-@export var custom_level_scene : PackedScene
-@export var title : String
-@export var current_level : int
-@export var max_level : int
+signal pressed()
+
+@export var title: String
+@export var current_level: int
+@export var max_level: int
+
+@onready var level_scene: PackedScene = preload("uid://yrih2e5sant0")
+@onready var custom_level_scene: PackedScene = preload("uid://bwlvlfljyekts")
+
 var dir : DirAccess
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click"):
+		pressed.emit()
+
+func _on_mouse_entered() -> void:
+	self.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_mouse_exited() -> void:
+	self.mouse_default_cursor_shape = Control.CURSOR_ARROW
+
 
 func _ready() -> void:
 	$StageLabel.text = title

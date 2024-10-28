@@ -1,0 +1,193 @@
+[gd_scene load_steps=3 format=3 uid="uid://c20nqruvjtxah"]
+
+[ext_resource type="Script" path="res://ui/custom_levels/create_custom_level.gd" id="1_uiy2w"]
+[ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="2_1ogc4"]
+
+[node name="CreateCustomLevel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uiy2w")
+metadata/_edit_lock_ = true
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a File"
+position = Vector2i(0, 36)
+size = Vector2i(713, 525)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -404.0
+offset_right = 396.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="ScrollContainer"]
+custom_minimum_size = Vector2(0, 830)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Main" type="VBoxContainer" parent="ScrollContainer/Panel"]
+custom_minimum_size = Vector2(600, 300)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_right = -20.0
+offset_bottom = 818.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TitleLabel" type="Label" parent="ScrollContainer/Panel/Main"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+text = "Title"
+
+[node name="TitleEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/TitleLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -46.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="AuthorLabel" type="Label" parent="ScrollContainer/Panel/Main"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+text = "Author Name"
+
+[node name="AuthorEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/AuthorLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -43.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ButtonLabel" type="Label" parent="ScrollContainer/Panel/Main"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+text = "Truth Table"
+
+[node name="InputNumEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = 33.0
+offset_right = 164.0
+offset_bottom = 82.0
+placeholder_text = "Number of  Inputs"
+
+[node name="OutputNumEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 167.0
+offset_top = 33.0
+offset_right = 342.0
+offset_bottom = 82.0
+placeholder_text = "Number of Outputs"
+
+[node name="RowNumEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 470.0
+offset_top = 31.0
+offset_right = 603.0
+offset_bottom = 82.0
+placeholder_text = "rows in photo"
+
+[node name="PhotoButton" type="Button" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 617.0
+offset_top = 32.0
+offset_bottom = 75.0
+grow_horizontal = 2
+text = "Use Photo"
+
+[node name="TruthTableEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -313.0
+grow_horizontal = 2
+grow_vertical = 0
+placeholder_text = "0
+0
+0
+1
+1
+1
+1
+1
+
+desired outputs
+
+each new line is a row"
+
+[node name="DescriptionLabel" type="Label" parent="ScrollContainer/Panel/Main"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+text = "Description"
+
+[node name="DescriptionEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/DescriptionLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CreateButton" type="Button" parent="ScrollContainer/Panel/Main"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Create"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 104.0
+offset_bottom = 88.0
+text = "Back"
+
+[node name="ErrorPanel" parent="." instance=ExtResource("2_1ogc4")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="ScrollContainer/Panel/Main/ButtonLabel/PhotoButton" to="." method="_on_photo_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

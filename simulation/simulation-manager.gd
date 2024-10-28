@@ -8,6 +8,8 @@ enum {
 }
 var state : int = IDLE
 
+var simulation_running: bool = false
+
 var all_gates : Array[Gate]
 var start_gates : Array[Gate]
 var end_gates : Array[Gate]
@@ -139,6 +141,9 @@ func complete_connection() -> void:
 	temp_connection.input.input_connections.append(temp_connection)
 	add_child(temp_connection)
 	
+	temp_connection.input.bump()
+	temp_connection.output.bump()
+	
 	var gate: Gate = temp_connection.input
 	if len(gate.input_connections) == gate.input_max:
 		formula_container.new_node(gate)
@@ -204,7 +209,6 @@ func _process(_delta: float) -> void:
 			if Input.is_action_just_released("left_click"):
 				state = IDLE
 		
-		## TODO: never implemented connection limits
 		CREATING_CONNECTION:
 			temp_line.points[-1] = get_global_mouse_position()
 			
@@ -227,6 +231,10 @@ func _process(_delta: float) -> void:
 
 
 func run_simulation() -> void:
+	if simulation_running:
+		return
+	
+	simulation_running = true
 	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
 	var end_values : Array[String]
 	for row in truth_table:
@@ -263,4 +271,4 @@ func generate_truth_table(start_count : int) -> Array[Array]:
 	return output
 
 func _on_info_button_pressed() -> void:
-	$CanvasLayer/UI/LevelInfoInGame.visible = true
+	$CanvasLayer/UI/LevelInfo.visible = true

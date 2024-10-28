@@ -2,8 +2,10 @@ extends Control
 
 @onready var play_button: Button = $PlayButton
 @onready var settings_button: Button = $SettingsButton
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+	animation_player.play("title_bob")
 	generate_files()
 
 func _on_play_button_pressed() -> void:

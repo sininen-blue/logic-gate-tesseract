@@ -1,5 +1,9 @@
 extends Control
 
+const simulation_scene: String = "uid://swjkfmyam37c"
+const custom_level_scene: String = "uid://bwlvlfljyekts"
+const level_select_scene: String = "uid://yrih2e5sant0"
+
 @onready var title: Label = $HBoxContainer/LevelPass/Title
 @onready var accuracy: Label = $HBoxContainer/LevelPass/Accuracy
 
@@ -10,14 +14,14 @@ func _ready() -> void:
 
 
 func _on_retry_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://simulation/simulation.tscn")
+	get_tree().change_scene_to_file(simulation_scene)
 
 
 func _on_continue_button_pressed() -> void:
 	if DataManager.is_custom == true:
-		get_tree().change_scene_to_file("res://ui/custom_levels.tscn")
+		get_tree().change_scene_to_file(custom_level_scene)
 	else:
-		get_tree().change_scene_to_file("res://ui/level_select.tscn")
+		get_tree().change_scene_to_file(level_select_scene)
 
 
 func _on_truth_table_container_done(correct: Variant, full: Variant) -> void:

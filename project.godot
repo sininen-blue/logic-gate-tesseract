@@ -30,6 +30,11 @@ outputs=""
 gates="a group which contains gates"
 connections="a group of areas that a connection has spawned"
 
+[gui]
+
+theme/custom="res://ui/main_theme.tres"
+theme/custom_font="res://assets/UI/font/ShantellSans[BNCE,INFM,SPAC,ital,wght].ttf"
+
 [input]
 
 left_click={
@@ -57,3 +62,7 @@ quit={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":113,"location":0,"echo":false,"script":null)
 ]
 }
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(1, 1, 1, 1)

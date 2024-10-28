@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://drcweefw840r3"]
+[gd_scene load_steps=3 format=3 uid="uid://drcweefw840r3"]
 
 [ext_resource type="Script" path="res://ui/level_complete.gd" id="1_336ks"]
 [ext_resource type="Script" path="res://ui/truth_table_container.gd" id="2_y8h4p"]
-[ext_resource type="PackedScene" uid="uid://tehs3antoin3" path="res://ui/level_complete_components/row.tscn" id="3_fjesm"]
 
 [node name="LevelComplete" type="Control"]
 layout_mode = 3
@@ -28,7 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Leaderboard" type="Panel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -88,7 +87,7 @@ grow_vertical = 0
 text = "Retry"
 
 [node name="TruthTable" type="Panel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="TruthTable" type="ScrollContainer" parent="HBoxContainer/TruthTable"]
@@ -111,7 +110,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_y8h4p")
-ROW = ExtResource("3_fjesm")
 
 [node name="Title" type="Label" parent="HBoxContainer/TruthTable"]
 layout_mode = 1
