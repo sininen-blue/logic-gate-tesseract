@@ -11,8 +11,13 @@ extends Control
 @onready var photo_button: Button = %PhotoButton
 @onready var truth_table_edit: TextEdit = %TruthTableEdit
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var spinner_sprite: Sprite2D = %SpinnerSprite
+
 @onready var error_panel: Panel = %ErrorPanel
 @onready var create_button: Button = %CreateButton
+
+var exec_thread: Thread = Thread.new()
 
 const custom_levels_scene: String = "uid://bwlvlfljyekts"
 
@@ -21,6 +26,11 @@ var output_count: int
 
 
 func _on_back_button_pressed() -> void:
+	error_panel.show_error("Force stopping OCR system, please wait")
+	
+	await get_tree().create_timer(.5).timeout
+	
+	exec_thread.wait_to_finish()
 	get_tree().change_scene_to_file(custom_levels_scene)
 
 
@@ -65,7 +75,7 @@ func create_level() -> void:
 	
 	var json_string : String = JSON.stringify(level_data, "\t")
 	var filename : String = title_edit.text.replace(" ", "")
-	var level_file : FileAccess = FileAccess.open("user://custom_levels/"+filename+".json", FileAccess.WRITE)
+	var level_file : FileAccess = FileAccess.open("user://levels/custom_levels/"+filename+".json", FileAccess.WRITE)
 	error_panel.show_error(str(FileAccess.get_open_error()))
 	level_file.store_string(json_string)
 	
@@ -101,6 +111,31 @@ func _on_photo_button_pressed() -> void:
 
 
 func _on_file_dialog_file_selected(image_path: String) -> void:
+	var err: Error = exec_thread.start(download.bind(image_path))
+	if err != 0:
+		print(err)
+
+
+func _process(_delta: float) -> void:
+	if exec_thread.is_started() == false:
+		return
+	
+	if exec_thread.is_alive():
+		animation_player.play("loading")
+		spinner_sprite.visible = true
+		truth_table_edit.editable = false
+		create_button.disabled = true
+	else:
+		spinner_sprite.visible = false
+		truth_table_edit.editable = true
+		create_button.disabled = false
+		
+		var truth_table: Array = exec_thread.wait_to_finish()
+		for row: String in truth_table.slice(1, truth_table.size()):
+			truth_table_edit.text += row.right(output_count)+"\n"
+
+
+func download(image_path: String) -> Array:
 	var output: Array = []
 	
 	input_count = int(input_num_edit.text)
@@ -120,6 +155,4 @@ func _on_file_dialog_file_selected(image_path: String) -> void:
 	var json_string: String = output[0].get_slice("\n", 0)
 	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	
-	
-	for row: String in truth_table.slice(1, truth_table.size()):
-		truth_table_edit.text += row.right(output_count)+"\n"
+	return truth_table
