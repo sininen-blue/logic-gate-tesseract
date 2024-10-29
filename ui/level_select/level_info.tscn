@@ -20,23 +20,28 @@ metadata/_edit_lock_ = true
 
 [node name="LevelTitle" type="Label" parent="."]
 layout_mode = 0
-offset_left = 41.0
-offset_top = 29.5
-offset_right = 450.0
-offset_bottom = 70.5
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 449.0
+offset_bottom = 65.0
 theme_override_fonts/font = ExtResource("5_xk1bm")
 theme_override_font_sizes/font_size = 20
 autowrap_mode = 3
 
-[node name="LevelDescription" type="Label" parent="."]
+[node name="DescriptionScroll" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_left = 41.0
-offset_top = 75.0
-offset_right = 450.0
-offset_bottom = 211.0
+offset_left = 40.0
+offset_top = 72.0
+offset_right = 448.0
+offset_bottom = 240.0
+
+[node name="LevelDescription" type="Label" parent="DescriptionScroll"]
+custom_minimum_size = Vector2(0, 168)
+layout_mode = 2
+size_flags_horizontal = 3
 autowrap_mode = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="TruthTableScroll" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(320, 296)
 layout_mode = 1
 anchors_preset = 6
@@ -51,10 +56,30 @@ offset_bottom = 139.5
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="TruthTable" type="VBoxContainer" parent="ScrollContainer"]
+[node name="TruthTable" type="VBoxContainer" parent="TruthTableScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="VariablesScroll" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 248.0
+offset_right = 456.0
+offset_bottom = 480.0
+
+[node name="Container" type="HBoxContainer" parent="VariablesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputVariables" type="VBoxContainer" parent="VariablesScroll/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OutputVariables" type="VBoxContainer" parent="VariablesScroll/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
@@ -63,20 +88,6 @@ offset_top = 421.0
 offset_right = 841.0
 offset_bottom = 503.0
 text = "Play"
-
-[node name="InputVariables" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 60.0
-offset_top = 216.5
-offset_right = 156.0
-offset_bottom = 457.5
-
-[node name="OutputVariables" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 288.0
-offset_top = 222.5
-offset_right = 384.0
-offset_bottom = 470.5
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 1

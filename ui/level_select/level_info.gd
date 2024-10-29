@@ -8,11 +8,11 @@ var output_node: PackedScene = preload("uid://dumop2qw31tk5")
 var table_row: PackedScene = preload("uid://57o5uax0nrfc")
 
 @onready var level_title: Label = $LevelTitle
-@onready var level_description: Label = $LevelDescription
-@onready var truth_table: VBoxContainer = $ScrollContainer/TruthTable
+@onready var level_description: Label = $DescriptionScroll/LevelDescription
+@onready var truth_table: VBoxContainer = $TruthTableScroll/TruthTable
 @onready var play_button: Button = $PlayButton
-@onready var input_variables: VBoxContainer = $InputVariables
-@onready var output_variables: VBoxContainer = $OutputVariables
+@onready var input_variables: VBoxContainer = $VariablesScroll/Container/InputVariables
+@onready var output_variables: VBoxContainer = $VariablesScroll/Container/OutputVariables
 
 func _ready() -> void:
 	$CloseButton.pressed.connect(change_visibility)
