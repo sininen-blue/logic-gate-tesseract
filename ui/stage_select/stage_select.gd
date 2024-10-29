@@ -10,8 +10,7 @@ var stage_directory : DirAccess = DirAccess.open("user://levels/")
 
 
 func _on_back_button_pressed() -> void:
-	#get_tree().change_scene_to_file("uid://bitv0k63w6aiq")
-	pass
+	get_tree().change_scene_to_file("uid://bitv0k63w6aiq")
 
 
 func _ready() -> void:
