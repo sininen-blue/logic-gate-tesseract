@@ -36,7 +36,10 @@ func _ready() -> void:
 		level_json.data = JSON.parse_string(level_file.get_as_text())
 		new_level_button.level = level_json
 		
-		if count != 0:
+		if count != 0: # after the first one
+			if prev_button.is_completed() == false:
+				new_level_button.disabled = true
+			
 			var new_line : Line2D = level_line.instantiate()
 			var left_offset : Vector2 = Vector2(10, -new_level_button.size.y/2)
 			var right_offset : Vector2 = Vector2(prev_button.size.x + 10, prev_button.size.y/2)
