@@ -108,11 +108,32 @@ func _on_photo_button_pressed() -> void:
 		error_panel.show_error("input, output, and row numbers are required")
 		return
 	
+	if input_num_edit.text.is_valid_int() == false:
+		error_panel.show_error("number of inputs isn't a number")
+		return
+	if output_num_edit.text.is_valid_int() == false:
+		error_panel.show_error("number of outputs isn't a number")
+		return
+	if row_num_edit.text.is_valid_int() == false:
+		error_panel.show_error("number of rows isn't a number")
+		return
+	
+	if int(input_num_edit.text) > 6:
+		error_panel.show_error("Game does not support more than 6 input variables")
+		return
+	
+	if int(output_num_edit.text) > 6:
+		error_panel.show_error("Game does not support more than 6 outputs variables")
+		return
+	
 	if int(row_num_edit.text) > 64:
 		confirmation_dialog.dialog_text = str("Are you sure your image has ",
 			int(row_num_edit.text), 
 			" rows, if so, this might take a while" )
 		confirmation_dialog.visible = true
+	else:
+		file_dialog.visible = true
+		file_dialog.add_filter("*.jpg, *.jpeg, *.png", "Images")
 
 
 func _on_confirmation_dialog_confirmed() -> void:
