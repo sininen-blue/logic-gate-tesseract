@@ -50,10 +50,10 @@ metadata/_edit_lock_ = true
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 custom_minimum_size = Vector2(359, 183)
 layout_mode = 0
-offset_left = 32.0
-offset_top = 23.0
-offset_right = 391.0
-offset_bottom = 206.0
+offset_left = 90.0
+offset_top = 57.0
+offset_right = 449.0
+offset_bottom = 240.0
 script = ExtResource("3_qlwgx")
 formula_label = ExtResource("3_qwkcl")
 
@@ -135,4 +135,13 @@ offset_right = 432.0
 offset_bottom = 260.5
 in_game = true
 
+[node name="BackButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 12.0
+offset_right = 81.0
+offset_bottom = 65.0
+text = "Back"
+
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/BackButton" to="." method="_on_back_button_pressed"]

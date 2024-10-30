@@ -272,3 +272,10 @@ func generate_truth_table(start_count : int) -> Array[Array]:
 
 func _on_info_button_pressed() -> void:
 	$CanvasLayer/UI/LevelInfo.visible = true
+
+
+func _on_back_button_pressed() -> void:
+	if DataManager.is_custom == true:
+		get_tree().change_scene_to_file("uid://bwlvlfljyekts")
+	else:
+		get_tree().change_scene_to_file("uid://yrih2e5sant0")

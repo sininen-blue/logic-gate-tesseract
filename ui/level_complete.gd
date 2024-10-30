@@ -28,8 +28,15 @@ func _on_truth_table_container_done(correct: Variant, full: Variant) -> void:
 	var title_text: String = ""
 	if correct == full:
 		title_text = "Level Passed"
+		save_data()
 	else:
 		title_text = "Level Failed"
 	
 	title.text = title_text
 	accuracy.text = str(correct, "/", full)
+
+func save_data() -> void:
+	var level_data : Dictionary = DataManager.current_level.data
+	var level_title : String = level_data["title"]
+	
+	DataManager.save_user_save(level_title)
