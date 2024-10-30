@@ -5,9 +5,6 @@ var current_stage : DirAccess
 var current_level : JSON
 var is_custom : bool = false
 
-
-var user_data : FileAccess = FileAccess.open("user://save_data.json", FileAccess.READ_WRITE)
-
 var settings: Dictionary = {
 	"use_path": true,
 	"tesseract_path": ""

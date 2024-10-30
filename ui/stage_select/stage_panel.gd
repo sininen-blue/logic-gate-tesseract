@@ -3,7 +3,7 @@ extends Panel
 signal pressed()
 
 @export var title: String
-@export var current_level: int
+@export var completed_levels: int
 @export var max_level: int
 
 const level_scene: String = "uid://yrih2e5sant0"
@@ -25,7 +25,7 @@ func _on_mouse_exited() -> void:
 
 func _ready() -> void:
 	$StageLabel.text = title
-	$ProgressLabel.text = str(current_level, "/", max_level)
+	$ProgressLabel.text = str(completed_levels, "/", max_level)
 	$PlayButton.pressed.connect(play_level)
 
 

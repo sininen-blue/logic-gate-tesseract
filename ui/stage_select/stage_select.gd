@@ -1,6 +1,6 @@
 extends Control
 
-var stage_directory : DirAccess = DirAccess.open("user://levels/")
+var stages_directory : DirAccess = DirAccess.open("user://levels/")
 
 @onready var stage_panel: PackedScene = preload("uid://cj2adegb284b8")
 
@@ -17,7 +17,7 @@ func _ready() -> void:
 	# ensure custom levels is at the top
 	make_panel("custom_levels")
 	
-	for stage in stage_directory.get_directories():
+	for stage in stages_directory.get_directories():
 		if stage == "custom_levels":
 			continue
 		make_panel(stage)
@@ -31,10 +31,17 @@ func make_panel(stage : String) -> void:
 	new_stage_panel.title = content["title"]
 	
 	## TODO: player local save
-	#new_stage_panel.current_level 
-	#stage_directory.change_dir(stage)
-	#new_stage_panel.max_level = len(stage_directory.get_files())
-	#stage_directory.change_dir("..")
+	var stage_dir: DirAccess = DirAccess.open("user://levels/"+stage)
+	var stage_levels: Array = stage_dir.get_files()
+	new_stage_panel.max_level = len(stage_levels)
+	
+	var count: int = 0
+	for level: String in stage_levels:
+		var level_file: FileAccess = FileAccess.open("user://levels/"+stage+"/"+level, FileAccess.READ)
+		var level_title: String = JSON.parse_string(level_file.get_as_text())["title"]
+		if level_title in DataManager.player_save["completed_levels"]:
+			count += 1
+	new_stage_panel.completed_levels = count
 	
 	new_stage_panel.dir = DirAccess.open("user://levels/"+stage)
 	stages_container.add_child(new_stage_panel)
