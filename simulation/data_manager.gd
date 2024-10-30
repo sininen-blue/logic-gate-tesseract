@@ -37,6 +37,7 @@ var player_save: Dictionary = {
 func read_save() -> void:
 	var save_file: FileAccess = FileAccess.open("user://user_save.json", FileAccess.READ)
 	if save_file == null:
+		player_save["completed_levels"] = []
 		return
 	
 	var json_string: String = save_file.get_as_text()
@@ -44,7 +45,8 @@ func read_save() -> void:
 
 
 func save_user_save(level_title: String) -> void:
-	player_save["completed_levels"].append(level_title)
+	if level_title not in player_save["completed_levels"]:
+		player_save["completed_levels"].append(level_title)
 	
 	var file: FileAccess = FileAccess.open("user://user_save.json", FileAccess.WRITE)
 	var json_string: String = JSON.stringify(player_save)

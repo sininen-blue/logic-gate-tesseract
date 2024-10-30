@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://1deothsca8o8"]
+[gd_scene load_steps=3 format=3 uid="uid://1deothsca8o8"]
 
 [ext_resource type="Script" path="res://ui/settings/settings.gd" id="1_e6bnv"]
+[ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="2_06yeq"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -72,8 +73,42 @@ file_mode = 0
 access = 2
 use_native_dialog = true
 
+[node name="UnlockLevelsSetting" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="UnlockButton" type="Button" parent="VBoxContainer/UnlockLevelsSetting"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/UnlockLevelsSetting"]
+layout_mode = 2
+text = "Unlock All Levels"
+
+[node name="ResetLevelsSetting" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="VBoxContainer/ResetLevelsSetting"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ResetLevelsSetting"]
+layout_mode = 2
+text = "Reset game progress"
+
+[node name="ErrorPanel" parent="." instance=ExtResource("2_06yeq")]
+visible = false
+layout_mode = 1
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(200, 116)
+dialog_text = "tnest"
+
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="toggled" from="VBoxContainer/PathSetting/CheckBox" to="." method="_on_path_setting_check_box_toggled"]
 [connection signal="pressed" from="VBoxContainer/TesseractPathSetting/BrowseButton" to="." method="_on_tess_browse_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/TesseractPathSetting/ConfirmButton" to="." method="_on_tess_confirm_button_pressed"]
 [connection signal="file_selected" from="VBoxContainer/TesseractPathSetting/FileDialog" to="." method="_on_tess_file_dialog_file_selected"]
+[connection signal="pressed" from="VBoxContainer/UnlockLevelsSetting/UnlockButton" to="." method="_on_unlock_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ResetLevelsSetting/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
