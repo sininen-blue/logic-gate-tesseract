@@ -16,6 +16,7 @@ extends Control
 
 @onready var error_panel: Panel = %ErrorPanel
 @onready var create_button: Button = %CreateButton
+@onready var confirmation_dialog: ConfirmationDialog = $ConfirmationDialog
 
 var exec_thread: Thread = Thread.new()
 
@@ -26,11 +27,12 @@ var output_count: int
 
 
 func _on_back_button_pressed() -> void:
-	error_panel.show_error("Force stopping OCR system, please wait")
-	
-	await get_tree().create_timer(.5).timeout
-	
-	exec_thread.wait_to_finish()
+	if exec_thread.is_alive():
+		error_panel.show_error("Force stopping OCR system, please wait")
+		
+		await get_tree().create_timer(.5).timeout
+		
+		exec_thread.wait_to_finish()
 	get_tree().change_scene_to_file(custom_levels_scene)
 
 
@@ -106,6 +108,14 @@ func _on_photo_button_pressed() -> void:
 		error_panel.show_error("input, output, and row numbers are required")
 		return
 	
+	if int(row_num_edit.text) > 64:
+		confirmation_dialog.dialog_text = str("Are you sure your image has ",
+			int(row_num_edit.text), 
+			" rows, if so, this might take a while" )
+		confirmation_dialog.visible = true
+
+
+func _on_confirmation_dialog_confirmed() -> void:
 	file_dialog.visible = true
 	file_dialog.add_filter("*.jpg, *.jpeg, *.png", "Images")
 
