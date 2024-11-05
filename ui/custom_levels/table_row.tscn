@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv33kp1spjtwn"]
+
+[ext_resource type="Theme" uid="uid://c037ts28mkfoy" path="res://ui/themes/Bold.tres" id="1_dtupv"]
+[ext_resource type="Script" path="res://ui/custom_levels/table_row.gd" id="2_uexph"]
+
+[node name="TableRow" type="HBoxContainer"]
+theme = ExtResource("1_dtupv")
+theme_override_constants/separation = 30
+script = ExtResource("2_uexph")
