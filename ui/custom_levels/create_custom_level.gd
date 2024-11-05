@@ -7,7 +7,6 @@ extends Control
 @onready var file_dialog: FileDialog = %FileDialog
 @onready var input_num_edit: TextEdit = %InputNumEdit
 @onready var output_num_edit: TextEdit = %OutputNumEdit
-@onready var row_num_edit: TextEdit = %RowNumEdit
 @onready var photo_button: Button = %PhotoButton
 @onready var truth_table_edit: TextEdit = %TruthTableEdit
 
@@ -46,8 +45,7 @@ func create_level() -> void:
 		description_edit.text == "" or
 		input_num_edit.text == "" or
 		output_num_edit.text == "" or
-		truth_table_edit.text == "" or
-		row_num_edit.text == ""):
+		truth_table_edit.text == ""):
 		error_panel.show_error("not all input boxes were filled")
 		return
 	
@@ -103,8 +101,7 @@ func generate_truth_table(start_count : int) -> Array[String]:
 
 func _on_photo_button_pressed() -> void:
 	if (input_num_edit.text == "" or
-		output_num_edit.text == "" or
-		row_num_edit.text == ""):
+		output_num_edit.text == ""):
 		error_panel.show_error("input, output, and row numbers are required")
 		return
 	
@@ -114,9 +111,6 @@ func _on_photo_button_pressed() -> void:
 	if output_num_edit.text.is_valid_int() == false:
 		error_panel.show_error("number of outputs isn't a number")
 		return
-	if row_num_edit.text.is_valid_int() == false:
-		error_panel.show_error("number of rows isn't a number")
-		return
 	
 	if int(input_num_edit.text) > 6:
 		error_panel.show_error("Game does not support more than 6 input variables")
@@ -125,11 +119,6 @@ func _on_photo_button_pressed() -> void:
 	if int(output_num_edit.text) > 6:
 		error_panel.show_error("Game does not support more than 6 outputs variables")
 		return
-	
-	if int(row_num_edit.text) > 64:
-		confirmation_dialog.dialog_text = str("Are you sure your image has ",
-			int(row_num_edit.text), 
-			" rows, if so, this might take a while" )
 		confirmation_dialog.visible = true
 	else:
 		file_dialog.visible = true
@@ -174,9 +163,8 @@ func download(image_path: String) -> Array:
 	
 	var program_path: String = "ocr/dist/ocr.exe"
 	var column_count: int = input_count+output_count 
-	var row_count: int = int(row_num_edit.text)
 	
-	var args: Array = [image_path, "-c", column_count, "-r", row_count, "-i", input_count]
+	var args: Array = [image_path, "-c", column_count, "-i", input_count]
 	if DataManager.settings["use_path"] == false:
 		args.append("-a")
 		args.append(DataManager.settings["tesseract_path"])

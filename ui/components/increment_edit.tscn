@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnhtijfjnpwty"]
+
+[ext_resource type="Script" path="res://ui/components/increment_edit.gd" id="1_6jqra"]
+[ext_resource type="Theme" uid="uid://2j5ui2hm1s2k" path="res://ui/themes/IncrementButton.tres" id="2_aka2t"]
+
+[node name="IncrementEdit" type="LineEdit"]
+offset_right = 40.0
+offset_bottom = 31.0
+theme_override_constants/minimum_character_width = 2
+max_length = 1
+script = ExtResource("1_6jqra")
+
+[node name="IncrementButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 1.0
+offset_right = 38.0
+offset_bottom = 14.0
+theme = ExtResource("2_aka2t")
+
+[node name="DecrementButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 15.0
+offset_right = 38.0
+offset_bottom = 28.0
+theme = ExtResource("2_aka2t")
+
+[connection signal="text_changed" from="." to="." method="_on_text_changed"]
+[connection signal="pressed" from="IncrementButton" to="." method="_on_increment_button_pressed"]
+[connection signal="pressed" from="DecrementButton" to="." method="_on_decrement_button_pressed"]

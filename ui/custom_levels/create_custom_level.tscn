@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c20nqruvjtxah"]
+[gd_scene load_steps=9 format=3 uid="uid://c20nqruvjtxah"]
 
 [ext_resource type="Script" path="res://ui/custom_levels/create_custom_level.gd" id="1_uiy2w"]
 [ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="2_1ogc4"]
 [ext_resource type="Texture2D" uid="uid://ccg83ip0r3ljn" path="res://assets/UI/icons/spinner.png" id="2_46gef"]
+[ext_resource type="Theme" uid="uid://c037ts28mkfoy" path="res://ui/themes/Bold.tres" id="3_pg5ws"]
+[ext_resource type="PackedScene" uid="uid://dnhtijfjnpwty" path="res://ui/components/increment_edit.tscn" id="4_x3g33"]
 
 [sub_resource type="Animation" id="Animation_hhhcl"]
 length = 0.001
@@ -172,15 +174,6 @@ offset_right = 342.0
 offset_bottom = 82.0
 placeholder_text = "Number of Outputs"
 
-[node name="RowNumEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
-unique_name_in_owner = true
-layout_mode = 1
-offset_left = 470.0
-offset_top = 31.0
-offset_right = 603.0
-offset_bottom = 82.0
-placeholder_text = "rows in photo"
-
 [node name="PhotoButton" type="Button" parent="ScrollContainer/Panel/Main/ButtonLabel"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -221,6 +214,67 @@ visible = false
 position = Vector2(384, 226)
 rotation = -6.28319
 texture = ExtResource("2_46gef")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 106.0
+offset_right = 728.0
+offset_bottom = 394.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Headings" type="HBoxContainer" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_pg5ws")
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
+layout_mode = 2
+text = "A"
+
+[node name="Label2" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
+layout_mode = 2
+text = "B"
+
+[node name="Label3" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "C"
+
+[node name="Label4" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
+layout_mode = 2
+text = "O1"
+
+[node name="Label5" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
+layout_mode = 2
+text = "O2"
+
+[node name="Headings2" type="HBoxContainer" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_pg5ws")
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2"]
+layout_mode = 2
+text = "0"
+
+[node name="Label2" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2"]
+layout_mode = 2
+text = "1"
+
+[node name="Label3" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="IncrementEdit" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2" instance=ExtResource("4_x3g33")]
+layout_mode = 2
+
+[node name="IncrementEdit2" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2" instance=ExtResource("4_x3g33")]
+layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="ScrollContainer/Panel/Main"]
 custom_minimum_size = Vector2(0, 120)
