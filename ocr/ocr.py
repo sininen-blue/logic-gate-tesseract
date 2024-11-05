@@ -1,6 +1,7 @@
 import pytesseract
 from itertools import product
 import cv2
+import numpy as np
 import argparse
 import json
 
@@ -133,12 +134,36 @@ def normalize(table):
     return output_table
 
 
+def detect_row_count(binary):
+    horizontal_projection = np.sum(binary, axis=1)
+
+    row_count = 0
+    in_gap = False
+    for value in horizontal_projection:
+        if value > 0:
+            if in_gap:
+                row_count += 1
+                in_gap = False
+        else:
+            in_gap = True
+
+    if horizontal_projection[-1] > 0:
+        row_count += 1
+
+    return row_count
+
+
 def main():
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)
 
     cropped_image, cropped_binary = crop_image(image, binary)
     cleaned_img = remove_table_lines(cropped_image, cropped_binary)
+
+    _, cleaned_binary = cv2.threshold(
+        cleaned_img, 200, 255, cv2.THRESH_BINARY_INV)
+    detect_row_count(cleaned_binary)
+
     table = read_table(cleaned_img)
     normalized_table = normalize(table)
 
