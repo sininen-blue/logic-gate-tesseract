@@ -54,6 +54,10 @@ func create_level() -> void:
 	
 	var level_data : Dictionary
 	level_data["title"] = title_edit.text
+	
+	if author_edit.text.is_empty():
+		level_data["author"] = "Anonymous"
+	
 	level_data["author"] = author_edit.text
 	level_data["create_date"] = Time.get_time_dict_from_system() # TODO: this isn't the proper format
 	level_data["description"] = description_edit.text

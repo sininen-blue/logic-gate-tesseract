@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c20nqruvjtxah"]
+[gd_scene load_steps=10 format=3 uid="uid://c20nqruvjtxah"]
 
 [ext_resource type="Script" path="res://ui/custom_levels/create_custom_level.gd" id="1_uiy2w"]
 [ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="2_1ogc4"]
 [ext_resource type="Texture2D" uid="uid://ccg83ip0r3ljn" path="res://assets/UI/icons/spinner.png" id="2_46gef"]
 [ext_resource type="PackedScene" uid="uid://c3jqs3pq4mpki" path="res://ui/custom_levels/truth_table.tscn" id="4_e7hyx"]
 [ext_resource type="PackedScene" uid="uid://dnhtijfjnpwty" path="res://ui/components/increment_edit.tscn" id="4_x3g33"]
+[ext_resource type="Theme" uid="uid://diwchjwgvp2l4" path="res://ui/themes/redButton.tres" id="5_76tb5"]
 
 [sub_resource type="Animation" id="Animation_hhhcl"]
 length = 0.001
@@ -120,6 +121,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 17
 
+[node name="Spacer" type="Control" parent="ScrollContainer/Panel/Main"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
 [node name="TitleLabel" type="Label" parent="ScrollContainer/Panel/Main"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
@@ -136,6 +141,8 @@ offset_top = -46.0
 offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 0
+tooltip_text = "Title of the level"
+placeholder_text = "Decoder Quiz 2"
 
 [node name="AuthorLabel" type="Label" parent="ScrollContainer/Panel/Main"]
 custom_minimum_size = Vector2(0, 70)
@@ -153,12 +160,14 @@ offset_top = -43.0
 offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 0
+tooltip_text = "Desired author name, leave blank for \"Anonymous\""
+placeholder_text = "John Doe"
 
 [node name="TruthTableInputs" type="Control" parent="ScrollContainer/Panel/Main"]
 custom_minimum_size = Vector2(0, 145)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+[node name="InputLabel" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 2.0
@@ -166,7 +175,7 @@ offset_right = 216.0
 offset_bottom = 25.0
 text = "Number of Input Variables"
 
-[node name="Label2" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+[node name="OutputLabel" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 68.0
@@ -174,7 +183,7 @@ offset_right = 225.0
 offset_bottom = 91.0
 text = "Number of Output Variables"
 
-[node name="Label3" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+[node name="OrLabel" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 layout_mode = 0
 offset_left = 344.0
 offset_top = 60.0
@@ -188,6 +197,7 @@ offset_left = 8.0
 offset_top = 28.0
 offset_right = 48.0
 offset_bottom = 59.0
+tooltip_text = "The number of input/given variables"
 
 [node name="OutputEdit" parent="ScrollContainer/Panel/Main/TruthTableInputs" instance=ExtResource("4_x3g33")]
 layout_mode = 1
@@ -195,6 +205,7 @@ offset_left = 8.0
 offset_top = 92.0
 offset_right = 48.0
 offset_bottom = 123.0
+tooltip_text = "The number of desired outputs"
 
 [node name="ManualButton" type="Button" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 layout_mode = 0
@@ -202,6 +213,7 @@ offset_left = 288.0
 offset_top = 4.0
 offset_right = 425.0
 offset_bottom = 57.0
+tooltip_text = "Open the truth table editor"
 text = "Manual Input"
 
 [node name="PhotoButton" type="Button" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
@@ -214,6 +226,7 @@ offset_top = 84.0
 offset_right = -329.0
 offset_bottom = 137.0
 grow_horizontal = 2
+tooltip_text = "Use a pre existing photo of a truth table to generate a new level"
 text = "Use Photo"
 
 [node name="SpinnerSprite" type="Sprite2D" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
@@ -243,6 +256,9 @@ anchor_bottom = 1.0
 offset_top = -92.0
 grow_horizontal = 2
 grow_vertical = 0
+tooltip_text = "A description of the level shown to the player at the start"
+placeholder_text = "Create a decoder that takes two inputs where each combination outputs to one of the output variables"
+wrap_mode = 1
 
 [node name="CreateButton" type="Button" parent="ScrollContainer/Panel/Main"]
 unique_name_in_owner = true
@@ -257,6 +273,7 @@ offset_left = 23.0
 offset_top = 16.0
 offset_right = 104.0
 offset_bottom = 88.0
+theme = ExtResource("5_76tb5")
 text = "Back"
 
 [node name="ErrorPanel" parent="." instance=ExtResource("2_1ogc4")]
