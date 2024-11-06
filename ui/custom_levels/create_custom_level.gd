@@ -57,22 +57,16 @@ func create_level() -> void:
 	level_data["author"] = author_edit.text
 	level_data["create_date"] = Time.get_time_dict_from_system() # TODO: this isn't the proper format
 	level_data["description"] = description_edit.text
-	# level_data["end_count"] = output_num_edit.text
+	level_data["end_count"] = output_count
 	
-
-	# input_count = int(input_num_edit.text)
-	# output_count = int(output_num_edit.text)
-	#var truth_table : Array[String] = generate_truth_table(input_count)
-	#var output_array : PackedStringArray = truth_table_edit.text.split("\n", false)
-	#if len(output_array[0]) != int(output_num_edit.text):
-	#	error_panel.show_error("not the correct amount of output values")
-	#	return
-	#if len(output_array) != pow(2, input_count):
-		#error_panel.show_error("not the correct amount of rows")
-		#return
-	#for i in range(len(truth_table)):
-		#truth_table[i] += output_array[i]
-	#level_data["truth_table"] = truth_table
+	var truth_table : Array[String] = generate_truth_table(input_count)
+	var outputs: Array[String] = truth_table_container.get_outputs()
+	
+	var row_count: int = int(pow(2, input_count))
+	for row_index in row_count:
+		truth_table[row_index] += outputs[row_index]
+	
+	level_data["truth_table"] = truth_table
 	
 	var json_string : String = JSON.stringify(level_data, "\t")
 	var filename : String = title_edit.text.replace(" ", "")
@@ -81,6 +75,7 @@ func create_level() -> void:
 	level_file.store_string(json_string)
 	
 	error_panel.show_error("Created Level")
+
 
 func generate_truth_table(start_count : int) -> Array[String]:
 	var num_rows : int = int(pow(2, start_count))

@@ -30,6 +30,15 @@ func clear_table() -> void:
 			child.queue_free()
 
 
+func get_outputs() -> Array[String]:
+	var output: Array[String]
+	for child in truth_table.get_children():
+		if child.name != "TableHeading":
+			output.append(child.get_output())
+	
+	return output
+
+
 func set_outputs(output_count: int, target: Array) -> void:
 	var index: int = 0
 	

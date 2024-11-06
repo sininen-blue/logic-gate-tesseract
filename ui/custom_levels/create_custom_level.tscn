@@ -95,7 +95,9 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -404.0
+offset_top = 27.0
 offset_right = 396.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -217,7 +219,7 @@ text = "Use Photo"
 [node name="SpinnerSprite" type="Sprite2D" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 unique_name_in_owner = true
 visible = false
-position = Vector2(368, 178)
+position = Vector2(368, 162)
 rotation = -6.28319
 texture = ExtResource("2_46gef")
 

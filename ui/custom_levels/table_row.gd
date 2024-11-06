@@ -20,19 +20,32 @@ func _ready() -> void:
 		var new_bin_button: TextureButton = BINARY_BUTTON.instantiate()
 		add_child(new_bin_button)
 
+
+func get_output() -> String:
+	var output: String = ""
+	
+	var children: Array[Node] = get_children()
+	var buttons: Array = children.filter(is_binary_button)
+	
+	for button: TextureButton in buttons:
+		output += str(int(button.value))
+	
+	return output
+
+
 func set_output(output_string: String) -> void:
 	var children: Array[Node] = get_children()
-	var buttons: Array = children.filter(is_check_button)
+	var buttons: Array = children.filter(is_binary_button)
 	
 	if len(output_string) == len(buttons):
 		print("nice")
 	
 	var index: int = 0
-	for button: CheckButton in buttons:
+	for button: TextureButton in buttons:
 		var convBool: bool = bool(int(output_string[index]))
 		index += 1
-		button.button_pressed = convBool
+		button.value = convBool
 		button.disabled = true
 
-func is_check_button(node: Node) -> bool:
-	return node is CheckButton
+func is_binary_button(node: Node) -> bool:
+	return node is TextureButton
