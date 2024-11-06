@@ -2,10 +2,10 @@
 
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_brsmb"]
 [ext_resource type="Texture2D" uid="uid://88mx8heumvb7" path="res://assets/UI/theme/button-disabled.png" id="2_ywuiv"]
-[ext_resource type="Texture2D" uid="uid://b3wbjeqb87m4w" path="res://assets/UI/theme/button-hover.png" id="3_5ubnv"]
-[ext_resource type="Texture2D" uid="uid://bfjolu041dmdh" path="res://assets/UI/theme/button-normal.png" id="4_uggn8"]
-[ext_resource type="Texture2D" uid="uid://cfdr0wt2lho1j" path="res://assets/UI/theme/button-pressed.png" id="5_0ad6y"]
+[ext_resource type="Texture2D" uid="uid://biaewnohhurbr" path="res://assets/UI/theme/button/green_button/button-hover.png" id="3_y2ox8"]
+[ext_resource type="Texture2D" uid="uid://ixk4wue4oyw3" path="res://assets/UI/theme/button/green_button/button-normal.png" id="4_vmaa4"]
 [ext_resource type="FontFile" uid="uid://cgpcvl2txv5ox" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Regular.otf" id="5_hwtk4"]
+[ext_resource type="Texture2D" uid="uid://3qi4pd5er7dj" path="res://assets/UI/theme/button/green_button/button-pressed.png" id="5_nxncm"]
 [ext_resource type="Texture2D" uid="uid://dm4jw85pllln7" path="res://assets/UI/theme/panel.png" id="6_74i6u"]
 [ext_resource type="Texture2D" uid="uid://dn1ob4vb2spuu" path="res://assets/UI/theme/checkbox-check.png" id="6_jls0h"]
 [ext_resource type="Texture2D" uid="uid://b3pi67hejwk16" path="res://assets/UI/theme/checkbox-uncheck.png" id="7_rxqp1"]
@@ -20,21 +20,21 @@ texture_margin_right = 10.0
 texture_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4b3ye"]
-texture = ExtResource("3_5ubnv")
+texture = ExtResource("3_y2ox8")
 texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ke05v"]
-texture = ExtResource("4_uggn8")
+texture = ExtResource("4_vmaa4")
 texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxqi5"]
-texture = ExtResource("5_0ad6y")
+texture = ExtResource("5_nxncm")
 texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
@@ -129,7 +129,7 @@ Label/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
 Label/fonts/font = ExtResource("5_hwtk4")
 Panel/styles/panel = SubResource("StyleBoxTexture_i4u5v")
 TextEdit/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
-TextEdit/colors/font_placeholder_color = Color(0.2542, 0.27838, 0.31, 1)
+TextEdit/colors/font_placeholder_color = Color(0.311838, 0.339761, 0.376282, 1)
 TextEdit/styles/normal = SubResource("StyleBoxTexture_42ggf")
 TextEdit/styles/read_only = SubResource("StyleBoxTexture_y24yv")
 Window/colors/title_color = Color(0.117647, 0.117647, 0.117647, 1)

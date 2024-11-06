@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c037ts28mkfoy"]
+
+[ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_vly76"]
+
+[resource]
+Label/colors/font_color = Color(0.482353, 0.635294, 0.960784, 1)
+Label/colors/font_outline_color = Color(0.117647, 0.117647, 0.117647, 1)
+Label/constants/outline_size = 8
+Label/font_sizes/font_size = 26
+Label/fonts/font = ExtResource("1_vly76")

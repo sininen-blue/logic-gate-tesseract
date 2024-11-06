@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv33kp1spjtwn"]
+
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="1_bigvg"]
+[ext_resource type="Script" path="res://ui/custom_levels/table_row.gd" id="2_uexph"]
+
+[node name="TableRow" type="HBoxContainer"]
+theme = ExtResource("1_bigvg")
+theme_override_constants/separation = 30
+script = ExtResource("2_uexph")
+
+[node name="UnderBorder" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 3.0
+default_color = Color(0.13, 0.13, 0.13, 0.215686)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

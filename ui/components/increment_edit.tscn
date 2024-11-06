@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://dnhtijfjnpwty"]
+
+[ext_resource type="Script" path="res://ui/components/increment_edit.gd" id="1_6jqra"]
+[ext_resource type="Theme" uid="uid://2j5ui2hm1s2k" path="res://ui/themes/Increment.tres" id="2_aka2t"]
+[ext_resource type="Theme" uid="uid://dfy44283ee648" path="res://ui/themes/smallUpButton.tres" id="3_8375i"]
+[ext_resource type="Texture2D" uid="uid://qg6uoeh7cn08" path="res://assets/UI/theme/incrementEdit/smallUpButton.png" id="4_i00ee"]
+[ext_resource type="Texture2D" uid="uid://cnghdojlvxr62" path="res://assets/UI/theme/incrementEdit/smallDownButton.png" id="5_84uno"]
+[ext_resource type="Texture2D" uid="uid://clvl640nd2yxw" path="res://assets/UI/theme/incrementEdit/smallUpButton-pressed.png" id="5_vxubw"]
+[ext_resource type="Texture2D" uid="uid://xvyrfwt8kl15" path="res://assets/UI/theme/incrementEdit/smallUpButton-hover.png" id="6_ywuhf"]
+[ext_resource type="Texture2D" uid="uid://b6bjt5gg60uqx" path="res://assets/UI/theme/incrementEdit/smallDownButton-pressed.png" id="8_2hoes"]
+[ext_resource type="Texture2D" uid="uid://c88m7sqourph8" path="res://assets/UI/theme/incrementEdit/smallDownButton-hover.png" id="9_ajcyu"]
+
+[node name="IncrementEdit" type="LineEdit"]
+offset_right = 40.0
+offset_bottom = 31.0
+theme = ExtResource("2_aka2t")
+theme_override_constants/minimum_character_width = 2
+max_length = 1
+script = ExtResource("1_6jqra")
+
+[node name="IncrementButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 2.0
+offset_right = 45.0
+offset_bottom = 21.0
+theme = ExtResource("3_8375i")
+texture_normal = ExtResource("4_i00ee")
+texture_pressed = ExtResource("5_vxubw")
+texture_hover = ExtResource("6_ywuhf")
+
+[node name="DecrementButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 20.0
+offset_right = 45.0
+offset_bottom = 39.0
+theme = ExtResource("2_aka2t")
+texture_normal = ExtResource("5_84uno")
+texture_pressed = ExtResource("8_2hoes")
+texture_hover = ExtResource("9_ajcyu")
+
+[connection signal="text_changed" from="." to="." method="_on_text_changed"]
+[connection signal="pressed" from="IncrementButton" to="." method="_on_increment_button_pressed"]
+[connection signal="pressed" from="DecrementButton" to="." method="_on_decrement_button_pressed"]

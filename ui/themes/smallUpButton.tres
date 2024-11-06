@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dfy44283ee648"]
+
+[ext_resource type="Texture2D" uid="uid://qg6uoeh7cn08" path="res://assets/UI/theme/incrementEdit/smallUpButton.png" id="1_0q7mq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vdq84"]
+texture = ExtResource("1_0q7mq")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[resource]
+Button/styles/normal = SubResource("StyleBoxTexture_vdq84")

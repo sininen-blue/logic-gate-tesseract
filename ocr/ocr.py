@@ -1,6 +1,7 @@
 import pytesseract
 from itertools import product
 import cv2
+import numpy as np
 import argparse
 import json
 
@@ -13,8 +14,6 @@ parser.add_argument("-a", "--absolute-path", dest="absolute_path",
                     help="Absolute path to tesseract.exe if it isn't in PATH")
 parser.add_argument("-c", "--columns", required=True, dest="columns",
                     type=int, help="Number of columns")
-parser.add_argument("-r", "--rows", required=True, dest="rows",
-                    type=int, help="Number of rows")
 parser.add_argument("-i", "--inputs", required=True, dest="inputs",
                     type=int, help="Number of input variables")
 args = parser.parse_args()
@@ -27,7 +26,6 @@ if args.absolute_path is not None:
 custom_config = r'--psm 10 --oem 3'
 image_path = args.input_file
 input_count = args.inputs
-row_count = args.rows
 column_count = args.columns
 
 
@@ -69,7 +67,7 @@ def crop_image(image, binary):
         return cropped_image, cropped_binary
 
 
-def remove_table_lines(image, binary):
+def remove_table_lines(binary):
     horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
     vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 25))
 
@@ -79,15 +77,15 @@ def remove_table_lines(image, binary):
         binary, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
 
     table_mask = cv2.add(horizontal_lines, vertical_lines)
-    cleaned_image = cv2.subtract(binary, table_mask)
+    cleaned_binary = cv2.subtract(binary, table_mask)
 
     # invert for black text and white background
-    cleaned_image = cv2.bitwise_not(cleaned_image)
+    cleaned_image = cv2.bitwise_not(cleaned_binary)
 
-    return cleaned_image
+    return cleaned_image, cleaned_binary
 
 
-def read_table(table_image):
+def read_table(table_image, row_count):
     height, width = table_image.shape
     cell_height, cell_width = height // row_count, width // column_count
 
@@ -133,13 +131,34 @@ def normalize(table):
     return output_table
 
 
+def detect_row_count(binary):
+    horizontal_projection = np.sum(binary, axis=1)
+
+    row_count = 0
+    in_gap = False
+    for value in horizontal_projection:
+        if value > 0:
+            if in_gap:
+                row_count += 1
+                in_gap = False
+        else:
+            in_gap = True
+
+    if horizontal_projection[-1] > 0:
+        row_count += 1
+
+    return row_count
+
+
 def main():
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)
 
     cropped_image, cropped_binary = crop_image(image, binary)
-    cleaned_img = remove_table_lines(cropped_image, cropped_binary)
-    table = read_table(cleaned_img)
+    cleaned_img, cleaned_binary = remove_table_lines(cropped_binary)
+    row_count = detect_row_count(cleaned_binary)
+
+    table = read_table(cleaned_img, row_count)
     normalized_table = normalize(table)
 
     data = {

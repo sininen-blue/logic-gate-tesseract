@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://2j5ui2hm1s2k"]
+
+[ext_resource type="Texture2D" uid="uid://cwkq2jquyoneg" path="res://assets/UI/theme/incrementEdit/incrementEdit.png" id="2_kepdg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ayaqk"]
+texture = ExtResource("2_kepdg")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[resource]
+LineEdit/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
+LineEdit/styles/normal = SubResource("StyleBoxTexture_ayaqk")
