@@ -26,10 +26,11 @@ func set_output(output_string: String) -> void:
 		print("nice")
 	
 	var index: int = 0
-	for button in buttons:
+	for button: CheckButton in buttons:
 		var convBool: bool = bool(int(output_string[index]))
 		index += 1
 		button.button_pressed = convBool
+		button.disabled = true
 
 func is_check_button(node: Node) -> bool:
 	return node is CheckButton
