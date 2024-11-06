@@ -17,3 +17,19 @@ func _ready() -> void:
 	for output in output_count:
 		var new_check: CheckButton = CheckButton.new()
 		add_child(new_check)
+
+func set_output(output_string: String) -> void:
+	var children: Array[Node] = get_children()
+	var buttons: Array = children.filter(is_check_button)
+	
+	if len(output_string) == len(buttons):
+		print("nice")
+	
+	var index: int = 0
+	for button in buttons:
+		var convBool: bool = bool(int(output_string[index]))
+		index += 1
+		button.button_pressed = convBool
+
+func is_check_button(node: Node) -> bool:
+	return node is CheckButton

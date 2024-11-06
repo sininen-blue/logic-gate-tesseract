@@ -30,6 +30,16 @@ func clear_table() -> void:
 			child.queue_free()
 
 
+func set_outputs(output_count: int, target: Array) -> void:
+	var index: int = 0
+	
+	for row in truth_table.get_children():
+		if row.name == "TableHeading":
+			continue
+		row.set_output(target[index].right(output_count))
+		index += 1
+
+
 func generate_truth_table(start_count : int) -> Array[String]:
 	var num_rows : int = int(pow(2, start_count))
 	var output : Array[String]
