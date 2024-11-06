@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+const BINARY_BUTTON: PackedScene = preload("res://ui/components/binary_button.tscn")
+
 @export var input_string: String = "000"
 @export var output_count: int = 2
 
@@ -15,8 +17,8 @@ func _ready() -> void:
 	add_child(spacer)
 	
 	for output in output_count:
-		var new_check: CheckButton = CheckButton.new()
-		add_child(new_check)
+		var new_bin_button: TextureButton = BINARY_BUTTON.instantiate()
+		add_child(new_bin_button)
 
 func set_output(output_string: String) -> void:
 	var children: Array[Node] = get_children()

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://djiojh0ci3fle"]
+
+[ext_resource type="Texture2D" uid="uid://cpwbu2vlaw5o3" path="res://assets/UI/theme/binaryButton/binaryButtonZero.png" id="1_u27e2"]
+[ext_resource type="Script" path="res://ui/components/binary_button.gd" id="2_6pggx"]
+
+[node name="BinaryButton" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_u27e2")
+script = ExtResource("2_6pggx")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

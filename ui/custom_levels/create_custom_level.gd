@@ -101,8 +101,6 @@ func generate_truth_table(start_count : int) -> Array[String]:
 
 
 func _on_photo_button_pressed() -> void:
-	manual_button.disabled = true
-	
 	if input_edit.count < 1 and output_edit.count < 1:
 		error_panel.show_error("input and outputs are required")
 		return
@@ -111,6 +109,7 @@ func _on_photo_button_pressed() -> void:
 	file_dialog.add_filter("*.jpg, *.jpeg, *.png", "Images")
 
 func _on_file_dialog_file_selected(image_path: String) -> void:
+	manual_button.disabled = true
 	var err: Error = exec_thread.start(download.bind(image_path))
 	if err != 0:
 		print(err)
