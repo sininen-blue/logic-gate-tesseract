@@ -29,7 +29,8 @@ func _on_increment_button_pressed() -> void:
 
 
 func _on_decrement_button_pressed() -> void:
-	count -= 1
+	if count > 0:
+		count -= 1
 
 
 func error() -> void:
