@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://clyg10fflr645"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://clyg10fflr645"]
 
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_brsmb"]
 [ext_resource type="Texture2D" uid="uid://88mx8heumvb7" path="res://assets/UI/theme/button-disabled.png" id="2_ywuiv"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://dn1ob4vb2spuu" path="res://assets/UI/theme/checkbox-check.png" id="6_jls0h"]
 [ext_resource type="Texture2D" uid="uid://b3pi67hejwk16" path="res://assets/UI/theme/checkbox-uncheck.png" id="7_rxqp1"]
 [ext_resource type="Texture2D" uid="uid://bc46jgwu8gjdx" path="res://assets/UI/theme/textedit-normal.png" id="8_3te6a"]
-[ext_resource type="Texture2D" uid="uid://biyaj7kya1rf7" path="res://assets/UI/theme/binaryButton/binaryButtonOne.png" id="9_c7sgi"]
 [ext_resource type="Texture2D" uid="uid://bjr6p4ppvokdv" path="res://assets/UI/theme/textedit-disabled.png" id="9_d1d8f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_climm"]
@@ -76,13 +75,6 @@ texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_33bxp"]
-texture = ExtResource("9_c7sgi")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4u5v"]
 texture = ExtResource("6_74i6u")
 texture_margin_left = 5.0
@@ -133,7 +125,6 @@ CheckBox/styles/hover = SubResource("StyleBoxTexture_rdi15")
 CheckBox/styles/hover_pressed = SubResource("StyleBoxTexture_ppumr")
 CheckBox/styles/normal = SubResource("StyleBoxTexture_4k1ks")
 CheckBox/styles/pressed = SubResource("StyleBoxTexture_lw4pn")
-CheckButton/styles/normal = SubResource("StyleBoxTexture_33bxp")
 Label/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
 Label/fonts/font = ExtResource("5_hwtk4")
 Panel/styles/panel = SubResource("StyleBoxTexture_i4u5v")

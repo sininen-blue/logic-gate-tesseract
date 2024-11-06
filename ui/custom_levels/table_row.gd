@@ -5,6 +5,10 @@ const BINARY_BUTTON: PackedScene = preload("res://ui/components/binary_button.ts
 @export var input_string: String = "000"
 @export var output_count: int = 2
 
+var line_margin: float = 2
+
+@onready var under_border: Line2D = $UnderBorder
+
 
 func _ready() -> void:
 	for input in input_string:
@@ -19,6 +23,11 @@ func _ready() -> void:
 	for output in output_count:
 		var new_bin_button: TextureButton = BINARY_BUTTON.instantiate()
 		add_child(new_bin_button)
+	
+	await get_tree().process_frame
+	
+	under_border.points[0] = Vector2(0, self.size.y + line_margin)
+	under_border.points[1] = Vector2(self.size.x, self.size.y + line_margin)
 
 
 func get_output() -> String:

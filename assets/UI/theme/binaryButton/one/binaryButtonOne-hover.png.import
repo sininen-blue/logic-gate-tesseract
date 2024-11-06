@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://biyaj7kya1rf7"
-path="res://.godot/imported/binaryButtonOne.png-90d98ac71d058602e36fdd3a1fa514c1.ctex"
+uid="uid://bk40jsylwly3m"
+path="res://.godot/imported/binaryButtonOne-hover.png-dc96f010525175e146168f9eb82e72d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/theme/binaryButton/binaryButtonOne.png"
-dest_files=["res://.godot/imported/binaryButtonOne.png-90d98ac71d058602e36fdd3a1fa514c1.ctex"]
+source_file="res://assets/UI/theme/binaryButton/one/binaryButtonOne-hover.png"
+dest_files=["res://.godot/imported/binaryButtonOne-hover.png-dc96f010525175e146168f9eb82e72d2.ctex"]
 
 [params]
 

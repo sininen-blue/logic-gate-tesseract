@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpwbu2vlaw5o3"
-path="res://.godot/imported/binaryButtonZero.png-fa5e722c899352bd426ea8123e93affc.ctex"
+uid="uid://b6bjt5gg60uqx"
+path="res://.godot/imported/smallDownButton-pressed.png-59c2362e9d51c9eda0b2277e9ae56370.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/theme/binaryButton/binaryButtonZero.png"
-dest_files=["res://.godot/imported/binaryButtonZero.png-fa5e722c899352bd426ea8123e93affc.ctex"]
+source_file="res://assets/UI/theme/incrementEdit/smallDownButton-pressed.png"
+dest_files=["res://.godot/imported/smallDownButton-pressed.png-59c2362e9d51c9eda0b2277e9ae56370.ctex"]
 
 [params]
 
