@@ -4,10 +4,8 @@
 [ext_resource type="Script" path="res://ui/custom_levels/truth_table.gd" id="1_rh6op"]
 
 [node name="TruthTable" type="ScrollContainer"]
-offset_left = 24.0
-offset_top = 106.0
-offset_right = 728.0
-offset_bottom = 394.0
+custom_minimum_size = Vector2(0, 200)
+size_flags_horizontal = 3
 script = ExtResource("1_rh6op")
 
 [node name="TruthTable" type="VBoxContainer" parent="."]

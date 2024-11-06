@@ -7,6 +7,7 @@ var table_row: PackedScene = preload("res://ui/custom_levels/table_row.tscn")
 
 
 func make_table(input_count: int, output_count: int) -> void:
+	clear_table()
 	var row_count: int = int(pow(2, input_count))
 	
 	table_heading.input_count = input_count
