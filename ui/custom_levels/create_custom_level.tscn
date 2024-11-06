@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/custom_levels/create_custom_level.gd" id="1_uiy2w"]
 [ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="2_1ogc4"]
 [ext_resource type="Texture2D" uid="uid://ccg83ip0r3ljn" path="res://assets/UI/icons/spinner.png" id="2_46gef"]
-[ext_resource type="Theme" uid="uid://c037ts28mkfoy" path="res://ui/themes/Bold.tres" id="3_pg5ws"]
+[ext_resource type="PackedScene" uid="uid://c3jqs3pq4mpki" path="res://ui/custom_levels/truth_table.tscn" id="4_e7hyx"]
 [ext_resource type="PackedScene" uid="uid://dnhtijfjnpwty" path="res://ui/components/increment_edit.tscn" id="4_x3g33"]
 
 [sub_resource type="Animation" id="Animation_hhhcl"]
@@ -11,7 +11,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer/Panel/Main/ButtonLabel/SpinnerSprite:rotation")
+tracks/0/path = NodePath("ScrollContainer/Panel/Main/TruthTableInputs/SpinnerSprite:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -23,7 +23,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ScrollContainer/Panel/Main/ButtonLabel/SpinnerSprite:scale")
+tracks/1/path = NodePath("ScrollContainer/Panel/Main/TruthTableInputs/SpinnerSprite:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -40,7 +40,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer/Panel/Main/ButtonLabel/SpinnerSprite:rotation")
+tracks/0/path = NodePath("ScrollContainer/Panel/Main/TruthTableInputs/SpinnerSprite:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -52,7 +52,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ScrollContainer/Panel/Main/ButtonLabel/SpinnerSprite:scale")
+tracks/1/path = NodePath("ScrollContainer/Panel/Main/TruthTableInputs/SpinnerSprite:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -152,128 +152,78 @@ offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ButtonLabel" type="Label" parent="ScrollContainer/Panel/Main"]
-custom_minimum_size = Vector2(0, 400)
+[node name="TruthTableInputs" type="Control" parent="ScrollContainer/Panel/Main"]
+custom_minimum_size = Vector2(0, 145)
 layout_mode = 2
-text = "Truth Table"
 
-[node name="InputNumEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
-unique_name_in_owner = true
+[node name="Label" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 216.0
+offset_bottom = 25.0
+text = "Number of Input Variables"
+
+[node name="Label2" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 68.0
+offset_right = 225.0
+offset_bottom = 91.0
+text = "Number of Output Variables"
+
+[node name="Label3" type="Label" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 60.0
+offset_right = 363.0
+offset_bottom = 83.0
+text = "Or"
+
+[node name="InputEdit" parent="ScrollContainer/Panel/Main/TruthTableInputs" instance=ExtResource("4_x3g33")]
 layout_mode = 1
-offset_top = 33.0
-offset_right = 164.0
-offset_bottom = 82.0
-placeholder_text = "Number of  Inputs"
+offset_left = 8.0
+offset_top = 28.0
+offset_right = 48.0
+offset_bottom = 59.0
 
-[node name="OutputNumEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
-unique_name_in_owner = true
+[node name="OutputEdit" parent="ScrollContainer/Panel/Main/TruthTableInputs" instance=ExtResource("4_x3g33")]
 layout_mode = 1
-offset_left = 167.0
-offset_top = 33.0
-offset_right = 342.0
-offset_bottom = 82.0
-placeholder_text = "Number of Outputs"
+offset_left = 8.0
+offset_top = 92.0
+offset_right = 48.0
+offset_bottom = 123.0
 
-[node name="PhotoButton" type="Button" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+[node name="ManualButton" type="Button" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 4.0
+offset_right = 425.0
+offset_bottom = 57.0
+text = "Manual Input"
+
+[node name="PhotoButton" type="Button" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 617.0
-offset_top = 32.0
-offset_bottom = 75.0
+offset_left = 288.0
+offset_top = 84.0
+offset_right = -329.0
+offset_bottom = 137.0
 grow_horizontal = 2
 text = "Use Photo"
 
-[node name="TruthTableEdit" type="TextEdit" parent="ScrollContainer/Panel/Main/ButtonLabel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -313.0
-grow_horizontal = 2
-grow_vertical = 0
-placeholder_text = "0
-0
-0
-1
-1
-1
-1
-1
-
-desired outputs
-
-each new line is a row"
-
-[node name="SpinnerSprite" type="Sprite2D" parent="ScrollContainer/Panel/Main/ButtonLabel"]
+[node name="SpinnerSprite" type="Sprite2D" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 unique_name_in_owner = true
 visible = false
-position = Vector2(384, 226)
+position = Vector2(368, 178)
 rotation = -6.28319
 texture = ExtResource("2_46gef")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ScrollContainer/Panel/Main/ButtonLabel"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 106.0
-offset_right = 728.0
-offset_bottom = 394.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Headings" type="HBoxContainer" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("3_pg5ws")
-theme_override_constants/separation = 30
-
-[node name="Label" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
-layout_mode = 2
-text = "A"
-
-[node name="Label2" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
-layout_mode = 2
-text = "B"
-
-[node name="Label3" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "C"
-
-[node name="Label4" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
-layout_mode = 2
-text = "O1"
-
-[node name="Label5" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings"]
-layout_mode = 2
-text = "O2"
-
-[node name="Headings2" type="HBoxContainer" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("3_pg5ws")
-theme_override_constants/separation = 30
-
-[node name="Label" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2"]
-layout_mode = 2
-text = "0"
-
-[node name="Label2" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2"]
-layout_mode = 2
-text = "1"
-
-[node name="Label3" type="Label" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1"
-
-[node name="IncrementEdit" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2" instance=ExtResource("4_x3g33")]
-layout_mode = 2
-
-[node name="IncrementEdit2" parent="ScrollContainer/Panel/Main/ButtonLabel/ScrollContainer/VBoxContainer/Headings2" instance=ExtResource("4_x3g33")]
+[node name="TruthTable" parent="ScrollContainer/Panel/Main" instance=ExtResource("4_e7hyx")]
+visible = false
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="ScrollContainer/Panel/Main"]
@@ -322,6 +272,9 @@ initial_position = 2
 size = Vector2i(200, 116)
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
-[connection signal="pressed" from="ScrollContainer/Panel/Main/ButtonLabel/PhotoButton" to="." method="_on_photo_button_pressed"]
+[connection signal="count_changed" from="ScrollContainer/Panel/Main/TruthTableInputs/InputEdit" to="." method="_on_input_edit_count_changed"]
+[connection signal="count_changed" from="ScrollContainer/Panel/Main/TruthTableInputs/OutputEdit" to="." method="_on_output_edit_count_changed"]
+[connection signal="pressed" from="ScrollContainer/Panel/Main/TruthTableInputs/ManualButton" to="." method="_on_manual_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/Panel/Main/TruthTableInputs/PhotoButton" to="." method="_on_photo_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
