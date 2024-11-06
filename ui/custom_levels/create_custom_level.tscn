@@ -186,7 +186,6 @@ offset_left = 8.0
 offset_top = 28.0
 offset_right = 48.0
 offset_bottom = 59.0
-count = 3
 
 [node name="OutputEdit" parent="ScrollContainer/Panel/Main/TruthTableInputs" instance=ExtResource("4_x3g33")]
 layout_mode = 1
@@ -194,7 +193,6 @@ offset_left = 8.0
 offset_top = 92.0
 offset_right = 48.0
 offset_bottom = 123.0
-count = 1
 
 [node name="ManualButton" type="Button" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 layout_mode = 0
