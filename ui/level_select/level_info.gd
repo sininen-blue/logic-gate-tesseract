@@ -5,7 +5,7 @@ extends Panel
 var simulation_scene: String = "uid://swjkfmyam37c"
 var input_node: PackedScene = preload("uid://bbinj3e4ms0sl")
 var output_node: PackedScene = preload("uid://dumop2qw31tk5")
-var table_row: PackedScene = preload("uid://57o5uax0nrfc")
+var table_row: PackedScene = preload("uid://0im5s06d6220")
 
 @onready var level_title: Label = $LevelTitle
 @onready var level_description: Label = $DescriptionScroll/LevelDescription
@@ -45,7 +45,6 @@ func _on_visibility_changed() -> void:
 		var new_row: Panel = table_row.instantiate()
 		new_row.variables = row.left(input_count)
 		new_row.outputs = row.right(output_count)
-		new_row.correct = true
 		
 		truth_table.add_child(new_row)
 	

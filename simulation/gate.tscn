@@ -1,17 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://psym6w7moids"]
+[gd_scene load_steps=23 format=3 uid="uid://psym6w7moids"]
 
 [ext_resource type="Script" path="res://simulation/gate.gd" id="1_a5p5t"]
 [ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="2_boiif"]
+[ext_resource type="Texture2D" uid="uid://c8m6rjuh47nkr" path="res://assets/simulation/indicator/indicator.png" id="3_nwehx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8st0f"]
 radius = 40.0
 height = 102.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mxu3q"]
-radius = 33.0
+radius = 48.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nvyvh"]
-radius = 33.0
+radius = 48.0
 
 [sub_resource type="Animation" id="Animation_u30j0"]
 length = 0.001
@@ -50,6 +51,206 @@ _data = {
 "bump": SubResource("Animation_08l7a")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4d0ud"]
+radius = 159.003
+
+[sub_resource type="Animation" id="Animation_4lggx"]
+resource_name = "pop-in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InputIndicator:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 2, 0.5),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InputIndicator:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_6xr2y"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w0ru3"]
+_data = {
+"RESET": SubResource("Animation_6xr2y"),
+"pop-in": SubResource("Animation_4lggx")
+}
+
+[sub_resource type="Animation" id="Animation_soqfd"]
+resource_name = "pop-in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OutputIndicator:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 2, 0.5),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OutputIndicator:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_y7udv"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhuvx"]
+_data = {
+"RESET": SubResource("Animation_y7udv"),
+"pop-in": SubResource("Animation_soqfd")
+}
+
+[sub_resource type="Animation" id="Animation_0unpk"]
+resource_name = "rotate"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InputIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OutputIndicator:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_5n0vh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InputIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OutputIndicator:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_23sn2"]
+_data = {
+"RESET": SubResource("Animation_5n0vh"),
+"rotate": SubResource("Animation_0unpk")
+}
+
+[sub_resource type="Animation" id="Animation_tkega"]
+resource_name = "pop-in"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tooltip:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tooltip:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iaemx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tooltip:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tooltip:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3fgni"]
+_data = {
+"RESET": SubResource("Animation_iaemx"),
+"pop-in": SubResource("Animation_tkega")
+}
+
 [node name="Gate" type="Area2D" groups=["gates"]]
 script = ExtResource("1_a5p5t")
 
@@ -61,7 +262,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8st0f")
 
 [node name="InputArea" type="Area2D" parent="." groups=["inputs"]]
-position = Vector2(-68, 0)
+position = Vector2(-94, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InputArea"]
 shape = SubResource("CircleShape2D_mxu3q")
@@ -97,3 +298,69 @@ text = "arstarst
 libraries = {
 "": SubResource("AnimationLibrary_3qa1j")
 }
+
+[node name="MouseArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea"]
+shape = SubResource("CircleShape2D_4d0ud")
+
+[node name="InputIndicator" type="Sprite2D" parent="."]
+position = Vector2(-94, 0)
+texture = ExtResource("3_nwehx")
+
+[node name="InputAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w0ru3")
+}
+
+[node name="OutputIndicator" type="Sprite2D" parent="."]
+position = Vector2(67, 1.90735e-06)
+texture = ExtResource("3_nwehx")
+
+[node name="OutputAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qhuvx")
+}
+
+[node name="RotateAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_23sn2")
+}
+
+[node name="Tooltip" type="Panel" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 213.0
+offset_bottom = 138.0
+
+[node name="Label" type="Label" parent="Tooltip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 8.0
+offset_right = -15.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+autowrap_mode = 3
+
+[node name="TooltipTimer" type="Timer" parent="."]
+wait_time = 1.7
+one_shot = true
+
+[node name="TooltipAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3fgni")
+}
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MouseArea" to="." method="_on_mouse_area_mouse_entered"]
+[connection signal="mouse_exited" from="MouseArea" to="." method="_on_mouse_area_mouse_exited"]
+[connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]

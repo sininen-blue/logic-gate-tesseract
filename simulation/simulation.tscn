@@ -1,10 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=15 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
 [ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
 [ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
+[ext_resource type="Texture2D" uid="uid://bakndx3eqlal4" path="res://assets/simulation/and.png" id="5_571u2"]
 [ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/level_select/level_info.tscn" id="5_qf11p"]
+[ext_resource type="Texture2D" uid="uid://dth82x8bk4i3n" path="res://assets/simulation/or.png" id="6_6f24j"]
+[ext_resource type="Texture2D" uid="uid://bvhnk5tks5kyi" path="res://assets/simulation/xor.png" id="7_jgmls"]
+[ext_resource type="Texture2D" uid="uid://c7phyvdx6c783" path="res://assets/simulation/nand-false.png" id="8_2drvl"]
+[ext_resource type="Texture2D" uid="uid://cp7fapvx1faxt" path="res://assets/simulation/nor-false.png" id="9_p42qm"]
+[ext_resource type="Texture2D" uid="uid://cihvntuxvqwuj" path="res://assets/simulation/xnor-false.png" id="10_yyr3h"]
+[ext_resource type="Texture2D" uid="uid://cjtkhygl5goca" path="res://assets/simulation/not-false.png" id="11_ga2oo"]
+[ext_resource type="Texture2D" uid="uid://5eedn8tgc886" path="res://assets/simulation/trashBin/trashBin.png" id="13_ihso0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ovty"]
 radius = 5.0
@@ -44,7 +52,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
@@ -64,40 +71,93 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -208.0
-offset_top = -67.0
-offset_right = 208.0
+offset_left = -490.0
+offset_top = -138.0
+offset_right = 269.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
 [node name="AndButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(80, 130)
 layout_mode = 2
 text = "And"
+icon = ExtResource("5_571u2")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="OrButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Or"
+icon = ExtResource("6_6f24j")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="XorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Xor"
+icon = ExtResource("7_jgmls")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="NandButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Nand"
+icon = ExtResource("8_2drvl")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="NorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Nor"
+icon = ExtResource("9_p42qm")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="XnorButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Xnor"
+icon = ExtResource("10_yyr3h")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="NotButton" type="Button" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Not"
+icon = ExtResource("11_ga2oo")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="TrashContainer" type="Control" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/FlowContainer/TrashContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/FlowContainer/TrashContainer/Control"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_ihso0")
 
 [node name="RunButton" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -143,5 +203,7 @@ offset_right = 81.0
 offset_bottom = 65.0
 text = "Back"
 
+[connection signal="mouse_entered" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_control_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_trash_container_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/BackButton" to="." method="_on_back_button_pressed"]

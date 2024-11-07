@@ -1,6 +1,8 @@
 extends Area2D
 class_name Gate
 
+signal mouse_near(gate: Gate)
+
 @export_enum("and", "or", "xor", "nand", "nor", "xnor", "not", "start", "end") var gate_type : String = "and"
 var value : int = 2:
 	set(new_value):
@@ -20,7 +22,22 @@ var gate_name : String
 @onready var input_area: Area2D = $InputArea
 @onready var output_area: Area2D = $OutputArea
 
+@onready var mouse_area: Area2D = $MouseArea
+@onready var input_animation_player: AnimationPlayer = $InputAnimationPlayer
+@onready var input_indicator: Sprite2D = $InputIndicator
+@onready var output_animation_player: AnimationPlayer = $OutputAnimationPlayer
+@onready var output_indicator: Sprite2D = $OutputIndicator
+@onready var rotate_animation_player: AnimationPlayer = $RotateAnimationPlayer
+
+@onready var tooltip_animation_player: AnimationPlayer = $TooltipAnimationPlayer
+@onready var tooltip_timer: Timer = $TooltipTimer
+@onready var tooltip: Panel = $Tooltip
+@onready var tooltip_label: Label = $Tooltip/Label
+
 func _ready() -> void:
+	input_indicator.visible = false
+	output_indicator.visible = false
+	rotate_animation_player.play("rotate")
 	if self.gate_type == 'start' or self.gate_type == 'end':
 		value = 0
 	else:
@@ -80,3 +97,57 @@ func handle_textures(type : String) -> void:
 		sprite.texture = load("res://assets/simulation/"+type+".png")
 	elif value == 2: # inactive
 		sprite.texture = load("res://assets/simulation/"+type+"-inactive.png")
+
+
+func _on_mouse_area_mouse_entered() -> void:
+	mouse_near.emit(self)
+
+func _on_mouse_area_mouse_exited() -> void:
+	if input_indicator.visible == true:
+		input_animation_player.play_backwards("pop-in")
+	
+	if output_indicator.visible == true:
+		output_animation_player.play_backwards("pop-in")
+
+
+func show_both_indicators() -> void:
+	input_animation_player.play("pop-in")
+	output_animation_player.play("pop-in")
+
+func show_input_indictor() -> void:
+	input_animation_player.play("pop-in")
+
+func show_output_indicator() -> void:
+	output_animation_player.play("pop-in")
+
+
+func _on_mouse_entered() -> void:
+	tooltip_timer.start()
+
+func _on_mouse_exited() -> void:
+	if tooltip_timer.is_stopped() == false:
+		tooltip_timer.stop()
+	else:
+		tooltip_animation_player.play_backwards("pop-in")
+
+func _on_tooltip_timer_timeout() -> void:
+	tooltip_animation_player.play("pop-in")
+	
+	var text: String = ""
+	match gate_type:
+		"and":
+			text = "A gate which outputs a 1 if both inputs are true"
+		"or":
+			text = "A gate which outputs a 1 if either inputs are true"
+		"xnor":
+			text = "A gate which outputs a 1 if either inputs are true but not both"
+		"nand":
+			text = "A gate which outputs a 1 if both gates aren't true"
+		"nor":
+			text = "A gate which outputs a 1 if both gates are false"
+		"xnor":
+			text = "A gate which outputs a 1 if both gates are false or if both gates are true"
+		"not":
+			text = "A gate which outputs the opposite of the input"
+	
+	tooltip_label.text = text

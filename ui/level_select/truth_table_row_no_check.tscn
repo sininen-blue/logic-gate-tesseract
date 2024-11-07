@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://0im5s06d6220"]
+
+[ext_resource type="Script" path="res://ui/level_select/truth_table_row_no_check.gd" id="1_t1yoj"]
+[ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="2_0xrnk"]
+
+[node name="TruthTableRow" type="Panel"]
+custom_minimum_size = Vector2(200, 40)
+script = ExtResource("1_t1yoj")
+
+[node name="VariablesLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -96.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_0xrnk")
+text = "11111001010110111010101"
+vertical_alignment = 1
+clip_text = true
+
+[node name="OutputLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_right = -11.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_0xrnk")
+text = "1212"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
