@@ -23,10 +23,16 @@ var gate_name : String
 @onready var output_area: Area2D = $OutputArea
 
 @onready var mouse_area: Area2D = $MouseArea
-@onready var input_particle: CPUParticles2D = $InputParticle
-@onready var output_particle: CPUParticles2D = $OutputParticle
+@onready var input_animation_player: AnimationPlayer = $InputAnimationPlayer
+@onready var input_indicator: Sprite2D = $InputIndicator
+@onready var output_animation_player: AnimationPlayer = $OutputAnimationPlayer
+@onready var output_indicator: Sprite2D = $OutputIndicator
+@onready var rotate_animation_player: AnimationPlayer = $RotateAnimationPlayer
 
 func _ready() -> void:
+	input_indicator.visible = false
+	output_indicator.visible = false
+	rotate_animation_player.play("rotate")
 	if self.gate_type == 'start' or self.gate_type == 'end':
 		value = 0
 	else:
@@ -92,16 +98,19 @@ func _on_mouse_area_mouse_entered() -> void:
 	mouse_near.emit(self)
 
 func _on_mouse_area_mouse_exited() -> void:
-	input_particle.emitting = false
-	output_particle.emitting = false
+	if input_indicator.visible == true:
+		input_animation_player.play_backwards("pop-in")
+	
+	if output_indicator.visible == true:
+		output_animation_player.play_backwards("pop-in")
 
 
 func show_both_indicators() -> void:
-	input_particle.emitting = true
-	output_particle.emitting = true
+	input_animation_player.play("pop-in")
+	output_animation_player.play("pop-in")
 
 func show_input_indictor() -> void:
-	input_particle.emitting = true
+	input_animation_player.play("pop-in")
 
 func show_output_indicator() -> void:
-	output_particle.emitting = true
+	output_animation_player.play("pop-in")

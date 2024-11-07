@@ -92,8 +92,12 @@ func _on_mouse_near_gate(gate: Gate) -> void:
 			gate.show_both_indicators()
 		CREATING_CONNECTION:
 			if temp_connection.input == null:
+				if temp_connection.output == gate:
+					return
 				gate.show_input_indictor()
 			if temp_connection.output == null:
+				if temp_connection.input == gate:
+					return
 				gate.show_output_indicator()
 
 
