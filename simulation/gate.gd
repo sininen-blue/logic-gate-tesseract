@@ -1,6 +1,8 @@
 extends Area2D
 class_name Gate
 
+signal mouse_near(gate: Gate)
+
 @export_enum("and", "or", "xor", "nand", "nor", "xnor", "not", "start", "end") var gate_type : String = "and"
 var value : int = 2:
 	set(new_value):
@@ -19,6 +21,10 @@ var gate_name : String
 
 @onready var input_area: Area2D = $InputArea
 @onready var output_area: Area2D = $OutputArea
+
+@onready var mouse_area: Area2D = $MouseArea
+@onready var input_particle: CPUParticles2D = $InputParticle
+@onready var output_particle: CPUParticles2D = $OutputParticle
 
 func _ready() -> void:
 	if self.gate_type == 'start' or self.gate_type == 'end':
@@ -80,3 +86,22 @@ func handle_textures(type : String) -> void:
 		sprite.texture = load("res://assets/simulation/"+type+".png")
 	elif value == 2: # inactive
 		sprite.texture = load("res://assets/simulation/"+type+"-inactive.png")
+
+
+func _on_mouse_area_mouse_entered() -> void:
+	mouse_near.emit(self)
+
+func _on_mouse_area_mouse_exited() -> void:
+	input_particle.emitting = false
+	output_particle.emitting = false
+
+
+func show_both_indicators() -> void:
+	input_particle.emitting = true
+	output_particle.emitting = true
+
+func show_input_indictor() -> void:
+	input_particle.emitting = true
+
+func show_output_indicator() -> void:
+	output_particle.emitting = true

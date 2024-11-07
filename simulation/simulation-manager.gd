@@ -77,12 +77,24 @@ func create_gate(type : String, location : String = "") -> void:
 		start_location = Vector2(randi_range(400, 500), randi_range(400, 500))
 	gate_scene.global_position = start_location
 	
+	gate_scene.mouse_near.connect(_on_mouse_near_gate)
 	add_child(gate_scene)
 	all_gates.append(gate_scene)
 	if gate_scene.gate_type == "start":
 		start_gates.append(gate_scene)
 	if gate_scene.gate_type == "end":
 		end_gates.append(gate_scene)
+
+
+func _on_mouse_near_gate(gate: Gate) -> void:
+	match state:
+		IDLE:
+			gate.show_both_indicators()
+		CREATING_CONNECTION:
+			if temp_connection.input == null:
+				gate.show_input_indictor()
+			if temp_connection.output == null:
+				gate.show_output_indicator()
 
 
 ## Deletion
