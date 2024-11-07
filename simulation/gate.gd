@@ -29,6 +29,11 @@ var gate_name : String
 @onready var output_indicator: Sprite2D = $OutputIndicator
 @onready var rotate_animation_player: AnimationPlayer = $RotateAnimationPlayer
 
+@onready var tooltip_animation_player: AnimationPlayer = $TooltipAnimationPlayer
+@onready var tooltip_timer: Timer = $TooltipTimer
+@onready var tooltip: Panel = $Tooltip
+@onready var tooltip_label: Label = $Tooltip/Label
+
 func _ready() -> void:
 	input_indicator.visible = false
 	output_indicator.visible = false
@@ -114,3 +119,35 @@ func show_input_indictor() -> void:
 
 func show_output_indicator() -> void:
 	output_animation_player.play("pop-in")
+
+
+func _on_mouse_entered() -> void:
+	tooltip_timer.start()
+
+func _on_mouse_exited() -> void:
+	if tooltip_timer.is_stopped() == false:
+		tooltip_timer.stop()
+	else:
+		tooltip_animation_player.play_backwards("pop-in")
+
+func _on_tooltip_timer_timeout() -> void:
+	tooltip_animation_player.play("pop-in")
+	
+	var text: String = ""
+	match gate_type:
+		"and":
+			text = "A gate which outputs a 1 if both inputs are true"
+		"or":
+			text = "A gate which outputs a 1 if either inputs are true"
+		"xnor":
+			text = "A gate which outputs a 1 if either inputs are true but not both"
+		"nand":
+			text = "A gate which outputs a 1 if both gates aren't true"
+		"nor":
+			text = "A gate which outputs a 1 if both gates are false"
+		"xnor":
+			text = "A gate which outputs a 1 if both gates are false or if both gates are true"
+		"not":
+			text = "A gate which outputs the opposite of the input"
+	
+	tooltip_label.text = text
