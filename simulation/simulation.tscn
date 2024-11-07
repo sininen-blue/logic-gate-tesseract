@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=15 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cp7fapvx1faxt" path="res://assets/simulation/nor-false.png" id="9_p42qm"]
 [ext_resource type="Texture2D" uid="uid://cihvntuxvqwuj" path="res://assets/simulation/xnor-false.png" id="10_yyr3h"]
 [ext_resource type="Texture2D" uid="uid://cjtkhygl5goca" path="res://assets/simulation/not-false.png" id="11_ga2oo"]
+[ext_resource type="Texture2D" uid="uid://5eedn8tgc886" path="res://assets/simulation/trashBin/trashBin.png" id="13_ihso0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ovty"]
 radius = 5.0
@@ -51,7 +52,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
@@ -71,7 +71,7 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -374.0
+offset_left = -490.0
 offset_top = -138.0
 offset_right = 269.0
 grow_horizontal = 2
@@ -141,6 +141,24 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 expand_icon = true
 
+[node name="TrashContainer" type="Control" parent="CanvasLayer/UI/FlowContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/FlowContainer/TrashContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/FlowContainer/TrashContainer/Control"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_ihso0")
+
 [node name="RunButton" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 1
 anchors_preset = 1
@@ -185,5 +203,7 @@ offset_right = 81.0
 offset_bottom = 65.0
 text = "Back"
 
+[connection signal="mouse_entered" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_control_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_trash_container_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/BackButton" to="." method="_on_back_button_pressed"]

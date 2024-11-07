@@ -14,6 +14,8 @@ var all_gates : Array[Gate]
 var start_gates : Array[Gate]
 var end_gates : Array[Gate]
 
+var mouse_in_trash_bin: bool = false
+
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
 
@@ -32,16 +34,17 @@ var end_gates : Array[Gate]
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
 @onready var run_button: Button = $CanvasLayer/UI/RunButton
 
+@onready var trash_container: Control = $CanvasLayer/UI/TrashContainer
 
 func _ready() -> void:
 	randomize()
-	and_button.pressed.connect(create_gate.bind("and"))
-	or_button.pressed.connect(create_gate.bind("or"))
-	xor_button.pressed.connect(create_gate.bind("xor"))
-	nand_button.pressed.connect(create_gate.bind("nand"))
-	nor_button.pressed.connect(create_gate.bind("nor"))
-	xnor_button.pressed.connect(create_gate.bind("xnor"))
-	not_button.pressed.connect(create_gate.bind("not"))
+	and_button.button_down.connect(create_gate.bind("and"))
+	or_button.button_down.connect(create_gate.bind("or"))
+	xor_button.button_down.connect(create_gate.bind("xor"))
+	nand_button.button_down.connect(create_gate.bind("nand"))
+	nor_button.button_down.connect(create_gate.bind("nor"))
+	xnor_button.button_down.connect(create_gate.bind("xnor"))
+	not_button.button_down.connect(create_gate.bind("not"))
 	
 	run_button.pressed.connect(run_simulation)
 	
@@ -84,6 +87,10 @@ func create_gate(type : String, location : String = "") -> void:
 		start_gates.append(gate_scene)
 	if gate_scene.gate_type == "end":
 		end_gates.append(gate_scene)
+	
+	if Input.is_action_pressed("left_click"):
+		gate_held = gate_scene
+		state = MOVING_GATE
 
 
 func _on_mouse_near_gate(gate: Gate) -> void:
@@ -223,6 +230,8 @@ func _process(_delta: float) -> void:
 			gate_held.global_position = get_global_mouse_position() + gate_offset
 			
 			if Input.is_action_just_released("left_click"):
+				if mouse_in_trash_bin:
+					remove_item()
 				state = IDLE
 		
 		CREATING_CONNECTION:
@@ -295,3 +304,11 @@ func _on_back_button_pressed() -> void:
 		get_tree().change_scene_to_file("uid://bwlvlfljyekts")
 	else:
 		get_tree().change_scene_to_file("uid://yrih2e5sant0")
+
+
+func _on_control_mouse_entered() -> void:
+	mouse_in_trash_bin = true
+
+
+func _on_trash_container_mouse_exited() -> void:
+	mouse_in_trash_bin = false
