@@ -59,7 +59,7 @@ func create_level() -> void:
 		level_data["author"] = "Anonymous"
 	
 	level_data["author"] = author_edit.text
-	level_data["create_date"] = Time.get_time_dict_from_system() # TODO: this isn't the proper format
+	level_data["create_date"] = Time.get_unix_time_from_system()
 	level_data["description"] = description_edit.text
 	level_data["end_count"] = output_count
 	
