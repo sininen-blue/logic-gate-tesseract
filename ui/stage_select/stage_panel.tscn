@@ -1,50 +1,84 @@
 [gd_scene load_steps=3 format=3 uid="uid://cj2adegb284b8"]
 
 [ext_resource type="Script" path="res://ui/stage_select/stage_panel.gd" id="1_dwvly"]
-[ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="4_10ees"]
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="2_oplqk"]
 
 [node name="StagePanel" type="Panel"]
-custom_minimum_size = Vector2(392, 96)
-offset_right = 392.0
-offset_bottom = 96.0
+custom_minimum_size = Vector2(300, 0)
+offset_right = 300.0
+offset_bottom = 440.0
 script = ExtResource("1_dwvly")
 
-[node name="StageLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="."]
 layout_mode = 1
-offset_left = 32.0
-offset_top = 8.0
-offset_right = 264.0
-offset_bottom = 31.0
-theme_override_fonts/font = ExtResource("4_10ees")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_top = 16.0
+offset_right = 82.0
+offset_bottom = 47.0
+grow_horizontal = 2
+theme = ExtResource("2_oplqk")
 text = "Basic Concepts"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="ProgressLabel" type="Label" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -152.5
+offset_right = 132.0
+offset_bottom = 78.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DescriptionLabel" type="Label" parent="ScrollContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = -40.0
-offset_right = 96.0
-offset_bottom = -17.0
+offset_left = -132.0
+offset_top = -109.0
+offset_right = 132.0
+offset_bottom = -82.0
+grow_horizontal = 2
 grow_vertical = 0
-text = "0/12"
+max_value = 7.0
+step = 1.0
+value = 4.0
+show_percentage = false
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -36.0
-offset_right = -17.0
-offset_bottom = 17.0
-grow_horizontal = 0
-grow_vertical = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -43.5
+offset_top = -78.0
+offset_right = 43.5
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "Play"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
