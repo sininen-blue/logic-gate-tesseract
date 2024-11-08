@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwlvlfljyekts"]
+[gd_scene load_steps=5 format=3 uid="uid://bwlvlfljyekts"]
 
 [ext_resource type="Script" path="res://ui/custom_levels/custom_levels.gd" id="1_2dk5k"]
+[ext_resource type="Theme" uid="uid://diwchjwgvp2l4" path="res://ui/themes/redButton.tres" id="2_vt6xb"]
+[ext_resource type="Texture2D" uid="uid://dd67getishvgp" path="res://assets/UI/icons/import.png" id="3_lh61w"]
+[ext_resource type="Texture2D" uid="uid://hcrnn2r17uge" path="res://assets/UI/icons/plus.png" id="4_77lpi"]
 
 [node name="CustomLevels" type="Control"]
 layout_mode = 3
@@ -15,10 +18,24 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2dk5k")
 
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.json")
+use_native_dialog = true
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+initial_position = 2
+size = Vector2i(182, 100)
+dialog_text = "Imported new level file"
+
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 1
-offset_right = 90.0
-offset_bottom = 88.0
+offset_right = 60.0
+offset_bottom = 53.0
+theme = ExtResource("2_vt6xb")
 text = "Back"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -27,7 +44,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 94.0
+offset_left = 91.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -35,11 +52,23 @@ grow_vertical = 2
 clip_contents = true
 layout_mode = 2
 
-[node name="CreateCustomButton" type="Button" parent="ScrollContainer/LevelsContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/LevelsContainer"]
 layout_mode = 2
-text = "
-Create Custom Level
 
-"
+[node name="ImportLevelButton" type="Button" parent="ScrollContainer/LevelsContainer/HBoxContainer"]
+layout_mode = 2
+text = "Import Level"
+icon = ExtResource("3_lh61w")
 
+[node name="CreateCustomButton" type="Button" parent="ScrollContainer/LevelsContainer/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Create Custom Level"
+icon = ExtResource("4_77lpi")
+autowrap_mode = 3
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/LevelsContainer/HBoxContainer/ImportLevelButton" to="." method="_on_import_level_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/LevelsContainer/HBoxContainer/CreateCustomButton" to="." method="_on_create_custom_button_pressed"]
