@@ -51,10 +51,10 @@ tracks/0/path = NodePath("Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.3),
+"transitions": PackedFloat32Array(-2, 2, 0.5, 0.5),
 "update": 0,
-"values": [Vector2(0.84, 0.84), Vector2(1.11, 1.11), Vector2(1, 1)]
+"values": [Vector2(0.84, 0.84), Vector2(1.11, 1.11), Vector2(1.11, 1.11), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_aqc5u"]
