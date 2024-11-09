@@ -1,17 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1xu7c0fhg4at"]
+[gd_scene load_steps=5 format=3 uid="uid://b1xu7c0fhg4at"]
 
 [ext_resource type="Script" path="res://ui/stage_select/stage_select.gd" id="1_1iel2"]
 [ext_resource type="Theme" uid="uid://clyg10fflr645" path="res://ui/main_theme.tres" id="1_a52by"]
+[ext_resource type="Theme" uid="uid://diwchjwgvp2l4" path="res://ui/themes/redButton.tres" id="3_x5kfe"]
+[ext_resource type="Theme" uid="uid://dt7cs1ptpftme" path="res://ui/themes/Bolder.tres" id="4_ktgxo"]
 
 [node name="StageSelect" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 32.0
-offset_right = -24.0
-offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_a52by")
@@ -19,44 +17,47 @@ script = ExtResource("1_1iel2")
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 1
-offset_right = 69.0
-offset_bottom = 48.0
+offset_left = 30.0
+offset_top = 25.0
+offset_right = 99.0
+offset_bottom = 78.0
+theme = ExtResource("3_x5kfe")
 text = "Back"
 
-[node name="Main" type="HBoxContainer" parent="."]
+[node name="MainContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 102.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -552.0
+offset_top = -188.0
+offset_right = 552.0
+offset_bottom = 252.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
 
-[node name="Stages" type="VBoxContainer" parent="Main"]
+[node name="Main" type="HBoxContainer" parent="MainContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
 
-[node name="InfoPanel" type="Panel" parent="Main"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TitleLabel" type="Label" parent="Main/InfoPanel"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 16.0
-offset_right = 132.0
-offset_bottom = 39.0
-text = "Custom Levels"
-
-[node name="DescriptionLabel" type="Label" parent="Main/InfoPanel"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 48.0
-offset_right = 372.0
-offset_bottom = 296.0
-text = "Levels created by user and levels obtained from sharing"
-autowrap_mode = 3
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -262.5
+offset_top = 4.0
+offset_right = 262.5
+offset_bottom = 102.0
+grow_horizontal = 2
+theme = ExtResource("4_ktgxo")
+text = "STAGE SELECT"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

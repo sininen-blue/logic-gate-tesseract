@@ -71,3 +71,10 @@ offset_bottom = 42.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "Delete"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+dialog_autowrap = true
+
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

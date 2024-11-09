@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=26 format=3 uid="uid://clyg10fflr645"]
+[gd_resource type="Theme" load_steps=31 format=3 uid="uid://clyg10fflr645"]
 
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_brsmb"]
 [ext_resource type="Texture2D" uid="uid://88mx8heumvb7" path="res://assets/UI/theme/button-disabled.png" id="2_ywuiv"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://b3pi67hejwk16" path="res://assets/UI/theme/checkbox-uncheck.png" id="7_rxqp1"]
 [ext_resource type="Texture2D" uid="uid://bc46jgwu8gjdx" path="res://assets/UI/theme/textedit-normal.png" id="8_3te6a"]
 [ext_resource type="Texture2D" uid="uid://bjr6p4ppvokdv" path="res://assets/UI/theme/textedit-disabled.png" id="9_d1d8f"]
+[ext_resource type="Texture2D" uid="uid://byl5v5btr4yy0" path="res://assets/UI/theme/progressBar/progressBar-background.png" id="10_im4vx"]
+[ext_resource type="Texture2D" uid="uid://dcjgij3bqhoqp" path="res://assets/UI/theme/progressBar/progressBar-fill.png" id="11_fn5lx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_climm"]
 texture = ExtResource("2_ywuiv")
@@ -82,6 +84,20 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 15.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d6lgx"]
+texture = ExtResource("10_im4vx")
+texture_margin_left = 10.0
+texture_margin_top = 15.0
+texture_margin_right = 10.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_luflv"]
+texture = ExtResource("11_fn5lx")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_42ggf"]
 texture = ExtResource("8_3te6a")
 texture_margin_left = 10.0
@@ -95,6 +111,13 @@ texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecpni"]
+texture = ExtResource("6_74i6u")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 15.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_utdnk"]
 texture = ExtResource("6_74i6u")
@@ -128,10 +151,15 @@ CheckBox/styles/pressed = SubResource("StyleBoxTexture_lw4pn")
 Label/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
 Label/fonts/font = ExtResource("5_hwtk4")
 Panel/styles/panel = SubResource("StyleBoxTexture_i4u5v")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_d6lgx")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_luflv")
+TextEdit/colors/caret_color = Color(0.103744, 0.103743, 0.103744, 1)
 TextEdit/colors/font_color = Color(0.117647, 0.117647, 0.117647, 1)
 TextEdit/colors/font_placeholder_color = Color(0.311838, 0.339761, 0.376282, 1)
+TextEdit/constants/caret_width = 2
 TextEdit/styles/normal = SubResource("StyleBoxTexture_42ggf")
 TextEdit/styles/read_only = SubResource("StyleBoxTexture_y24yv")
+TooltipPanel/styles/panel = SubResource("StyleBoxTexture_ecpni")
 Window/colors/title_color = Color(0.117647, 0.117647, 0.117647, 1)
 Window/icons/close = ExtResource("7_rxqp1")
 Window/icons/close_pressed = ExtResource("7_rxqp1")
