@@ -46,6 +46,9 @@ func _ready() -> void:
 	if self.gate_type == "not" or self.gate_type == "end":
 		input_max = 1
 	
+	if self.gate_type == "start":
+		input_max = 0
+	
 	start_label.text = gate_name
 	
 	bump()

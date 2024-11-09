@@ -54,6 +54,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_4d0ud"]
 radius = 159.003
 
+[sub_resource type="Animation" id="Animation_6xr2y"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_4lggx"]
 resource_name = "pop-in"
 length = 0.4
@@ -82,14 +85,14 @@ tracks/1/keys = {
 "values": [false, true, true]
 }
 
-[sub_resource type="Animation" id="Animation_6xr2y"]
-length = 0.001
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w0ru3"]
 _data = {
 "RESET": SubResource("Animation_6xr2y"),
 "pop-in": SubResource("Animation_4lggx")
 }
+
+[sub_resource type="Animation" id="Animation_y7udv"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_soqfd"]
 resource_name = "pop-in"
@@ -119,13 +122,37 @@ tracks/1/keys = {
 "values": [false, true, true]
 }
 
-[sub_resource type="Animation" id="Animation_y7udv"]
-length = 0.001
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qhuvx"]
 _data = {
 "RESET": SubResource("Animation_y7udv"),
 "pop-in": SubResource("Animation_soqfd")
+}
+
+[sub_resource type="Animation" id="Animation_5n0vh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InputIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OutputIndicator:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_0unpk"]
@@ -157,37 +184,37 @@ tracks/1/keys = {
 "values": [0.0, 6.28319]
 }
 
-[sub_resource type="Animation" id="Animation_5n0vh"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_23sn2"]
+_data = {
+"RESET": SubResource("Animation_5n0vh"),
+"rotate": SubResource("Animation_0unpk")
+}
+
+[sub_resource type="Animation" id="Animation_iaemx"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("InputIndicator:rotation")
+tracks/0/path = NodePath("Tooltip:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("OutputIndicator:rotation")
+tracks/1/path = NodePath("Tooltip:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_23sn2"]
-_data = {
-"RESET": SubResource("Animation_5n0vh"),
-"rotate": SubResource("Animation_0unpk")
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_tkega"]
@@ -216,33 +243,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 2),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_iaemx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Tooltip:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Tooltip:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3fgni"]

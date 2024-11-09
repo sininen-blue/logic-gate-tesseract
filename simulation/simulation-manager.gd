@@ -34,7 +34,6 @@ var mouse_in_trash_bin: bool = false
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
 @onready var run_button: Button = $CanvasLayer/UI/RunButton
 
-@onready var trash_container: Control = $CanvasLayer/UI/TrashContainer
 
 func _ready() -> void:
 	randomize()
@@ -198,14 +197,19 @@ func _process(_delta: float) -> void:
 						state = MOVING_GATE
 						break
 					
+					## Transition to creating connections state
 					if area.is_in_group("outputs") or area.is_in_group("inputs"):
 						temp_connection = Connection.new()
 						
 						var gate : Gate = area.get_parent()
 						if area.is_in_group("outputs"):
+							if gate.gate_type == "end":
+								break
 							temp_connection.output = gate
 							temp_line.points[0] = gate.output_area.global_position
 						elif area.is_in_group("inputs"):
+							if gate.gate_type == "start":
+								break
 							temp_connection.input = gate
 							temp_line.points[0] = gate.input_area.global_position
 						
