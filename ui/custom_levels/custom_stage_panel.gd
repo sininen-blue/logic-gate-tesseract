@@ -7,6 +7,7 @@ var level_path : String = ""
 
 @onready var stage_label: Label = $StageLabel
 @onready var author_label: Label = $AuthorLabel
+@onready var create_date_label: Label = $CreateDateLabel
 @onready var share_button: Button = $ShareButton
 @onready var play_button: Button = $PlayButton
 @onready var delete_button: Button = $DeleteButton
@@ -19,7 +20,16 @@ func _ready() -> void:
 	delete_button.pressed.connect(delete_level)
 	
 	stage_label.text = level_data["title"]
-	author_label.text = level_data["author"]
+	author_label.text = "by " + level_data["author"]
+	var time_string: String = ""
+	var time_dict: Dictionary = Time.get_datetime_dict_from_unix_time(level_data["create_date"])
+	time_string += str(time_dict["year"], "/")
+	time_string += str(time_dict["month"], "/")
+	time_string += str(time_dict["day"], " ")
+	time_string += str(time_dict["hour"], ":")
+	time_string += str(time_dict["minute"])
+	
+	create_date_label.text = time_string
 
 func play_custom() -> void:
 	var level_json : JSON = JSON.new()
