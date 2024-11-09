@@ -57,6 +57,9 @@ func _ready() -> void:
 func bump() -> void:
 	animation_player.play("bump")
 
+func shake() -> void:
+	animation_player.play("shake")
+
 
 func _process(_delta: float) -> void:
 	# $TestingLabel.text = str(connections, input_connections, value)

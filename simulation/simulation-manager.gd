@@ -170,9 +170,22 @@ func complete_connection() -> void:
 	if len(temp_connection.input.input_connections) >= temp_connection.input.input_max:
 		return
 	
+	var conn_exists: bool = false
+	for connection in temp_connection.output.connections:
+		if (connection.input == temp_connection.input and 
+			connection.output == temp_connection.output):
+			conn_exists = true
+			break
+	
+	if conn_exists:
+		temp_connection.input.shake()
+		temp_connection.output.shake()
+		return
+	
 	temp_connection.output.connections.append(temp_connection)
 	temp_connection.input.connections.append(temp_connection)
 	temp_connection.input.input_connections.append(temp_connection)
+	
 	add_child(temp_connection)
 	
 	temp_connection.input.bump()
