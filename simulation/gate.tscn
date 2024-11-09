@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://psym6w7moids"]
+[gd_scene load_steps=26 format=3 uid="uid://psym6w7moids"]
 
 [ext_resource type="Script" path="res://simulation/gate.gd" id="1_a5p5t"]
 [ext_resource type="Texture2D" uid="uid://l45ie1jqj5qx" path="res://assets/simulation/start.png" id="2_boiif"]
+[ext_resource type="Texture2D" uid="uid://drdccdfj0inos" path="res://assets/simulation/dots/blueDot.png" id="3_l2a4a"]
 [ext_resource type="Texture2D" uid="uid://c8m6rjuh47nkr" path="res://assets/simulation/indicator/indicator.png" id="3_nwehx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8st0f"]
@@ -303,7 +304,16 @@ script = ExtResource("1_a5p5t")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_boiif")
 
+[node name="RightDotSprite" type="Sprite2D" parent="."]
+position = Vector2(68, 1)
+texture = ExtResource("3_l2a4a")
+
+[node name="LeftDotSprite" type="Sprite2D" parent="."]
+position = Vector2(-94, 0)
+texture = ExtResource("3_l2a4a")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-13, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8st0f")
 

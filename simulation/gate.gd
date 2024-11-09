@@ -3,6 +3,10 @@ class_name Gate
 
 signal mouse_near(gate: Gate)
 
+const BLUE_DOT = preload("res://assets/simulation/dots/blueDot.png")
+const RED_DOT = preload("res://assets/simulation/dots/redDot.png")
+const GRAY_DOT = preload("res://assets/simulation/dots/grayDot.png")
+
 @export_enum("and", "or", "xor", "nand", "nor", "xnor", "not", "start", "end") var gate_type : String = "and"
 var value : int = 2:
 	set(new_value):
@@ -17,6 +21,8 @@ var gate_name : String
 
 @onready var start_label: Label = $StartLabel
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var right_dot_sprite: Sprite2D = $RightDotSprite
+@onready var left_dot_sprite: Sprite2D = $LeftDotSprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var input_area: Area2D = $InputArea
@@ -47,7 +53,10 @@ func _ready() -> void:
 		input_max = 1
 	
 	if self.gate_type == "start":
+		left_dot_sprite.visible = false
 		input_max = 0
+	if self.gate_type == "end":
+		right_dot_sprite.visible = false
 	
 	start_label.text = gate_name
 	
@@ -99,10 +108,16 @@ func _process(_delta: float) -> void:
 func handle_textures(type : String) -> void:
 	if value == 0: # false
 		sprite.texture = load("res://assets/simulation/"+type+"-false.png")
+		right_dot_sprite.texture = RED_DOT
+		left_dot_sprite.texture = RED_DOT
 	elif value == 1: # true
 		sprite.texture = load("res://assets/simulation/"+type+".png")
+		right_dot_sprite.texture = BLUE_DOT
+		left_dot_sprite.texture = BLUE_DOT
 	elif value == 2: # inactive
 		sprite.texture = load("res://assets/simulation/"+type+"-inactive.png")
+		right_dot_sprite.texture = GRAY_DOT
+		left_dot_sprite.texture = GRAY_DOT
 
 
 func _on_mouse_area_mouse_entered() -> void:
