@@ -47,9 +47,10 @@ func _ready() -> void:
 ## TODO: replace all print statements with proper error handling
 func create_level() -> void:
 	if (title_edit.text == "" or
-		author_edit.text == "" or
-		description_edit.text == ""):
-		error_panel.show_error("not all input boxes were filled")
+		description_edit.text == "" or
+		input_count == 0 or
+		output_count == 0):
+		error_panel.show_error("not all required input boxes were filled")
 		return
 	
 	var level_data : Dictionary
@@ -121,7 +122,6 @@ func _process(_delta: float) -> void:
 	if exec_thread.is_alive():
 		animation_player.play("loading")
 		spinner_sprite.visible = true
-		create_button.disabled = true
 	else:
 		spinner_sprite.visible = false
 		create_button.disabled = false
@@ -154,6 +154,7 @@ func download(image_path: String) -> Array:
 
 
 func _on_manual_button_pressed() -> void:
+	create_button.disabled = false
 	truth_table_container.visible = true
 	truth_table_container.make_table(input_count, output_count)
 
