@@ -56,7 +56,7 @@ offset_right = 262.5
 offset_bottom = 102.0
 grow_horizontal = 2
 theme = ExtResource("4_ktgxo")
-text = "STAGE SELECT"
+text = "Stage Select"
 horizontal_alignment = 1
 vertical_alignment = 1
 
