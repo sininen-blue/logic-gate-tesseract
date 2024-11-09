@@ -125,9 +125,11 @@ func show_output_indicator() -> void:
 
 
 func _on_mouse_entered() -> void:
+	animation_player.play("hover-up")
 	tooltip_timer.start()
 
 func _on_mouse_exited() -> void:
+	animation_player.play_backwards("hover-up")
 	if tooltip_timer.is_stopped() == false:
 		tooltip_timer.stop()
 	else:
