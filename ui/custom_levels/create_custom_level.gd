@@ -12,7 +12,7 @@ extends Control
 
 @onready var error_panel: Panel = %ErrorPanel
 @onready var create_button: Button = %CreateButton
-#@onready var confirmation_dialog: ConfirmationDialog = $ConfirmationDialog
+@onready var accept_dialog: AcceptDialog = $AcceptDialog
 
 @onready var manual_button: Button = $ScrollContainer/Panel/Main/TruthTableInputs/ManualButton
 
@@ -76,10 +76,11 @@ func create_level() -> void:
 	var json_string : String = JSON.stringify(level_data, "\t")
 	var filename : String = title_edit.text.replace(" ", "")
 	var level_file : FileAccess = FileAccess.open("user://levels/custom_levels/"+filename+".json", FileAccess.WRITE)
-	error_panel.show_error(str(FileAccess.get_open_error()))
+	if FileAccess.get_open_error() != 0:
+		error_panel.show_error(str(FileAccess.get_open_error()))
 	level_file.store_string(json_string)
 	
-	error_panel.show_error("Created Level")
+	accept_dialog.visible = true
 
 
 func generate_truth_table(start_count : int) -> Array[String]:
@@ -169,3 +170,11 @@ func _on_output_edit_count_changed(new_count: int) -> void:
 	output_count = new_count
 	if truth_table_container.visible:
 		truth_table_container.make_table(input_count, output_count)
+
+
+func _on_accept_dialog_confirmed() -> void:
+	get_tree().change_scene_to_file(custom_levels_scene)
+
+
+func _on_accept_dialog_canceled() -> void:
+	get_tree().change_scene_to_file(custom_levels_scene)

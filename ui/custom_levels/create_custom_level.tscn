@@ -89,6 +89,11 @@ file_mode = 0
 access = 2
 use_native_dialog = true
 
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+initial_position = 2
+size = Vector2i(110, 100)
+dialog_text = "Level Created!"
+
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = 13
@@ -288,6 +293,8 @@ libraries = {
 }
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="canceled" from="AcceptDialog" to="." method="_on_accept_dialog_canceled"]
+[connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]
 [connection signal="count_changed" from="ScrollContainer/Panel/Main/TruthTableInputs/InputEdit" to="." method="_on_input_edit_count_changed"]
 [connection signal="count_changed" from="ScrollContainer/Panel/Main/TruthTableInputs/OutputEdit" to="." method="_on_output_edit_count_changed"]
 [connection signal="pressed" from="ScrollContainer/Panel/Main/TruthTableInputs/ManualButton" to="." method="_on_manual_button_pressed"]
