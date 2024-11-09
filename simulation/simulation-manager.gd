@@ -95,10 +95,22 @@ func create_gate(type : String, location : String = "") -> void:
 func _on_mouse_near_gate(gate: Gate) -> void:
 	match state:
 		IDLE:
-			gate.show_both_indicators()
+			match gate.gate_type:
+				"start":
+					gate.show_output_indicator()
+				"end":
+					if len(gate.input_connections) != gate.input_max:
+						gate.show_input_indictor()
+				_:
+					if len(gate.input_connections) != gate.input_max:
+						gate.show_input_indictor()
+					gate.show_output_indicator()
+			
 		CREATING_CONNECTION:
 			if temp_connection.input == null:
 				if temp_connection.output == gate:
+					return
+				if len(gate.input_connections) >= gate.input_max:
 					return
 				gate.show_input_indictor()
 			if temp_connection.output == null:
