@@ -88,6 +88,7 @@ func create_gate(type : String, location : String = "") -> void:
 		end_gates.append(gate_scene)
 	
 	if Input.is_action_pressed("left_click"):
+		self._on_mouse_near_gate(gate_scene)
 		gate_held = gate_scene
 		state = MOVING_GATE
 
