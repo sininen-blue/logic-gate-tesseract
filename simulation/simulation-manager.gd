@@ -99,10 +99,10 @@ func _on_mouse_near_gate(gate: Gate) -> void:
 				"start":
 					gate.show_output_indicator()
 				"end":
-					if len(gate.input_connections) != gate.input_max:
+					if len(gate.input_connections) < gate.input_max:
 						gate.show_input_indictor()
 				_:
-					if len(gate.input_connections) != gate.input_max:
+					if len(gate.input_connections) < gate.input_max:
 						gate.show_input_indictor()
 					gate.show_output_indicator()
 			
@@ -181,8 +181,6 @@ func complete_connection() -> void:
 	var gate: Gate = temp_connection.input
 	if len(gate.input_connections) == gate.input_max:
 		formula_container.new_node(gate)
-	
-	temp_connection = null
 
 
 ## Processes
@@ -256,6 +254,7 @@ func _process(_delta: float) -> void:
 			if Input.is_action_just_released("left_click"):
 				temp_line.visible = false
 				
+				var input_null: bool = temp_connection.input == null
 				for area in mouse_area.get_overlapping_areas():
 					if temp_connection.input == null and area.is_in_group("inputs"):
 						temp_connection.input = area.get_parent()
@@ -269,6 +268,15 @@ func _process(_delta: float) -> void:
 						break
 				
 				state = IDLE
+				
+				# assumes the input side is the "end" of the connection
+				if input_null:
+					temp_connection.input._on_mouse_area_mouse_exited()
+					_on_mouse_near_gate(temp_connection.input)
+				else:
+					temp_connection.output._on_mouse_area_mouse_exited()
+					_on_mouse_near_gate(temp_connection.output)
+				temp_connection = null
 
 
 func run_simulation() -> void:
