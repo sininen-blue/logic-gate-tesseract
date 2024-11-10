@@ -2,7 +2,7 @@
   "title": "Final Check",
   "author": "game",
   "create_date": "6-9-2024",
-  "description": "Finally I double check my doors and windows being locked, or if my sister is still at home, if she is, I don't need to lock anything",
+  "description": "Finally I double check my doors and windows being locked, or if my sister is still at home, if she is, I don't need to lock anything.\n\nWhere Variable A are my doors, and variable B are my windows,\nAnd variable C is my sister being in the house",
   "end_count": "1",
   "truth_table": [
 	"0000", "0011", "0100", "0111", "1000", "1011", "1101", "1111"

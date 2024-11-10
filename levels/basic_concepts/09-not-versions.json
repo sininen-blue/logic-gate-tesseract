@@ -2,7 +2,7 @@
   "title": "The NOT version of all the GATES",
   "author": "game",
   "create_date": "6-9-2024",
-  "description": "Each gate has its own corresponding not versions, which is essentially, the gate + not",
+  "description": "Each gate has its own corresponding not versions, which is the gate itself combined with a not gate. Take each input and run them through each not gate\n\nConnect a NAND gate to output C\nA NOR gate to output D\n And a XNOR gate to output E",
   "end_count": "3",
   "truth_table": [
 	"00111", "01100", "10100", "11001"

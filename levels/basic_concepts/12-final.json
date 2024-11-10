@@ -2,7 +2,7 @@
   "title": "Game developement",
   "author": "game",
   "create_date": "6-9-2024",
-  "description": "If I'm on the ground and I press up I should go up, \nIf I'm not on the ground and I press up I should go down\nBut if I'm on the ground and I don't press up, I should also go down\n And if I don't press anything, I'll be going down because of gravity",
+  "description": "If I'm on the ground and I press up I should go up, \nIf I'm not on the ground and I press up I should go down\nBut if I'm on the ground and I don't press up, I should keep going down\n And if I don't press anything, I'll be going down because of gravity\n\nVariable A is me being on the ground,\nVariable B is me pressing the up button,\nOutput C is me going up,\nOutput D is me going down",
   "end_count": "2",
   "truth_table": [
 	"0001", "0101", "1001", "1110"
