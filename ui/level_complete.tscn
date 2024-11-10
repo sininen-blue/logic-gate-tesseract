@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://drcweefw840r3"]
+[gd_scene load_steps=5 format=3 uid="uid://drcweefw840r3"]
 
 [ext_resource type="Script" path="res://ui/level_complete.gd" id="1_336ks"]
 [ext_resource type="Theme" uid="uid://dt7cs1ptpftme" path="res://ui/themes/Bolder.tres" id="2_sc3k5"]
 [ext_resource type="Script" path="res://ui/truth_table_container.gd" id="2_y8h4p"]
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="3_347lg"]
 
 [node name="LevelComplete" type="Control"]
 layout_mode = 3
@@ -28,84 +29,32 @@ text = "Level Complete !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(1088, 0)
+[node name="LevelPass" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 123.0
-offset_right = -32.0
-offset_bottom = -32.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -189.0
+offset_right = 393.0
+offset_bottom = 294.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Leaderboard" type="Panel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LevelPass" type="Panel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
-[node name="Title" type="Label" parent="HBoxContainer/LevelPass"]
+[node name="Title" type="Label" parent="LevelPass"]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -54.0
-offset_top = 59.0
-offset_right = 55.0
-offset_bottom = 82.0
-grow_horizontal = 2
+offset_left = 44.0
+offset_top = 52.0
+offset_right = 155.0
+offset_bottom = 75.0
+theme = ExtResource("3_347lg")
 text = "LEVEL PASSED"
 
-[node name="AccuracyLabel" type="Label" parent="HBoxContainer/LevelPass"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -131.0
-offset_top = 133.0
-offset_right = -28.0
-offset_bottom = 156.0
-grow_horizontal = 2
-text = "Accuracy"
-
-[node name="Accuracy" type="Label" parent="HBoxContainer/LevelPass"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 30.0
-offset_top = 133.0
-offset_right = 133.0
-offset_bottom = 156.0
-grow_horizontal = 2
-text = "Accuracy"
-
-[node name="RetryButton" type="Button" parent="HBoxContainer/LevelPass"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -94.0
-offset_top = -117.0
-offset_right = 95.0
-offset_bottom = -44.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Retry"
-
-[node name="TruthTable" type="Panel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-
-[node name="TruthTable" type="ScrollContainer" parent="HBoxContainer/TruthTable"]
+[node name="TruthTable" type="ScrollContainer" parent="LevelPass"]
 custom_minimum_size = Vector2(249, 297)
 layout_mode = 1
 anchors_preset = 8
@@ -113,46 +62,69 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -124.5
-offset_top = -148.5
-offset_right = 124.5
-offset_bottom = 148.5
+offset_left = 23.0
+offset_top = -202.5
+offset_right = 356.0
+offset_bottom = 197.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TruthTableContainer" type="VBoxContainer" parent="HBoxContainer/TruthTable/TruthTable"]
+[node name="TruthTableContainer" type="VBoxContainer" parent="LevelPass/TruthTable"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_y8h4p")
 
-[node name="Title" type="Label" parent="HBoxContainer/TruthTable"]
+[node name="AccuracyLabel" type="Label" parent="LevelPass"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -44.0
-offset_top = 59.0
-offset_right = 45.0
-offset_bottom = 82.0
+offset_left = -340.0
+offset_top = 116.0
+offset_right = -237.0
+offset_bottom = 139.0
 grow_horizontal = 2
-text = "Truth Table"
+text = "Accuracy"
 
-[node name="ContinueButton" type="Button" parent="HBoxContainer/TruthTable"]
+[node name="Accuracy" type="Label" parent="LevelPass"]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -65.0
-offset_top = -117.0
-offset_right = 65.0
-offset_bottom = -44.0
+offset_left = -227.0
+offset_top = 117.0
+offset_right = -124.0
+offset_bottom = 140.0
 grow_horizontal = 2
+text = "Accuracy"
+
+[node name="ContinueButton" type="Button" parent="LevelPass"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 91.0
+offset_top = -78.0
+offset_right = 183.0
+offset_bottom = -25.0
 grow_vertical = 0
 text = "continue"
 
-[connection signal="pressed" from="HBoxContainer/LevelPass/RetryButton" to="." method="_on_retry_button_pressed"]
-[connection signal="done" from="HBoxContainer/TruthTable/TruthTable/TruthTableContainer" to="." method="_on_truth_table_container_done"]
-[connection signal="pressed" from="HBoxContainer/TruthTable/ContinueButton" to="." method="_on_continue_button_pressed"]
+[node name="RetryButton" type="Button" parent="LevelPass"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 102.0
+offset_top = -136.0
+offset_right = 170.0
+offset_bottom = -83.0
+grow_vertical = 0
+text = "Retry"
+
+[connection signal="done" from="LevelPass/TruthTable/TruthTableContainer" to="." method="_on_truth_table_container_done"]
+[connection signal="pressed" from="LevelPass/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="LevelPass/RetryButton" to="." method="_on_retry_button_pressed"]

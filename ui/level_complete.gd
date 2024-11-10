@@ -4,10 +4,10 @@ const simulation_scene: String = "uid://swjkfmyam37c"
 const custom_level_scene: String = "uid://bwlvlfljyekts"
 const level_select_scene: String = "uid://yrih2e5sant0"
 
-@onready var title: Label = $HBoxContainer/LevelPass/Title
-@onready var accuracy: Label = $HBoxContainer/LevelPass/Accuracy
+@onready var title: Label = $"%Title"
+@onready var accuracy: Label = $"%Accuracy"
 
-@onready var truth_table_container: VBoxContainer = $HBoxContainer/TruthTable/TruthTable/TruthTableContainer
+@onready var truth_table_container: VBoxContainer =$"%TruthTableContainer"
 
 func _ready() -> void:
 	truth_table_container.start()
