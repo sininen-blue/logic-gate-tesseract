@@ -48,13 +48,18 @@ func _on_visibility_changed() -> void:
 		
 		truth_table.add_child(new_row)
 	
+	var count: int = 0
 	if input_variables.get_child_count() < input_count:
 		for i in range(input_count):
 			var new_input_node : Control = input_node.instantiate()
+			new_input_node.var_name = String.chr(65  + count)
+			count += 1
 			input_variables.add_child(new_input_node)
 	if output_variables.get_child_count() < output_count:
 		for i in range(output_count):
 			var new_output_node : Control = output_node.instantiate()
+			new_output_node.var_name = String.chr(65  + count)
+			count += 1
 			output_variables.add_child(new_output_node)
 	
 	while input_variables.get_child_count() > input_count:
