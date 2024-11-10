@@ -38,9 +38,22 @@ func _on_visibility_changed() -> void:
 	var output_count : int = int(level_data["end_count"])
 	var input_count : int = len(level_data["truth_table"][0]) - output_count
 	
+	# remove current data
 	var truth_table_rows: Array[Node] = truth_table.get_children()
 	for row in truth_table_rows:
 		truth_table.remove_child(row)
+	
+	# set headings
+	var truth_table_heading: Panel = table_row.instantiate()
+	var heading_count: int = 0
+	for input in input_count:
+		truth_table_heading.variables += String.chr(65  + heading_count)
+		heading_count += 1
+	for output in output_count:
+		truth_table_heading.outputs += String.chr(65  + heading_count)
+		heading_count += 1
+	truth_table.add_child(truth_table_heading)
+	
 	for row : String in level_data["truth_table"]:
 		var new_row: Panel = table_row.instantiate()
 		new_row.variables = row.left(input_count)
