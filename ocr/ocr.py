@@ -43,32 +43,50 @@ def format(text: str) -> str:
     return output
 
 
-def crop_image(image, binary):
-    horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
-    horizontal_lines = cv2.morphologyEx(
-        binary, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
+def crop_image(binary):
+    # horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
+    # horizontal_lines = cv2.morphologyEx(
+    #     binary, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
+    #
+    # vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 25))
+    # vertical_lines = cv2.morphologyEx(
+    #     binary, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
+    #
+    # table_structure = cv2.add(horizontal_lines, vertical_lines)
+    #
+    # contours, _ = cv2.findContours(
+    #     table_structure, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #
+    # if contours:
+    #     largest_contour = max(contours, key=cv2.contourArea)
+    #
+    #     x, y, w, h = cv2.boundingRect(largest_contour)
+    #     cropped_binary = binary[y:y + h, x:x + w]
+    #
+    #     return cropped_binary
+    binary = cv2.bitwise_not(binary)
+    edges = cv2.Canny(binary, 50, 150)
 
-    vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 25))
-    vertical_lines = cv2.morphologyEx(
-        binary, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
+    # Step 3: Dilate the edges to close gaps and strengthen lines (optional)
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    dilated_edges = cv2.dilate(edges, kernel, iterations=1)
 
-    table_structure = cv2.add(horizontal_lines, vertical_lines)
-
+    # Step 4: Find contours
     contours, _ = cv2.findContours(
-        table_structure, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        dilated_edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
+    # Step 5: Get the bounding box of the largest contour, assuming it’s the table
     if contours:
+        # Sort contours by area and get the largest one
         largest_contour = max(contours, key=cv2.contourArea)
-
-        output = image.copy()
-        cv2.drawContours(output, [largest_contour], -1, (0, 255, 0), 2)
-        debug_img_show("contours", output)
-
         x, y, w, h = cv2.boundingRect(largest_contour)
-        cropped_image = image[y:y + h, x:x + w]
-        cropped_binary = binary[y:y + h, x:x + w]
 
-        return cropped_image, cropped_binary
+        # Crop the image using the bounding box coordinates
+        cropped_binary = binary[y:y+h, x:x+w]
+
+        return cropped_binary
+
+        # Display the cropped image
 
 
 def remove_table_lines(binary):
@@ -83,10 +101,7 @@ def remove_table_lines(binary):
     table_mask = cv2.add(horizontal_lines, vertical_lines)
     cleaned_binary = cv2.subtract(binary, table_mask)
 
-    # invert for black text and white background
-    cleaned_image = cv2.bitwise_not(cleaned_binary)
-
-    return cleaned_image, cleaned_binary
+    return cleaned_binary
 
 
 def read_table(table_image, row_count):
@@ -168,32 +183,29 @@ def debug_img_show(title, image):
 
 
 def main():
-    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    contrast = 1.5
+    brightness = 0
+
+    image = cv2.imread(image_path, cv2.COLOR_BGR2GRAY)
+    image = cv2.convertScaleAbs(image, alpha=contrast, beta=brightness)
+    image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX)
+    debug_img_show("normalized", image)
+    # image = cv2.GaussianBlur(image, (3, 3), 0)
+    # image = cv2.bilateralFilter(image, 9, 75, 75)
+
+    _, binary = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
+
     debug_img_show("image", image)
+    debug_img_show("binary", binary)
 
-    image = cv2.medianBlur(image, 11)
-    debug_img_show("blur", image)
+    cropped_binary = crop_image(binary)
+    debug_img_show("cropped image", cropped_binary)
+    cleaned_binary = remove_table_lines(cropped_binary)
+    debug_img_show("cleaned image", cleaned_binary)
 
-    image = cv2.bilateralFilter(image, 9, 75, 75)
-    debug_img_show("bilarteral filter", image)
-
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (6, 6))
-
-    binary = cv2.adaptiveThreshold(image, 255,
-                                   cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                                   cv2.THRESH_BINARY, 13, 2)
-    image = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
-
-    debug_img_show("first image blurred", image)
-    debug_img_show("first binary", binary)
-
-    cropped_image, cropped_binary = crop_image(image, binary)
-    debug_img_show("cropped image", cropped_image)
-    cleaned_img, cleaned_binary = remove_table_lines(cropped_binary)
-    debug_img_show("cleaned image", cleaned_img)
     row_count = detect_row_count(cleaned_binary)
 
-    table = read_table(cleaned_img, row_count)
+    table = read_table(cleaned_binary, row_count)
     normalized_table = normalize(table)
 
     data = {
