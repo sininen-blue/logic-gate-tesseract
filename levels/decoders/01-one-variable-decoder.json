@@ -1,0 +1,10 @@
+{
+  "title": "An introduction to Decoders",
+  "author": "game",
+  "create_date": "6-9-2024",
+  "description": "Decoders are a set of gates that allows an input to connect to different outputs. It 'Decodes' an input\n\nLet's make a simple 1-2 decoder, where one input can be used to connect to two outputs\nCreate a circuit where output B is the opposite of variable A, \nand output C is the same as variable A",
+  "end_count": "2",
+  "truth_table": [
+	"010", "101"
+  ]
+}

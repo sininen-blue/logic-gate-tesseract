@@ -1,0 +1,10 @@
+{
+  "title": "Interlude, an introduction to enable/disable switches",
+  "author": "game",
+  "create_date": "6-9-2024",
+  "description": "enable/disable switches are a common feature in many integrated circuits, where it blocks the function of part of the circuit\n\nMake a circuit where output C is the same as variable A, only if variable B is on\nIn this case, variable B is our on/off switch",
+  "end_count": "1",
+  "truth_table": [
+	"011", "100"
+  ]
+}

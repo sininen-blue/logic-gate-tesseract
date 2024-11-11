@@ -1,0 +1,10 @@
+{
+  "title": "Combined Decoder Problem",
+  "author": "game",
+  "create_date": "6-9-2024",
+  "description": "I have a switch (variable A), which either locks my doors (output C), or locks my windows (output D), but if my second switch is on (variable B), then neither turns on.\n\n Use a decoder to connect variable A to output C and D,\nAnd use variable B as an off switch by using the principles you learned in the interlued level",
+  "end_count": "2",
+  "truth_table": [
+	"0110", "1001"
+  ]
+}

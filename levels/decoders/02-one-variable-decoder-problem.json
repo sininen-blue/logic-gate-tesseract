@@ -1,0 +1,10 @@
+{
+  "title": "Simple decoder application",
+  "author": "game",
+  "create_date": "6-9-2024",
+  "description": "Now that we've made a simple 1 to 2 decoder, it's time to use it in a problem.\n\nI have a switch, variable A, that I want to activate my outdoor light, output B, if it's on\n and actiate my indoor light, output C, if it's off",
+  "end_count": "2",
+  "truth_table": [
+	"010", "101"
+  ]
+}
