@@ -269,6 +269,7 @@ func _process(_delta: float) -> void:
 				temp_line.visible = false
 				
 				var input_null: bool = temp_connection.input == null
+				var output_null: bool = temp_connection.output == null
 				for area in mouse_area.get_overlapping_areas():
 					if temp_connection.input == null and area.is_in_group("inputs"):
 						temp_connection.input = area.get_parent()
@@ -287,7 +288,7 @@ func _process(_delta: float) -> void:
 				if input_null:
 					temp_connection.input._on_mouse_area_mouse_exited()
 					_on_mouse_near_gate(temp_connection.input)
-				else:
+				if output_null:
 					temp_connection.output._on_mouse_area_mouse_exited()
 					_on_mouse_near_gate(temp_connection.output)
 				temp_connection = null
