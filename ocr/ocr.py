@@ -60,6 +60,10 @@ def crop_image(image, binary):
     if contours:
         largest_contour = max(contours, key=cv2.contourArea)
 
+        output = image.copy()
+        cv2.drawContours(output, [largest_contour], -1, (0, 255, 0), 2)
+        debug_img_show("contours", output)
+
         x, y, w, h = cv2.boundingRect(largest_contour)
         cropped_image = image[y:y + h, x:x + w]
         cropped_binary = binary[y:y + h, x:x + w]
@@ -150,12 +154,43 @@ def detect_row_count(binary):
     return row_count
 
 
+def debug_img_show(title, image):
+    scale_factor = 0.5
+    width = int(image.shape[1] * scale_factor)
+    height = int(image.shape[0] * scale_factor)
+
+    zoomed_out_image = cv2.resize(
+        image, (width, height), interpolation=cv2.INTER_AREA)
+
+    cv2.imshow(title, zoomed_out_image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
 def main():
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)
+    debug_img_show("image", image)
+
+    image = cv2.medianBlur(image, 11)
+    debug_img_show("blur", image)
+
+    image = cv2.bilateralFilter(image, 9, 75, 75)
+    debug_img_show("bilarteral filter", image)
+
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (6, 6))
+
+    binary = cv2.adaptiveThreshold(image, 255,
+                                   cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                   cv2.THRESH_BINARY, 13, 2)
+    image = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
+
+    debug_img_show("first image blurred", image)
+    debug_img_show("first binary", binary)
 
     cropped_image, cropped_binary = crop_image(image, binary)
+    debug_img_show("cropped image", cropped_image)
     cleaned_img, cleaned_binary = remove_table_lines(cropped_binary)
+    debug_img_show("cleaned image", cleaned_img)
     row_count = detect_row_count(cleaned_binary)
 
     table = read_table(cleaned_img, row_count)
