@@ -15,6 +15,8 @@ parser.add_argument("-a", "--absolute-path", dest="absolute_path",
                     help="Absolute path to tesseract.exe if it isn't in PATH")
 parser.add_argument("-hm", "--handwritten-mode", action="store_true",
                     dest="handwritten_mode", help="Enablehandwritten mode")
+parser.add_argument("-o", "--output-path", required=True, dest="output_path",
+                    type=str, help="absolute file path of output")
 parser.add_argument("-c", "--columns", required=True, dest="columns",
                     type=int, help="Number of columns")
 parser.add_argument("-i", "--inputs", required=True, dest="inputs",
@@ -28,6 +30,7 @@ if args.absolute_path is not None:
 
 custom_config = r'--psm 10 --oem 3'
 custom_config_handwritten = r'--psm 6 --oem 3'
+output_path = args.output_path
 handwritten_mode = args.handwritten_mode
 image_path = args.input_file
 input_count = args.inputs
@@ -155,6 +158,23 @@ def detect_row_count(binary):
     return row_count
 
 
+def process_text(text):
+    array_output = []
+    text_block = text.splitlines()
+
+    for row in text_block:
+        output_row = []
+        for char in row:
+            output_row.append(format(char))
+        array_output.append(output_row)
+
+    output = []
+    for row in array_output:
+        output.append("".join(row))
+
+    return output
+
+
 def main():
     if handwritten_mode:
         contrast = 1.5
@@ -177,10 +197,6 @@ def main():
         x, y, w, h = roi
         image = image[int(y):int(y + h), int(x):int(x + w)]
 
-        cv2.imshow('img', image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-
         image = cv2.convertScaleAbs(image, alpha=contrast, beta=brightness)
         _, binary = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY)
 
@@ -193,10 +209,12 @@ def main():
 
         text = pytesseract.image_to_string(
             binary, config=custom_config_handwritten)
-        print(text)
+        data = {
+            "truth_table": process_text(text),
+        }
+        with open(output_path, "w") as json_file:
+            json.dump(data, json_file, indent=4)
 
-        cv2.imshow('img', binary)
-        cv2.waitKey(0)
     else:
         image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)

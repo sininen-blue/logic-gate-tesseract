@@ -6,6 +6,7 @@ extends Control
 
 @onready var file_dialog: FileDialog = %FileDialog
 @onready var photo_button: Button = %PhotoButton
+@onready var handwrite_check_box: CheckBox = $ScrollContainer/Panel/Main/TruthTableInputs/HandwriteCheckBox
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var spinner_sprite: Sprite2D = %SpinnerSprite
@@ -140,7 +141,10 @@ func download(image_path: String) -> Array:
 	var program_path: String = "ocr/dist/ocr.exe"
 	var column_count: int = input_count+output_count 
 	
-	var args: Array = [image_path, "-c", column_count, "-i", input_count]
+	var args: Array = ["-o", ProjectSettings.globalize_path("user://temp.json"), image_path, "-c", column_count, "-i", input_count]
+	if handwrite_check_box.button_pressed:
+		args.append("-hm")
+	
 	if DataManager.settings["use_path"] == false:
 		args.append("-a")
 		args.append(DataManager.settings["tesseract_path"])

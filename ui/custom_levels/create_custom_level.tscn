@@ -234,6 +234,14 @@ grow_horizontal = 2
 tooltip_text = "Use a pre existing photo of a truth table to generate a new level"
 text = "Use Photo"
 
+[node name="HandwriteCheckBox" type="CheckBox" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 92.0
+offset_right = 644.0
+offset_bottom = 142.0
+text = "Handwritten Mode?"
+
 [node name="SpinnerSprite" type="Sprite2D" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 unique_name_in_owner = true
 visible = false
