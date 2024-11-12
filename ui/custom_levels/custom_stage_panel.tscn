@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="3_1uq0p"]
 
 [node name="CustomStagePanel" type="Panel"]
-custom_minimum_size = Vector2(576, 123)
+custom_minimum_size = Vector2(728, 123)
 offset_right = 728.0
 offset_bottom = 123.0
 script = ExtResource("1_13h3g")

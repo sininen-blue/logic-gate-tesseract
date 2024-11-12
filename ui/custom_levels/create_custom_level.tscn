@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c20nqruvjtxah"]
+[gd_scene load_steps=12 format=3 uid="uid://c20nqruvjtxah"]
 
 [ext_resource type="Script" path="res://ui/custom_levels/create_custom_level.gd" id="1_uiy2w"]
 [ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="2_1ogc4"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c3jqs3pq4mpki" path="res://ui/custom_levels/truth_table.tscn" id="4_e7hyx"]
 [ext_resource type="PackedScene" uid="uid://dnhtijfjnpwty" path="res://ui/components/increment_edit.tscn" id="4_x3g33"]
 [ext_resource type="Theme" uid="uid://diwchjwgvp2l4" path="res://ui/themes/redButton.tres" id="5_76tb5"]
+[ext_resource type="Script" path="res://ui/components/error_panel.gd" id="7_ymcuo"]
+[ext_resource type="Texture2D" uid="uid://dnh2tp20qhva3" path="res://ocr/handwritten test 4.jpg" id="8_moiad"]
 
 [sub_resource type="Animation" id="Animation_hhhcl"]
 length = 0.001
@@ -234,6 +236,14 @@ grow_horizontal = 2
 tooltip_text = "Use a pre existing photo of a truth table to generate a new level"
 text = "Use Photo"
 
+[node name="HandwriteCheckBox" type="CheckBox" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 92.0
+offset_right = 644.0
+offset_bottom = 142.0
+text = "Handwritten Mode?"
+
 [node name="SpinnerSprite" type="Sprite2D" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 unique_name_in_owner = true
 visible = false
@@ -292,6 +302,68 @@ libraries = {
 "": SubResource("AnimationLibrary_u8oaj")
 }
 
+[node name="FormatWarning" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -164.0
+offset_right = 272.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_ymcuo")
+
+[node name="ErrorLabel" type="Label" parent="FormatWarning"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 184.0
+offset_top = 80.0
+offset_right = -16.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Please write your truth table in the same format as the image on the left
+
+No headings in a block format without talbe lines for best results"
+autowrap_mode = 3
+
+[node name="ErrorConfirm" type="Button" parent="FormatWarning"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -161.0
+offset_top = -46.0
+offset_right = -18.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "OK"
+
+[node name="HandwrittenTest4" type="Sprite2D" parent="FormatWarning"]
+position = Vector2(104, 160)
+scale = Vector2(0.0897213, 0.0897213)
+texture = ExtResource("8_moiad")
+region_enabled = true
+region_rect = Rect2(324, 874, 1253, 1679)
+
+[node name="Label" type="Label" parent="FormatWarning"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 32.0
+offset_right = 424.0
+offset_bottom = 55.0
+text = "FORMAT REQUIREMENT"
+
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="canceled" from="AcceptDialog" to="." method="_on_accept_dialog_canceled"]
 [connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]
@@ -299,4 +371,6 @@ libraries = {
 [connection signal="count_changed" from="ScrollContainer/Panel/Main/TruthTableInputs/OutputEdit" to="." method="_on_output_edit_count_changed"]
 [connection signal="pressed" from="ScrollContainer/Panel/Main/TruthTableInputs/ManualButton" to="." method="_on_manual_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/Panel/Main/TruthTableInputs/PhotoButton" to="." method="_on_photo_button_pressed"]
+[connection signal="toggled" from="ScrollContainer/Panel/Main/TruthTableInputs/HandwriteCheckBox" to="." method="_on_handwrite_check_box_toggled"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="FormatWarning/ErrorConfirm" to="FormatWarning" method="_on_error_confirm_pressed"]

@@ -6,6 +6,7 @@ extends Control
 
 @onready var file_dialog: FileDialog = %FileDialog
 @onready var photo_button: Button = %PhotoButton
+@onready var handwrite_check_box: CheckBox = $ScrollContainer/Panel/Main/TruthTableInputs/HandwriteCheckBox
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var spinner_sprite: Sprite2D = %SpinnerSprite
@@ -19,6 +20,8 @@ extends Control
 @onready var input_edit: IncrementEdit = $ScrollContainer/Panel/Main/TruthTableInputs/InputEdit
 @onready var output_edit: IncrementEdit = $ScrollContainer/Panel/Main/TruthTableInputs/OutputEdit
 @onready var truth_table_container: ScrollContainer = $ScrollContainer/Panel/Main/TruthTable
+
+@onready var format_warning: Panel = $FormatWarning
 
 var exec_thread: Thread = Thread.new()
 
@@ -128,7 +131,8 @@ func _process(_delta: float) -> void:
 		create_button.disabled = false
 		
 		var truth_table: Array = exec_thread.wait_to_finish()
-		truth_table = truth_table.slice(1, truth_table.size())
+		if handwrite_check_box.button_pressed == false:
+			truth_table = truth_table.slice(1, truth_table.size())
 		truth_table_container.visible = true
 		truth_table_container.make_table(input_count, output_count)
 		truth_table_container.set_outputs(output_count, truth_table)
@@ -140,7 +144,10 @@ func download(image_path: String) -> Array:
 	var program_path: String = "ocr/dist/ocr.exe"
 	var column_count: int = input_count+output_count 
 	
-	var args: Array = [image_path, "-c", column_count, "-i", input_count]
+	var args: Array = ["-o", ProjectSettings.globalize_path("user://temp.json"), image_path, "-c", column_count, "-i", input_count]
+	if handwrite_check_box.button_pressed:
+		args.append("-hm")
+	
 	if DataManager.settings["use_path"] == false:
 		args.append("-a")
 		args.append(DataManager.settings["tesseract_path"])
@@ -148,9 +155,11 @@ func download(image_path: String) -> Array:
 	var exit_code: int = OS.execute(program_path, args, output, false, false)
 	print(exit_code)
 	
-	var json_string: String = output[0].get_slice("\n", 0)
-	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	
+	var output_file: FileAccess = FileAccess.open("user://temp.json", FileAccess.READ)
+	var json_string: String = output_file.get_as_text()
+	
+	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	return truth_table
 
 
@@ -178,3 +187,8 @@ func _on_accept_dialog_confirmed() -> void:
 
 func _on_accept_dialog_canceled() -> void:
 	get_tree().change_scene_to_file(custom_levels_scene)
+
+
+func _on_handwrite_check_box_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		format_warning.show_error("Please write your truth table in the same format as the image on the left\n\nNo headings in a block format without talbe lines for best results")
