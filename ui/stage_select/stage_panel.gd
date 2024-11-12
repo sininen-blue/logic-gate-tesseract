@@ -12,6 +12,7 @@ var dir : DirAccess
 @onready var title_label: Label = $TitleLabel
 @onready var description_label: Label = $ScrollContainer/DescriptionLabel
 @onready var progress_bar: ProgressBar = $ProgressBar
+@onready var progress_label: Label = $ProgressLabel
 
 
 func _ready() -> void:
@@ -19,6 +20,8 @@ func _ready() -> void:
 	description_label.text = level_dict["description"]
 	progress_bar.value = completed_levels
 	progress_bar.max_value = total_levels
+	
+	progress_label.text = str(completed_levels, "/", total_levels)
 
 
 func _on_play_button_pressed() -> void:

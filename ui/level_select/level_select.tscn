@@ -51,7 +51,6 @@ visible = false
 layout_mode = 1
 offset_left = -432.0
 offset_top = -260.5
-offset_right = 432.0
 offset_bottom = 260.5
 
 [node name="Camera2D" type="Camera2D" parent="."]

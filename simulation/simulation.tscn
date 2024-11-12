@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=16 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="3_caabb"]
 [ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
 [ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
 [ext_resource type="Texture2D" uid="uid://bakndx3eqlal4" path="res://assets/simulation/and.png" id="5_571u2"]
@@ -23,6 +24,7 @@ GATE_SCENE = ExtResource("2_8m28h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(581, 325)
+zoom = Vector2(0.8, 0.8)
 
 [node name="TempLine" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
@@ -58,10 +60,11 @@ metadata/_edit_lock_ = true
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 custom_minimum_size = Vector2(359, 183)
 layout_mode = 0
-offset_left = 90.0
-offset_top = 57.0
-offset_right = 449.0
-offset_bottom = 240.0
+offset_left = 26.0
+offset_top = 77.0
+offset_right = 385.0
+offset_bottom = 260.0
+theme = ExtResource("3_caabb")
 script = ExtResource("3_qlwgx")
 formula_label = ExtResource("3_qwkcl")
 
@@ -156,7 +159,8 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/FlowContainer/TrashContainer/Control"]
+[node name="TrashSprite" type="Sprite2D" parent="CanvasLayer/UI/FlowContainer/TrashContainer/Control"]
+z_index = -8
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("13_ihso0")
 
@@ -192,7 +196,6 @@ visible = false
 layout_mode = 1
 offset_left = -432.0
 offset_top = -260.5
-offset_right = 432.0
 offset_bottom = 260.5
 in_game = true
 
@@ -204,7 +207,11 @@ offset_right = 81.0
 offset_bottom = 65.0
 text = "Back"
 
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="mouse_entered" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_trash_container_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

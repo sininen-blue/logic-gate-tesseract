@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://drcweefw840r3"]
+[gd_scene load_steps=6 format=3 uid="uid://drcweefw840r3"]
 
 [ext_resource type="Script" path="res://ui/level_complete.gd" id="1_336ks"]
 [ext_resource type="Theme" uid="uid://dt7cs1ptpftme" path="res://ui/themes/Bolder.tres" id="2_sc3k5"]
 [ext_resource type="Script" path="res://ui/truth_table_container.gd" id="2_y8h4p"]
 [ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="3_347lg"]
+[ext_resource type="Theme" uid="uid://c037ts28mkfoy" path="res://ui/themes/Bold.tres" id="3_xu6e8"]
 
 [node name="LevelComplete" type="Control"]
 layout_mode = 3
@@ -14,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_336ks")
 
-[node name="Label" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -45,14 +46,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Title" type="Label" parent="LevelPass"]
-unique_name_in_owner = true
 layout_mode = 1
 offset_left = 44.0
 offset_top = 52.0
 offset_right = 155.0
 offset_bottom = 75.0
-theme = ExtResource("3_347lg")
-text = "LEVEL PASSED"
+theme = ExtResource("3_xu6e8")
+text = "Level Stats"
 
 [node name="TruthTable" type="ScrollContainer" parent="LevelPass"]
 custom_minimum_size = Vector2(249, 297)
@@ -86,20 +86,53 @@ offset_top = 116.0
 offset_right = -237.0
 offset_bottom = 139.0
 grow_horizontal = 2
+theme = ExtResource("3_347lg")
 text = "Accuracy"
 
-[node name="Accuracy" type="Label" parent="LevelPass"]
+[node name="AccuracyValueLabel" type="Label" parent="LevelPass"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -227.0
+offset_left = -215.0
 offset_top = 117.0
-offset_right = -124.0
-offset_bottom = 140.0
+offset_right = -110.0
+offset_bottom = 148.0
 grow_horizontal = 2
+theme = ExtResource("3_347lg")
 text = "Accuracy"
+horizontal_alignment = 2
+
+[node name="SpeedLabel" type="Label" parent="LevelPass"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -341.0
+offset_top = 147.0
+offset_right = -236.0
+offset_bottom = 178.0
+grow_horizontal = 2
+theme = ExtResource("3_347lg")
+text = "Speed
+"
+
+[node name="SpeedValueLabel" type="Label" parent="LevelPass"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -221.0
+offset_top = 152.0
+offset_right = -116.0
+offset_bottom = 183.0
+grow_horizontal = 2
+theme = ExtResource("3_347lg")
+text = "Speed
+"
+horizontal_alignment = 2
 
 [node name="ContinueButton" type="Button" parent="LevelPass"]
 layout_mode = 1

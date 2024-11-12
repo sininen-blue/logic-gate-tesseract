@@ -1,5 +1,10 @@
 extends Node2D
 
+
+const TRASH_BIN_OPEN = preload("res://assets/simulation/trashBin/trashBin-open.png")
+const TRASH_BIN = preload("res://assets/simulation/trashBin/trashBin.png")
+
+
 enum {
 	IDLE,
 	MOVING_CAMERA,
@@ -15,6 +20,7 @@ var start_gates : Array[Gate]
 var end_gates : Array[Gate]
 
 var mouse_in_trash_bin: bool = false
+var time_spent: int = 0
 
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
@@ -22,6 +28,8 @@ var mouse_in_trash_bin: bool = false
 @onready var temp_line: Line2D = $TempLine
 @onready var mouse_area: Area2D = $MouseArea
 @onready var camera : Camera2D = $Camera2D
+
+@onready var trash_sprite: Sprite2D = $CanvasLayer/UI/FlowContainer/TrashContainer/Control/TrashSprite
 
 @onready var formula_container: VBoxContainer = $CanvasLayer/UI/FormulaContainer
 
@@ -270,6 +278,7 @@ func _process(_delta: float) -> void:
 				
 				var input_null: bool = temp_connection.input == null
 				var output_null: bool = temp_connection.output == null
+				var valid_connection: bool = false
 				for area in mouse_area.get_overlapping_areas():
 					if temp_connection.input == null and area.is_in_group("inputs"):
 						temp_connection.input = area.get_parent()
@@ -279,24 +288,30 @@ func _process(_delta: float) -> void:
 					if (temp_connection.input != temp_connection.output and
 						temp_connection.input != null and
 						temp_connection.output != null):
+						valid_connection = true
 						complete_connection()
 						break
 				
 				state = IDLE
 				
+				# makes the gate connected to re open indicators
 				# assumes the input side is the "end" of the connection
-				if input_null:
-					temp_connection.input._on_mouse_area_mouse_exited()
-					_on_mouse_near_gate(temp_connection.input)
-				if output_null:
-					temp_connection.output._on_mouse_area_mouse_exited()
-					_on_mouse_near_gate(temp_connection.output)
+				if valid_connection:
+					if input_null:
+						temp_connection.input._on_mouse_area_mouse_exited()
+						_on_mouse_near_gate(temp_connection.input)
+					if output_null:
+						temp_connection.output._on_mouse_area_mouse_exited()
+						_on_mouse_near_gate(temp_connection.output)
 				temp_connection = null
 
 
 func run_simulation() -> void:
 	if simulation_running:
 		return
+	
+	# set speed value
+	DataManager.level_clear_speed = time_spent
 	
 	simulation_running = true
 	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
@@ -346,8 +361,16 @@ func _on_back_button_pressed() -> void:
 
 
 func _on_control_mouse_entered() -> void:
+	trash_sprite.scale = Vector2(1, 1)
+	trash_sprite.texture = TRASH_BIN_OPEN
 	mouse_in_trash_bin = true
 
 
 func _on_trash_container_mouse_exited() -> void:
+	trash_sprite.scale = Vector2(.7, .7)
+	trash_sprite.texture = TRASH_BIN
 	mouse_in_trash_bin = false
+
+
+func _on_timer_timeout() -> void:
+	time_spent += 1

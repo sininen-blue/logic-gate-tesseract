@@ -11,12 +11,11 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -576.0
 offset_top = -324.0
-offset_right = 288.0
-offset_bottom = 197.0
+offset_right = 432.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dbdb1")
-metadata/_edit_lock_ = true
 
 [node name="LevelTitle" type="Label" parent="."]
 layout_mode = 0
@@ -33,7 +32,7 @@ layout_mode = 0
 offset_left = 40.0
 offset_top = 72.0
 offset_right = 448.0
-offset_bottom = 240.0
+offset_bottom = 320.0
 
 [node name="LevelDescription" type="Label" parent="DescriptionScroll"]
 custom_minimum_size = Vector2(0, 168)
@@ -63,10 +62,10 @@ size_flags_vertical = 3
 
 [node name="VariablesScroll" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 248.0
-offset_right = 456.0
-offset_bottom = 480.0
+offset_left = 48.0
+offset_top = 320.0
+offset_right = 464.0
+offset_bottom = 552.0
 
 [node name="Container" type="HBoxContainer" parent="VariablesScroll"]
 layout_mode = 2
@@ -82,11 +81,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="PlayButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 710.0
-offset_top = 421.0
-offset_right = 841.0
-offset_bottom = 503.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -176.0
+offset_top = -120.0
+offset_right = -45.0
+offset_bottom = -38.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "Play"
 
 [node name="CloseButton" type="Button" parent="."]
