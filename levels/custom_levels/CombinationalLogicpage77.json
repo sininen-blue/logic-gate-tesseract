@@ -1,0 +1,17 @@
+{
+	"author": "01101",
+	"create_date": 1731232788.888,
+	"description": "Refer to the handout for more details\n\nCreate a circuit where the the output is one if th ebinary value of the inputs ABC is greater than or equal to decimal three",
+	"end_count": 1,
+	"title": "Combinational Logic page77",
+	"truth_table": [
+		"0000",
+		"0010",
+		"0100",
+		"0111",
+		"1001",
+		"1011",
+		"1101",
+		"1111"
+	]
+}
