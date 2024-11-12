@@ -21,6 +21,8 @@ extends Control
 @onready var output_edit: IncrementEdit = $ScrollContainer/Panel/Main/TruthTableInputs/OutputEdit
 @onready var truth_table_container: ScrollContainer = $ScrollContainer/Panel/Main/TruthTable
 
+@onready var format_warning: Panel = $FormatWarning
+
 var exec_thread: Thread = Thread.new()
 
 const custom_levels_scene: String = "uid://bwlvlfljyekts"
@@ -185,3 +187,8 @@ func _on_accept_dialog_confirmed() -> void:
 
 func _on_accept_dialog_canceled() -> void:
 	get_tree().change_scene_to_file(custom_levels_scene)
+
+
+func _on_handwrite_check_box_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		format_warning.show_error("Please write your truth table in the same format as the image on the left\n\nNo headings in a block format without talbe lines for best results")
