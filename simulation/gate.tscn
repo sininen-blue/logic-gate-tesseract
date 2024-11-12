@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://psym6w7moids"]
+[gd_scene load_steps=27 format=3 uid="uid://psym6w7moids"]
 
 [ext_resource type="Script" path="res://simulation/gate.gd" id="1_a5p5t"]
 [ext_resource type="Texture2D" uid="uid://dkkdfc5cfh8su" path="res://assets/simulation/and-false.png" id="2_1kn64"]
 [ext_resource type="Texture2D" uid="uid://drdccdfj0inos" path="res://assets/simulation/dots/blueDot.png" id="3_l2a4a"]
 [ext_resource type="Texture2D" uid="uid://c8m6rjuh47nkr" path="res://assets/simulation/indicator/indicator.png" id="3_nwehx"]
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="4_ltvhu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8st0f"]
 radius = 40.0
@@ -331,10 +332,11 @@ position = Vector2(-3, 0)
 shape = SubResource("CircleShape2D_nvyvh")
 
 [node name="StartLabel" type="Label" parent="."]
-offset_left = -44.0
-offset_top = -76.0
-offset_right = 17.0
-offset_bottom = -53.0
+offset_left = -48.0
+offset_top = -81.0
+offset_right = 48.0
+offset_bottom = -50.0
+theme = ExtResource("4_ltvhu")
 text = "arstarst
 "
 horizontal_alignment = 1
