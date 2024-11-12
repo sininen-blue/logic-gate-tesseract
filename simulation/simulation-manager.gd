@@ -1,5 +1,10 @@
 extends Node2D
 
+
+const TRASH_BIN_OPEN = preload("res://assets/simulation/trashBin/trashBin-open.png")
+const TRASH_BIN = preload("res://assets/simulation/trashBin/trashBin.png")
+
+
 enum {
 	IDLE,
 	MOVING_CAMERA,
@@ -23,6 +28,8 @@ var time_spent: int = 0
 @onready var temp_line: Line2D = $TempLine
 @onready var mouse_area: Area2D = $MouseArea
 @onready var camera : Camera2D = $Camera2D
+
+@onready var trash_sprite: Sprite2D = $CanvasLayer/UI/FlowContainer/TrashContainer/Control/TrashSprite
 
 @onready var formula_container: VBoxContainer = $CanvasLayer/UI/FormulaContainer
 
@@ -354,10 +361,14 @@ func _on_back_button_pressed() -> void:
 
 
 func _on_control_mouse_entered() -> void:
+	trash_sprite.scale = Vector2(1, 1)
+	trash_sprite.texture = TRASH_BIN_OPEN
 	mouse_in_trash_bin = true
 
 
 func _on_trash_container_mouse_exited() -> void:
+	trash_sprite.scale = Vector2(.7, .7)
+	trash_sprite.texture = TRASH_BIN
 	mouse_in_trash_bin = false
 
 
