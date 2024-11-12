@@ -194,9 +194,10 @@ text = "Level Information"
 [node name="LevelInfo" parent="CanvasLayer/UI" instance=ExtResource("5_qf11p")]
 visible = false
 layout_mode = 1
-offset_left = -432.0
-offset_top = -260.5
-offset_bottom = 260.5
+offset_left = -504.0
+offset_top = -312.0
+offset_right = 504.0
+offset_bottom = 312.0
 in_game = true
 
 [node name="BackButton" type="Button" parent="CanvasLayer/UI"]
