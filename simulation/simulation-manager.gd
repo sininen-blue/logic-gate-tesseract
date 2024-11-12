@@ -270,6 +270,7 @@ func _process(_delta: float) -> void:
 				
 				var input_null: bool = temp_connection.input == null
 				var output_null: bool = temp_connection.output == null
+				var valid_connection: bool = false
 				for area in mouse_area.get_overlapping_areas():
 					if temp_connection.input == null and area.is_in_group("inputs"):
 						temp_connection.input = area.get_parent()
@@ -279,18 +280,21 @@ func _process(_delta: float) -> void:
 					if (temp_connection.input != temp_connection.output and
 						temp_connection.input != null and
 						temp_connection.output != null):
+						valid_connection = true
 						complete_connection()
 						break
 				
 				state = IDLE
 				
+				# makes the gate connected to re open indicators
 				# assumes the input side is the "end" of the connection
-				if input_null:
-					temp_connection.input._on_mouse_area_mouse_exited()
-					_on_mouse_near_gate(temp_connection.input)
-				if output_null:
-					temp_connection.output._on_mouse_area_mouse_exited()
-					_on_mouse_near_gate(temp_connection.output)
+				if valid_connection:
+					if input_null:
+						temp_connection.input._on_mouse_area_mouse_exited()
+						_on_mouse_near_gate(temp_connection.input)
+					if output_null:
+						temp_connection.output._on_mouse_area_mouse_exited()
+						_on_mouse_near_gate(temp_connection.output)
 				temp_connection = null
 
 
