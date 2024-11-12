@@ -89,19 +89,50 @@ grow_horizontal = 2
 theme = ExtResource("3_347lg")
 text = "Accuracy"
 
-[node name="Accuracy" type="Label" parent="LevelPass"]
+[node name="AccuracyValueLabel" type="Label" parent="LevelPass"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -227.0
+offset_left = -215.0
 offset_top = 117.0
-offset_right = -124.0
-offset_bottom = 140.0
+offset_right = -110.0
+offset_bottom = 148.0
 grow_horizontal = 2
 theme = ExtResource("3_347lg")
 text = "Accuracy"
+horizontal_alignment = 2
+
+[node name="SpeedLabel" type="Label" parent="LevelPass"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -341.0
+offset_top = 147.0
+offset_right = -236.0
+offset_bottom = 178.0
+grow_horizontal = 2
+theme = ExtResource("3_347lg")
+text = "Speed
+"
+
+[node name="SpeedValueLabel" type="Label" parent="LevelPass"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -221.0
+offset_top = 152.0
+offset_right = -116.0
+offset_bottom = 183.0
+grow_horizontal = 2
+theme = ExtResource("3_347lg")
+text = "Speed
+"
+horizontal_alignment = 2
 
 [node name="ContinueButton" type="Button" parent="LevelPass"]
 layout_mode = 1

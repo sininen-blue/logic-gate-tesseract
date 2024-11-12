@@ -15,6 +15,7 @@ var start_gates : Array[Gate]
 var end_gates : Array[Gate]
 
 var mouse_in_trash_bin: bool = false
+var time_spent: int = 0
 
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
@@ -302,6 +303,9 @@ func run_simulation() -> void:
 	if simulation_running:
 		return
 	
+	# set speed value
+	DataManager.level_clear_speed = time_spent
+	
 	simulation_running = true
 	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
 	var end_values : Array[String]
@@ -355,3 +359,7 @@ func _on_control_mouse_entered() -> void:
 
 func _on_trash_container_mouse_exited() -> void:
 	mouse_in_trash_bin = false
+
+
+func _on_timer_timeout() -> void:
+	time_spent += 1
