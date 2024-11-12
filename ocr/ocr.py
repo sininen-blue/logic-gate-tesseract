@@ -1,4 +1,5 @@
 import pytesseract
+from pytesseract import Output
 from itertools import product
 import cv2
 import numpy as np
@@ -12,6 +13,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("input_file", help="Input file path")
 parser.add_argument("-a", "--absolute-path", dest="absolute_path",
                     help="Absolute path to tesseract.exe if it isn't in PATH")
+parser.add_argument("-hm", "--handwritten-mode", action="store_true",
+                    dest="handwritten_mode", help="Enablehandwritten mode")
 parser.add_argument("-c", "--columns", required=True, dest="columns",
                     type=int, help="Number of columns")
 parser.add_argument("-i", "--inputs", required=True, dest="inputs",
@@ -24,6 +27,8 @@ if args.absolute_path is not None:
     pytesseract.pytesseract.tesseract_cmd = args.absolute_path
 
 custom_config = r'--psm 10 --oem 3'
+custom_config_handwritten = r'--psm 6 --oem 3'
+handwritten_mode = args.handwritten_mode
 image_path = args.input_file
 input_count = args.inputs
 column_count = args.columns
@@ -151,21 +156,63 @@ def detect_row_count(binary):
 
 
 def main():
-    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)
+    if handwritten_mode:
+        contrast = 1.5
+        brightness = 0
+        new_height = 720
 
-    cropped_image, cropped_binary = crop_image(image, binary)
-    cleaned_img, cleaned_binary = remove_table_lines(cropped_binary)
-    row_count = detect_row_count(cleaned_binary)
+        image = cv2.imread(image_path)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    table = read_table(cleaned_img, row_count)
-    normalized_table = normalize(table)
+        # resize if too big
+        (h, w) = image.shape[:2]
+        aspect_ratio = w / h
+        if h >= 720:
+            new_width = int(new_height * aspect_ratio)
+            image = cv2.resize(image, (new_width, new_height))
 
-    data = {
-        "truth_table": normalized_table,
-    }
-    json_string = json.dumps(data)
-    print(json_string)
+        # Crop the selected region
+        roi = cv2.selectROI("Select Region", image,
+                            showCrosshair=True, fromCenter=False)
+        x, y, w, h = roi
+        image = image[int(y):int(y + h), int(x):int(x + w)]
+
+        cv2.imshow('img', image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+        image = cv2.convertScaleAbs(image, alpha=contrast, beta=brightness)
+        _, binary = cv2.threshold(image, 180, 255, cv2.THRESH_BINARY)
+
+        d = pytesseract.image_to_data(binary, output_type=Output.DICT)
+        n_boxes = len(d['level'])
+        for i in range(n_boxes):
+            (x, y, w, h) = (d['left'][i], d['top']
+                            [i], d['width'][i], d['height'][i])
+            cv2.rectangle(binary, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+        text = pytesseract.image_to_string(
+            binary, config=custom_config_handwritten)
+        print(text)
+
+        cv2.imshow('img', binary)
+        cv2.waitKey(0)
+    else:
+        image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+        _, binary = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY_INV)
+
+        cropped_image, cropped_binary = crop_image(image, binary)
+        cleaned_img, cleaned_binary = remove_table_lines(cropped_binary)
+        row_count = detect_row_count(cleaned_binary)
+
+        table = read_table(cleaned_img, row_count)
+        normalized_table = normalize(table)
+
+        data = {
+            "truth_table": normalized_table,
+        }
+        json_string = json.dumps(data)
+        print(json_string)
 
 
 if __name__ == "__main__":
