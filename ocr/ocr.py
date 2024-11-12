@@ -229,8 +229,8 @@ def main():
         data = {
             "truth_table": normalized_table,
         }
-        json_string = json.dumps(data)
-        print(json_string)
+        with open(output_path, "w") as json_file:
+            json.dump(data, json_file, indent=4)
 
 
 if __name__ == "__main__":

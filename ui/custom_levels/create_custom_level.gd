@@ -129,7 +129,8 @@ func _process(_delta: float) -> void:
 		create_button.disabled = false
 		
 		var truth_table: Array = exec_thread.wait_to_finish()
-		truth_table = truth_table.slice(1, truth_table.size())
+		if handwrite_check_box.button_pressed == false:
+			truth_table = truth_table.slice(1, truth_table.size())
 		truth_table_container.visible = true
 		truth_table_container.make_table(input_count, output_count)
 		truth_table_container.set_outputs(output_count, truth_table)
@@ -152,9 +153,11 @@ func download(image_path: String) -> Array:
 	var exit_code: int = OS.execute(program_path, args, output, false, false)
 	print(exit_code)
 	
-	var json_string: String = output[0].get_slice("\n", 0)
-	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	
+	var output_file: FileAccess = FileAccess.open("user://temp.json", FileAccess.READ)
+	var json_string: String = output_file.get_as_text()
+	
+	var truth_table: Array = JSON.parse_string(json_string)["truth_table"]
 	return truth_table
 
 
