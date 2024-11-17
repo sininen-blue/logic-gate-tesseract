@@ -1,5 +1,8 @@
 extends Panel
 
+const DARK_PANEL = preload("res://ui/themes/darkPanel.tres")
+const LIGHT_PANEL = preload("res://ui/themes/lightPanel.tres")
+
 @export var in_game: bool = false
 
 var simulation_scene: String = "uid://swjkfmyam37c"
@@ -13,6 +16,8 @@ var table_row: PackedScene = preload("uid://0im5s06d6220")
 @onready var play_button: Button = $PlayButton
 @onready var input_variables: VBoxContainer = $VariablesScroll/Container/InputVariables
 @onready var output_variables: VBoxContainer = $VariablesScroll/Container/OutputVariables
+
+@onready var truth_table_heading: Panel = $TruthTableHeading
 
 func _ready() -> void:
 	$CloseButton.pressed.connect(change_visibility)
@@ -38,13 +43,8 @@ func _on_visibility_changed() -> void:
 	var output_count : int = int(level_data["end_count"])
 	var input_count : int = len(level_data["truth_table"][0]) - output_count
 	
-	# remove current data
-	var truth_table_rows: Array[Node] = truth_table.get_children()
-	for row in truth_table_rows:
-		truth_table.remove_child(row)
-	
 	# set headings
-	var truth_table_heading: Panel = table_row.instantiate()
+	truth_table_heading.clear()
 	var heading_count: int = 0
 	for input in input_count:
 		truth_table_heading.variables += String.chr(65  + heading_count)
@@ -52,13 +52,24 @@ func _on_visibility_changed() -> void:
 	for output in output_count:
 		truth_table_heading.outputs += String.chr(65  + heading_count)
 		heading_count += 1
-	truth_table.add_child(truth_table_heading)
+	truth_table_heading.set_data()
 	
+	# remove current data
+	var truth_table_rows: Array[Node] = truth_table.get_children()
+	for row in truth_table_rows:
+		truth_table.remove_child(row)
+	
+	var row_count: int = 0
 	for row : String in level_data["truth_table"]:
 		var new_row: Panel = table_row.instantiate()
 		new_row.variables = row.left(input_count)
 		new_row.outputs = row.right(output_count)
 		
+		if row_count % 2 == 0:
+			new_row.theme = DARK_PANEL
+		else:
+			new_row.theme = LIGHT_PANEL
+		row_count += 1
 		truth_table.add_child(new_row)
 	
 	var count: int = 0
