@@ -27,6 +27,7 @@ func clear_table() -> void:
 		child.queue_free()
 	for child in truth_table.get_children():
 		if child.name != "TableHeading":
+			truth_table.remove_child(child)
 			child.queue_free()
 
 

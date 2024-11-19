@@ -165,22 +165,14 @@ func download(image_path: String) -> Array:
 	return truth_table
 
 
-func _on_manual_button_pressed() -> void:
-	create_button.disabled = false
-	truth_table_container.visible = true
-	truth_table_container.make_table(input_count, output_count)
-
-
 func _on_input_edit_count_changed(new_count: int) -> void:
 	input_count = new_count
-	if truth_table_container.visible:
-		truth_table_container.make_table(input_count, output_count)
+	truth_table_container.make_table(input_count, output_count)
 
 
 func _on_output_edit_count_changed(new_count: int) -> void:
 	output_count = new_count
-	if truth_table_container.visible:
-		truth_table_container.make_table(input_count, output_count)
+	truth_table_container.make_table(input_count, output_count)
 
 
 func _on_accept_dialog_confirmed() -> void:
