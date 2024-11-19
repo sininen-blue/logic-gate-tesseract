@@ -113,6 +113,7 @@ func _on_photo_button_pressed() -> void:
 	file_dialog.add_filter("*.jpg, *.jpeg, *.png", "Images")
 
 func _on_file_dialog_file_selected(image_path: String) -> void:
+	photo_button.disabled = true
 	manual_button.disabled = true
 	var err: Error = exec_thread.start(download.bind(image_path))
 	if err != 0:
@@ -136,6 +137,7 @@ func _process(_delta: float) -> void:
 		truth_table_container.visible = true
 		truth_table_container.make_table(input_count, output_count)
 		truth_table_container.set_outputs(output_count, truth_table)
+		photo_button.disabled = false
 
 
 func download(image_path: String) -> Array:
