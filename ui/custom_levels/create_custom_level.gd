@@ -17,7 +17,6 @@ var output_count: int
 @onready var error_panel: Panel = %ErrorPanel
 @onready var create_button: Button = %CreateButton
 @onready var accept_dialog: AcceptDialog = $AcceptDialog
-@onready var manual_button: Button = $ScrollContainer/Panel/Main/TruthTableInputs/ManualButton
 @onready var input_edit: IncrementEdit = $ScrollContainer/Panel/Main/TruthTableInputs/InputEdit
 @onready var output_edit: IncrementEdit = $ScrollContainer/Panel/Main/TruthTableInputs/OutputEdit
 @onready var truth_table_container: ScrollContainer = $ScrollContainer/Panel/Main/TruthTable
@@ -26,6 +25,13 @@ var output_count: int
 
 func _ready() -> void:
 	create_button.pressed.connect(create_level)
+	
+	if DataManager.is_level_edit:
+		import_level_data(DataManager.edit_level_data)
+		
+		
+		DataManager.is_level_edit = false
+		DataManager.edit_level_data.clear()
 	
 	input_count = input_edit.count
 	output_count = output_edit.count
@@ -49,6 +55,24 @@ func _process(_delta: float) -> void:
 		truth_table_container.make_table(input_count, output_count)
 		truth_table_container.set_outputs(output_count, truth_table)
 		photo_button.disabled = false
+
+
+func import_level_data(level_data: Dictionary) -> void:
+	title_edit.text = level_data["title"]
+	author_edit.text = level_data["author"]
+	description_edit.text = level_data["description"]
+	
+	var level_inputs: int = len(level_data["truth_table"][0]) - level_data["end_count"]
+	input_edit.text = str(level_inputs)
+	input_edit.count = level_inputs
+	output_edit.text = str(int(level_data["end_count"]))
+	output_edit.count = int(level_data["end_count"])
+	
+	var truth_table: Array = level_data["truth_table"]
+	
+	truth_table_container.make_table(input_count, output_count)
+	truth_table_container.set_outputs(output_count, truth_table)
+
 
 
 func create_level() -> void:
@@ -153,7 +177,6 @@ func _on_photo_button_pressed() -> void:
 
 func _on_file_dialog_file_selected(image_path: String) -> void:
 	photo_button.disabled = true
-	manual_button.disabled = true
 	var err: Error = exec_thread.start(download.bind(image_path))
 	if err != 0:
 		print(err)

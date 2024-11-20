@@ -1,6 +1,7 @@
 extends Panel
 
 const simulation_scene: String = "uid://swjkfmyam37c"
+const CREATE_LEVEL_SCENE: String = "uid://c20nqruvjtxah"
 
 var level_data : Dictionary
 var level_path : String = ""
@@ -64,3 +65,9 @@ func _on_confirmation_dialog_confirmed() -> void:
 
 func _on_confirmation_dialog_canceled() -> void:
 	level_path = ""
+
+
+func _on_edit_button_pressed() -> void:
+	DataManager.is_level_edit = true
+	DataManager.edit_level_data = level_data
+	get_tree().change_scene_to_file(CREATE_LEVEL_SCENE)

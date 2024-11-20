@@ -5,6 +5,12 @@ var current_stage : DirAccess
 var current_level : JSON
 var is_custom : bool = false
 
+## NOTE: used to edit levels
+# called in custom_stage_panel.gd
+# recieved, reset in create_custom_level.gd
+var is_level_edit: bool = false
+var edit_level_data: Dictionary
+
 var level_clear_speed: int = 0
 
 var settings: Dictionary = {
