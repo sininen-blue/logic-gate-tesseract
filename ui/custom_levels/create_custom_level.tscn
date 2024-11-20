@@ -262,7 +262,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 90)
 layout_mode = 2
 size_flags_horizontal = 8
-disabled = true
 text = "Create"
 
 [node name="BackButton" type="Button" parent="."]
