@@ -219,6 +219,17 @@ grow_horizontal = 2
 tooltip_text = "Use a pre existing photo of a truth table to generate a new level"
 text = "Use Photo"
 
+[node name="OverrideButton" type="Button" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 648.0
+offset_top = 44.0
+offset_right = -11.0
+offset_bottom = 97.0
+grow_horizontal = 2
+text = "Override"
+
 [node name="HandwriteCheckBox" type="CheckBox" parent="ScrollContainer/Panel/Main/TruthTableInputs"]
 layout_mode = 0
 offset_left = 424.0
@@ -351,6 +362,7 @@ text = "FORMAT REQUIREMENT"
 [connection signal="count_changed" from="ScrollContainer/Panel/Main/TruthTableInputs/InputEdit" to="." method="_on_input_edit_count_changed"]
 [connection signal="count_changed" from="ScrollContainer/Panel/Main/TruthTableInputs/OutputEdit" to="." method="_on_output_edit_count_changed"]
 [connection signal="pressed" from="ScrollContainer/Panel/Main/TruthTableInputs/PhotoButton" to="." method="_on_photo_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/Panel/Main/TruthTableInputs/OverrideButton" to="." method="_on_override_button_pressed"]
 [connection signal="toggled" from="ScrollContainer/Panel/Main/TruthTableInputs/HandwriteCheckBox" to="." method="_on_handwrite_check_box_toggled"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="FormatWarning/ErrorConfirm" to="FormatWarning" method="_on_error_confirm_pressed"]

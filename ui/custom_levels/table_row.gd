@@ -56,5 +56,11 @@ func set_output(output_string: String) -> void:
 		button.value = convBool
 		button.disabled = true
 
+func enable() -> void:
+	var children: Array[Node] = get_children()
+	var buttons: Array = children.filter(is_binary_button)
+	for button: TextureButton in buttons:
+		button.disabled = false
+
 func is_binary_button(node: Node) -> bool:
 	return node is TextureButton
