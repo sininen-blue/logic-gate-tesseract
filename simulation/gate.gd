@@ -8,7 +8,8 @@ const RED_DOT = preload("res://assets/simulation/dots/redDot.png")
 const GRAY_DOT = preload("res://assets/simulation/dots/grayDot.png")
 
 @export_enum("and", "or", "xor", "nand", "nor", "xnor", "not", "start", "end") var gate_type : String = "and"
-var value : int = 2:
+@export var demo_mode: bool = false
+@export var value : int = 2:
 	set(new_value):
 		if new_value != value:
 			bump()
@@ -72,7 +73,9 @@ func shake() -> void:
 
 func _process(_delta: float) -> void:
 	# $TestingLabel.text = str(connections, input_connections, value)
-
+	if demo_mode:
+		return
+	
 	# value handling
 	if self.gate_type == "start":
 		return
