@@ -50,6 +50,13 @@ func set_outputs(output_count: int, target: Array) -> void:
 		index += 1
 
 
+func override() -> void:
+	for row in truth_table.get_children():
+		if row.name == "TableHeading":
+			continue
+		row.enable()
+
+
 func generate_truth_table(start_count : int) -> Array[String]:
 	var num_rows : int = int(pow(2, start_count))
 	var output : Array[String]

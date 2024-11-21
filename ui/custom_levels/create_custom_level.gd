@@ -11,6 +11,7 @@ var output_count: int
 @onready var description_edit: TextEdit = %DescriptionEdit
 @onready var file_dialog: FileDialog = %FileDialog
 @onready var photo_button: Button = %PhotoButton
+@onready var override_button: Button = $ScrollContainer/Panel/Main/TruthTableInputs/OverrideButton
 @onready var handwrite_check_box: CheckBox = $ScrollContainer/Panel/Main/TruthTableInputs/HandwriteCheckBox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var spinner_sprite: Sprite2D = %SpinnerSprite
@@ -28,6 +29,7 @@ func _ready() -> void:
 	
 	if DataManager.is_level_edit:
 		import_level_data(DataManager.edit_level_data)
+		create_button.text = "Save"
 		
 		
 		DataManager.is_level_edit = false
@@ -55,6 +57,7 @@ func _process(_delta: float) -> void:
 		truth_table_container.make_table(input_count, output_count)
 		truth_table_container.set_outputs(output_count, truth_table)
 		photo_button.disabled = false
+		override_button.visible = true
 
 
 func import_level_data(level_data: Dictionary) -> void:
@@ -164,6 +167,12 @@ func _on_back_button_pressed() -> void:
 		
 		exec_thread.wait_to_finish()
 	get_tree().change_scene_to_file(custom_levels_scene)
+
+
+func _on_override_button_pressed() -> void:
+	truth_table_container.override()
+	override_button.visible = false
+	photo_button.disabled = false
 
 
 func _on_photo_button_pressed() -> void:
