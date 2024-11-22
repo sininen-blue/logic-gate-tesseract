@@ -219,21 +219,21 @@ script = ExtResource("1_6alak")
 [node name="AndGate" type="Node2D" parent="."]
 
 [node name="And" parent="AndGate" instance=ExtResource("1_d1cdd")]
-position = Vector2(432, 179)
+position = Vector2(415, 209)
 demo_mode = true
 
 [node name="Output" parent="AndGate" instance=ExtResource("1_d1cdd")]
-position = Vector2(713, 180)
+position = Vector2(696, 210)
 gate_type = "end"
 demo_mode = true
 
 [node name="Input" parent="AndGate" instance=ExtResource("1_d1cdd")]
-position = Vector2(155, 100)
+position = Vector2(138, 130)
 gate_type = "start"
 demo_mode = true
 
 [node name="Input2" parent="AndGate" instance=ExtResource("1_d1cdd")]
-position = Vector2(155, 314)
+position = Vector2(138, 344)
 gate_type = "start"
 demo_mode = true
 
@@ -268,6 +268,7 @@ libraries = {
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="TempLine" type="Line2D" parent="Node2D"]
+position = Vector2(-17, 30)
 points = PackedVector2Array(222, 100, 350, 178)
 width = 6.0
 default_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -276,7 +277,7 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="TempLine2" type="Line2D" parent="Node2D"]
-position = Vector2(-2, 4)
+position = Vector2(-19, 34)
 points = PackedVector2Array(224, 310, 349, 179)
 width = 6.0
 default_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -285,7 +286,7 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="TempLine3" type="Line2D" parent="Node2D"]
-position = Vector2(338.089, 0)
+position = Vector2(321.089, 30)
 scale = Vector2(0.467577, 1)
 points = PackedVector2Array(626.445, 179, 346.277, 179)
 width = 6.0
@@ -325,10 +326,10 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="AndGatePanel" type="Panel" parent="."]
-offset_left = 323.0
-offset_top = 283.0
-offset_right = 716.0
-offset_bottom = 480.0
+offset_left = 306.0
+offset_top = 313.0
+offset_right = 699.0
+offset_bottom = 510.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="AndGatePanel"]
@@ -355,42 +356,6 @@ then it outputs true
 "
 scroll_active = false
 metadata/_edit_use_anchors_ = true
-
-[node name="ObjectivesPanel" type="Panel" parent="."]
-offset_left = 753.0
-offset_top = -419.0
-offset_right = 1553.0
-offset_bottom = -169.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="ObjectivesPanel"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 21.0
-offset_right = 227.0
-offset_bottom = 57.0
-theme = ExtResource("3_0lprm")
-text = "Objectives"
-metadata/_edit_use_anchors_ = true
-
-[node name="Label2" type="RichTextLabel" parent="ObjectivesPanel"]
-clip_contents = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 59.0
-offset_right = -34.0
-offset_bottom = -24.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("4_vj6ry")
-bbcode_enabled = true
-text = "By the end of these levels, you are expected to know the outputs of AND and OR gates
-
-As well as break down problems containing AND and OR gates into a logic gate circuit"
-scroll_active = false
 
 [node name="OrGatePanel" type="Panel" parent="."]
 offset_left = 1195.0

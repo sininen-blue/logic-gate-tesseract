@@ -1,0 +1,30 @@
+{
+	"title": "Conveyer Belts",
+	"author": "game",
+	"create_date": "6-9-2024",
+	"description": "You need to operate a conveyer belt with weirdly specific rule sets.\n\nIt has to be on (A)\nThe start button has to be pressed (B) or the system has to be in auto mode (C),\nAnd the system isn't overloaded (D)",
+	"allow": [
+		"and",
+		"or",
+		"not"
+	],
+	"end_count": "1",
+	"truth_table": [
+		"00000",
+		"00010",
+		"00100",
+		"00110",
+		"01000",
+		"01010",
+		"01100",
+		"01110",
+		"10000",
+		"10010",
+		"10101",
+		"10110",
+		"11001",
+		"11010",
+		"11101",
+		"11110"
+	]
+}

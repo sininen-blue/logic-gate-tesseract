@@ -1,0 +1,16 @@
+{
+	"title": "Door Bell System",
+	"author": "game",
+	"create_date": "6-9-2024",
+	"description": "A doorbell rings if either the front, or the back doorbell button is pressed\n\nWhere A is the front doorbell, and B is the doorbell",
+	"end_count": "1",
+	"allow": [
+		"or"
+	],
+	"truth_table": [
+		"000",
+		"011",
+		"101",
+		"111"
+	]
+}

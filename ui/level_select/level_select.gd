@@ -27,6 +27,7 @@ func _ready() -> void:
 		var demo: Node2D = load(DataManager.demo_file_location).instantiate()
 		demo.global_position = Vector2(0, 350)
 		add_child(demo)
+		move_child(demo, 0)
 		DataManager.demo_file_location = ""
 	
 	var count : int = 0
