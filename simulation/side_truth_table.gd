@@ -55,7 +55,6 @@ func _ready() -> void:
 
 func set_row_checks(results_table: Array[String]) -> void:
 	var target_table: Array[Node] = truth_table.get_children()
-	print(results_table)
 	
 	for index in len(results_table):
 		var target_outputs: String = target_table[index].outputs.right(output_count)
