@@ -3,6 +3,9 @@
 	"author": "game",
 	"create_date": "6-9-2024",
 	"description": "This level will introduce to you one of the core components of logic gates, the AND gate. \nWhere the gate will output one if variable A AND variable B are both true.\n\nTake Variable A, and B, and connect them to an AND GATE",
+	"allow": [
+		"and"
+	],
 	"end_count": "1",
 	"truth_table": [
 		"000",
