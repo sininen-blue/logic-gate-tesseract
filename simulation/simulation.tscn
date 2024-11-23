@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=17 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
+[ext_resource type="Script" path="res://simulation/side_truth_table.gd" id="3_1veaq"]
 [ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="3_caabb"]
 [ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
 [ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
@@ -56,6 +57,32 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+
+[node name="SideTruthTable" type="Panel" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -189.0
+offset_right = 285.0
+offset_bottom = 187.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("3_1veaq")
+
+[node name="HandleButton" type="Button" parent="CanvasLayer/UI/SideTruthTable"]
+layout_mode = 0
+offset_left = -27.0
+offset_top = 160.0
+offset_right = 17.0
+offset_bottom = 213.0
+
+[node name="DebounceTimer" type="Timer" parent="CanvasLayer/UI/SideTruthTable"]
+wait_time = 0.25
+one_shot = true
 
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 custom_minimum_size = Vector2(359, 183)
@@ -211,6 +238,7 @@ text = "Back"
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="pressed" from="CanvasLayer/UI/SideTruthTable/HandleButton" to="CanvasLayer/UI/SideTruthTable" method="_on_handle_button_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_trash_container_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]

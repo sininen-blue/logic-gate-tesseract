@@ -23,6 +23,10 @@ DataManager="*res://simulation/data_manager.gd"
 
 gdscript/warnings/untyped_declaration=1
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [global_group]
 
 inputs=""
