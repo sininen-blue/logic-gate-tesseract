@@ -3,7 +3,7 @@ extends Node2D
 
 const TRASH_BIN_OPEN = preload("res://assets/simulation/trashBin/trashBin-open.png")
 const TRASH_BIN = preload("res://assets/simulation/trashBin/trashBin.png")
-
+const MAX_TEST_COUNT: int = 3
 
 enum {
 	IDLE,
@@ -21,6 +21,7 @@ var end_gates : Array[Gate]
 
 var mouse_in_trash_bin: bool = false
 var time_spent: int = 0
+var test_count: int = MAX_TEST_COUNT
 
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
@@ -44,6 +45,8 @@ var time_spent: int = 0
 @onready var button_container: FlowContainer = $CanvasLayer/UI/FlowContainer
 
 @onready var side_truth_table: Panel = $CanvasLayer/UI/SideTruthTable
+@onready var test_run_button: Button = $CanvasLayer/UI/TestRunButton
+@onready var test_count_label: Label = $CanvasLayer/UI/TestRunButton/TestCountLabel
 
 func _ready() -> void:
 	randomize()
@@ -365,6 +368,9 @@ func run_simulation() -> void:
 
 
 func _on_test_run_button_pressed() -> void:
+	test_count -= 1
+	test_count_label.text = str(test_count,"/",MAX_TEST_COUNT)
+	
 	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
 	var end_values : Array[String]
 	for row in truth_table:
@@ -384,6 +390,10 @@ func _on_test_run_button_pressed() -> void:
 		start.value = 0
 	
 	side_truth_table.set_row_checks(end_values)
+	
+	if test_count <= 0:
+		test_run_button.disabled = true
+		test_count_label.text = str(0,"/",MAX_TEST_COUNT)
 
 
 

@@ -71,6 +71,15 @@ offset_bottom = 134.0
 grow_horizontal = 0
 text = "Test Run"
 
+[node name="TestCountLabel" type="Label" parent="CanvasLayer/UI/TestRunButton"]
+layout_mode = 0
+offset_left = -49.0
+offset_top = 11.0
+offset_right = -9.0
+offset_bottom = 42.0
+theme = ExtResource("3_caabb")
+text = "3/3"
+
 [node name="SideTruthTable" type="Panel" parent="CanvasLayer/UI"]
 layout_mode = 1
 anchors_preset = 6
