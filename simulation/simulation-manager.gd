@@ -330,9 +330,13 @@ func _process(_delta: float) -> void:
 				temp_connection = null
 
 
+var switch_inverval: float = .5
 func run_simulation() -> void:
 	if simulation_running:
+		switch_inverval = .05
 		return
+	
+	run_button.text = "Skip"
 	
 	# set speed value
 	DataManager.level_clear_speed = time_spent
@@ -344,7 +348,7 @@ func run_simulation() -> void:
 		for i in range(len(start_gates)):
 			start_gates[i].value = row[i]
 		
-		await get_tree().create_timer(.5).timeout
+		await get_tree().create_timer(switch_inverval).timeout
 		
 		var row_results : Array
 		for start in start_gates:
