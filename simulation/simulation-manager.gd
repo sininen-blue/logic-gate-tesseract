@@ -41,6 +41,7 @@ var time_spent: int = 0
 @onready var xnor_button: Button = $CanvasLayer/UI/FlowContainer/XnorButton
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
 @onready var run_button: Button = $CanvasLayer/UI/RunButton
+@onready var button_container: FlowContainer = $CanvasLayer/UI/FlowContainer
 
 
 func _ready() -> void:
@@ -55,9 +56,6 @@ func _ready() -> void:
 	
 	run_button.pressed.connect(run_simulation)
 	
-	## NOTE: these are temporary testing nodes
-	## this should be replaced by a json reader
-	## that reads level data and places all the parts
 	create_level()
 
 
@@ -71,6 +69,31 @@ func create_level() -> void:
 		create_gate("start", "left")
 	for end in range(end_count):
 		create_gate("end", "right")
+	
+	if level_data.has("allow") == false:
+		return
+	
+	for button in button_container.get_children():
+		if button is not Button:
+			break
+		button.disabled = true
+	
+	for gate: String in level_data["allow"]:
+		match gate:
+			"and":
+				and_button.disabled = false
+			"or":
+				or_button.disabled = false
+			"xor":
+				xor_button.disabled = false
+			"nand":
+				nand_button.disabled = false
+			"nor":
+				nor_button.disabled = false
+			"xnor":
+				xnor_button.disabled = false
+			"not":
+				not_button.disabled = false
 
 ## TODO: change the random creaton thing and just have set positions
 func create_gate(type : String, location : String = "") -> void:
