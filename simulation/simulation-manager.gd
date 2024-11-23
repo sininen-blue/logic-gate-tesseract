@@ -43,6 +43,7 @@ var time_spent: int = 0
 @onready var run_button: Button = $CanvasLayer/UI/RunButton
 @onready var button_container: FlowContainer = $CanvasLayer/UI/FlowContainer
 
+@onready var side_truth_table: Panel = $CanvasLayer/UI/SideTruthTable
 
 func _ready() -> void:
 	randomize()
@@ -357,6 +358,30 @@ func run_simulation() -> void:
 	file.store_string(json_string)
 	
 	get_tree().change_scene_to_file("res://ui/level_complete.tscn")
+
+
+func _on_test_run_button_pressed() -> void:
+	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
+	var end_values : Array[String]
+	for row in truth_table:
+		for i in range(len(start_gates)):
+			start_gates[i].value = row[i]
+		
+		await get_tree().create_timer(.1).timeout
+		
+		var row_results : Array
+		for start in start_gates:
+			row_results.append(str(start.value))
+		for end in end_gates:
+			row_results.append(str(end.value))
+		end_values.append("".join(row_results))
+	
+	for start in start_gates:
+		start.value = 0
+	
+	side_truth_table.set_row_checks(end_values)
+
+
 
 func generate_truth_table(start_count : int) -> Array[Array]:
 	var num_rows : int = int(pow(2, start_count))

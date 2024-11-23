@@ -8,9 +8,12 @@ var close_pos: Vector2 = Vector2(1141, 135)
 var open_pos: Vector2 = Vector2(867, 135)
 var opened: bool = false
 
+var output_count: int
+var input_count: int
+
 @onready var debounce_timer: Timer = $DebounceTimer
 @onready var truth_table_heading: Panel = $TruthTableHeading
-@onready var truth_table: VBoxContainer = $TruthTableScroll/VBoxContainer
+@onready var truth_table: VBoxContainer = $TruthTableScroll/TruthTable
 
 
 func _ready() -> void:
@@ -18,8 +21,8 @@ func _ready() -> void:
 	
 	var level_data : Dictionary = DataManager.current_level.data
 	
-	var output_count : int = int(level_data["end_count"])
-	var input_count : int = len(level_data["truth_table"][0]) - output_count
+	output_count = int(level_data["end_count"])
+	input_count = len(level_data["truth_table"][0]) - output_count
 	
 	truth_table_heading.clear()
 	var heading_count: int = 0
@@ -48,6 +51,17 @@ func _ready() -> void:
 			new_row.theme = LIGHT_PANEL
 		row_count += 1
 		truth_table.add_child(new_row)
+
+
+func set_row_checks(results_table: Array[String]) -> void:
+	var target_table: Array[Node] = truth_table.get_children()
+	print(results_table)
+	
+	for index in len(results_table):
+		var target_outputs: String = target_table[index].outputs.right(output_count)
+		var results_outputs: String = results_table[index].right(output_count)
+		if target_outputs == results_outputs:
+			target_table[index].checked = true
 
 
 func _on_handle_button_pressed() -> void:
