@@ -1,58 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://57o5uax0nrfc"]
+[gd_scene load_steps=3 format=3 uid="uid://57o5uax0nrfc"]
 
 [ext_resource type="Script" path="res://ui/components/truth_table_row.gd" id="1_2kjam"]
-[ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="1_md0bv"]
-[ext_resource type="Texture2D" uid="uid://ocj6bmrft80d" path="res://assets/UI/icons/check.png" id="2_8tb15"]
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="1_xi8tv"]
 
 [node name="TruthTableRow" type="Panel"]
 custom_minimum_size = Vector2(200, 40)
+theme = ExtResource("1_xi8tv")
 script = ExtResource("1_2kjam")
 
-[node name="VariablesLabel" type="Label" parent="."]
+[node name="DataContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = -96.0
-offset_bottom = -8.0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = -8.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("1_md0bv")
-text = "11111001010110111010101"
-vertical_alignment = 1
-clip_text = true
-
-[node name="OutputLabel" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 129.0
-offset_right = -42.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("1_md0bv")
-text = "1212"
-horizontal_alignment = 2
-vertical_alignment = 1
-clip_text = true
-
-[node name="SpriteControl" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="Icon" type="Sprite2D" parent="SpriteControl"]
-position = Vector2(16, 16)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_8tb15")
