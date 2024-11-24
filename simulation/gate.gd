@@ -58,6 +58,9 @@ func _ready() -> void:
 		input_max = 0
 	if self.gate_type == "end":
 		right_dot_sprite.visible = false
+		output_area.monitorable = false
+		output_area.monitoring = false
+		output_indicator.modulate = Color("#ffffff00")
 	
 	start_label.text = gate_name
 	
