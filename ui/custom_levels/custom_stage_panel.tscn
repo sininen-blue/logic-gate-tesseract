@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://le7ov2wv1ds0"]
+[gd_scene load_steps=7 format=3 uid="uid://le7ov2wv1ds0"]
 
 [ext_resource type="Script" path="res://ui/custom_levels/custom_stage_panel.gd" id="1_13h3g"]
 [ext_resource type="FontFile" uid="uid://d3ya2ni4d4nbf" path="res://assets/UI/font/Static/Shantell_Sans-Normal-Bold.otf" id="3_1uq0p"]
+[ext_resource type="Texture2D" uid="uid://dcaepi8xstsoo" path="res://assets/UI/icons/edit.png" id="3_qp8u6"]
+[ext_resource type="Texture2D" uid="uid://bb7i5b8y202hv" path="res://assets/UI/icons/play.png" id="4_ig3jc"]
+[ext_resource type="Texture2D" uid="uid://cermd6etki4u7" path="res://assets/UI/icons/share.png" id="5_cbikw"]
+[ext_resource type="Texture2D" uid="uid://35h1fdqv3232" path="res://assets/UI/icons/trash.png" id="6_whibi"]
 
 [node name="CustomStagePanel" type="Panel"]
 custom_minimum_size = Vector2(728, 123)
@@ -45,11 +49,13 @@ horizontal_alignment = 2
 
 [node name="EditButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 396.0
-offset_top = 3.0
-offset_right = 471.0
-offset_bottom = 104.0
-text = "edit"
+offset_left = 456.0
+offset_top = 32.0
+offset_right = 511.0
+offset_bottom = 96.0
+icon = ExtResource("3_qp8u6")
+icon_alignment = 1
+expand_icon = true
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 1
@@ -58,13 +64,15 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -152.0
-offset_top = -58.5
+offset_left = -104.0
+offset_top = -45.5
 offset_right = -24.0
-offset_bottom = 42.5
+offset_bottom = 34.5
 grow_horizontal = 0
 grow_vertical = 2
-text = "Play"
+icon = ExtResource("4_ig3jc")
+icon_alignment = 1
+expand_icon = true
 
 [node name="ShareButton" type="Button" parent="."]
 layout_mode = 1
@@ -73,13 +81,15 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -58.5
-offset_right = -152.0
-offset_bottom = -5.5
+offset_left = -160.0
+offset_top = -29.5
+offset_right = -104.0
+offset_bottom = 34.5
 grow_horizontal = 0
 grow_vertical = 2
-text = "Share"
+icon = ExtResource("5_cbikw")
+icon_alignment = 1
+expand_icon = true
 
 [node name="DeleteButton" type="Button" parent="."]
 layout_mode = 1
@@ -88,13 +98,15 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -10.5
-offset_right = -152.0
-offset_bottom = 42.5
+offset_left = -216.0
+offset_top = -29.5
+offset_right = -160.0
+offset_bottom = 34.5
 grow_horizontal = 0
 grow_vertical = 2
-text = "Delete"
+icon = ExtResource("6_whibi")
+icon_alignment = 1
+expand_icon = true
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 initial_position = 2

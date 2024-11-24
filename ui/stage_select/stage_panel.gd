@@ -25,6 +25,9 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
+	if level_dict.has("demo"):
+		DataManager.demo_file_location = level_dict["demo"]
+	
 	DataManager.current_stage = dir
 	if level_dict["title"] == "Custom Levels":
 		get_tree().change_scene_to_file(CUSTOM_LEVEL_SCENE)

@@ -3,7 +3,7 @@ extends Node2D
 
 const TRASH_BIN_OPEN = preload("res://assets/simulation/trashBin/trashBin-open.png")
 const TRASH_BIN = preload("res://assets/simulation/trashBin/trashBin.png")
-
+const MAX_TEST_COUNT: int = 3
 
 enum {
 	IDLE,
@@ -21,6 +21,7 @@ var end_gates : Array[Gate]
 
 var mouse_in_trash_bin: bool = false
 var time_spent: int = 0
+var test_count: int = MAX_TEST_COUNT
 
 @export var GATE_SCENE : PackedScene
 @onready var LEVEL : JSON = DataManager.current_level
@@ -41,7 +42,11 @@ var time_spent: int = 0
 @onready var xnor_button: Button = $CanvasLayer/UI/FlowContainer/XnorButton
 @onready var not_button: Button = $CanvasLayer/UI/FlowContainer/NotButton
 @onready var run_button: Button = $CanvasLayer/UI/RunButton
+@onready var button_container: FlowContainer = $CanvasLayer/UI/FlowContainer
 
+@onready var side_truth_table: Panel = $CanvasLayer/UI/SideTruthTable
+@onready var test_run_button: Button = $CanvasLayer/UI/TestRunButton
+@onready var test_count_label: Label = $CanvasLayer/UI/TestRunButton/TestCountLabel
 
 func _ready() -> void:
 	randomize()
@@ -55,9 +60,6 @@ func _ready() -> void:
 	
 	run_button.pressed.connect(run_simulation)
 	
-	## NOTE: these are temporary testing nodes
-	## this should be replaced by a json reader
-	## that reads level data and places all the parts
 	create_level()
 
 
@@ -71,6 +73,31 @@ func create_level() -> void:
 		create_gate("start", "left")
 	for end in range(end_count):
 		create_gate("end", "right")
+	
+	if level_data.has("allow") == false:
+		return
+	
+	for button in button_container.get_children():
+		if button is not Button:
+			break
+		button.disabled = true
+	
+	for gate: String in level_data["allow"]:
+		match gate:
+			"and":
+				and_button.disabled = false
+			"or":
+				or_button.disabled = false
+			"xor":
+				xor_button.disabled = false
+			"nand":
+				nand_button.disabled = false
+			"nor":
+				nor_button.disabled = false
+			"xnor":
+				xnor_button.disabled = false
+			"not":
+				not_button.disabled = false
 
 ## TODO: change the random creaton thing and just have set positions
 func create_gate(type : String, location : String = "") -> void:
@@ -306,9 +333,13 @@ func _process(_delta: float) -> void:
 				temp_connection = null
 
 
+var switch_inverval: float = .5
 func run_simulation() -> void:
 	if simulation_running:
+		switch_inverval = .05
 		return
+	
+	run_button.text = "Skip"
 	
 	# set speed value
 	DataManager.level_clear_speed = time_spent
@@ -320,7 +351,7 @@ func run_simulation() -> void:
 		for i in range(len(start_gates)):
 			start_gates[i].value = row[i]
 		
-		await get_tree().create_timer(.5).timeout
+		await get_tree().create_timer(switch_inverval).timeout
 		
 		var row_results : Array
 		for start in start_gates:
@@ -334,6 +365,37 @@ func run_simulation() -> void:
 	file.store_string(json_string)
 	
 	get_tree().change_scene_to_file("res://ui/level_complete.tscn")
+
+
+func _on_test_run_button_pressed() -> void:
+	test_count -= 1
+	test_count_label.text = str(test_count,"/",MAX_TEST_COUNT)
+	
+	var truth_table : Array[Array] = generate_truth_table(len(start_gates))
+	var end_values : Array[String]
+	for row in truth_table:
+		for i in range(len(start_gates)):
+			start_gates[i].value = row[i]
+		
+		await get_tree().create_timer(.1).timeout
+		
+		var row_results : Array
+		for start in start_gates:
+			row_results.append(str(start.value))
+		for end in end_gates:
+			row_results.append(str(end.value))
+		end_values.append("".join(row_results))
+	
+	for start in start_gates:
+		start.value = 0
+	
+	side_truth_table.set_row_checks(end_values)
+	
+	if test_count <= 0:
+		test_run_button.disabled = true
+		test_count_label.text = str(0,"/",MAX_TEST_COUNT)
+
+
 
 func generate_truth_table(start_count : int) -> Array[Array]:
 	var num_rows : int = int(pow(2, start_count))

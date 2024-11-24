@@ -11,6 +11,12 @@ var is_custom : bool = false
 var is_level_edit: bool = false
 var edit_level_data: Dictionary
 
+## NOTE: for the demos in some stages
+# set in stage_panel.gd
+# recieved level_select.gd
+# reset in stage_panel.gd
+var demo_file_location: String = ""
+
 var level_clear_speed: int = 0
 
 var settings: Dictionary = {

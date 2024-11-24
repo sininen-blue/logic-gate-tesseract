@@ -1,10 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=19 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
+[ext_resource type="Script" path="res://simulation/side_truth_table.gd" id="3_1veaq"]
 [ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="3_caabb"]
 [ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
 [ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
+[ext_resource type="PackedScene" uid="uid://0im5s06d6220" path="res://ui/level_select/truth_table_row_no_check.tscn" id="4_4xfkp"]
+[ext_resource type="Texture2D" uid="uid://ba8vhrweymj8x" path="res://assets/UI/icons/left-arrow.png" id="5_5u020"]
 [ext_resource type="Texture2D" uid="uid://bakndx3eqlal4" path="res://assets/simulation/and.png" id="5_571u2"]
 [ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/level_select/level_info.tscn" id="5_qf11p"]
 [ext_resource type="Texture2D" uid="uid://dth82x8bk4i3n" path="res://assets/simulation/or.png" id="6_6f24j"]
@@ -56,6 +59,80 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+
+[node name="TestRunButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -134.0
+offset_top = 81.0
+offset_right = -42.0
+offset_bottom = 134.0
+grow_horizontal = 0
+text = "Test Run"
+
+[node name="TestCountLabel" type="Label" parent="CanvasLayer/UI/TestRunButton"]
+layout_mode = 0
+offset_left = -49.0
+offset_top = 11.0
+offset_right = -9.0
+offset_bottom = 42.0
+theme = ExtResource("3_caabb")
+text = "3/3"
+
+[node name="SideTruthTable" type="Panel" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -189.0
+offset_right = 285.0
+offset_bottom = 187.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("3_1veaq")
+
+[node name="HandleButton" type="Button" parent="CanvasLayer/UI/SideTruthTable"]
+layout_mode = 0
+offset_left = -55.0
+offset_top = 161.0
+offset_right = 5.0
+offset_bottom = 231.0
+icon = ExtResource("5_5u020")
+icon_alignment = 1
+
+[node name="DebounceTimer" type="Timer" parent="CanvasLayer/UI/SideTruthTable"]
+wait_time = 0.25
+one_shot = true
+
+[node name="TruthTableHeading" parent="CanvasLayer/UI/SideTruthTable" instance=ExtResource("4_4xfkp")]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 11.0
+offset_right = 286.0
+offset_bottom = 57.0
+
+[node name="TruthTableScroll" type="ScrollContainer" parent="CanvasLayer/UI/SideTruthTable"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 55.0
+offset_right = -9.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TruthTable" type="VBoxContainer" parent="CanvasLayer/UI/SideTruthTable/TruthTableScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 custom_minimum_size = Vector2(359, 183)
@@ -169,10 +246,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -84.0
-offset_top = 32.0
-offset_right = -41.0
-offset_bottom = 63.0
+offset_left = -125.0
+offset_top = 3.0
+offset_right = -42.0
+offset_bottom = 74.0
 grow_horizontal = 0
 text = "RUN"
 
@@ -211,6 +288,8 @@ text = "Back"
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="pressed" from="CanvasLayer/UI/TestRunButton" to="." method="_on_test_run_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/SideTruthTable/HandleButton" to="CanvasLayer/UI/SideTruthTable" method="_on_handle_button_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_trash_container_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]

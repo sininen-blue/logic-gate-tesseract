@@ -1,0 +1,539 @@
+[gd_scene load_steps=8 format=3 uid="uid://ca2pkcnfbueuj"]
+
+[ext_resource type="Script" path="res://ui/TutorialDemos/and_or_demo.gd" id="1_tx3ht"]
+[ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_eoqfh"]
+[ext_resource type="Theme" uid="uid://c037ts28mkfoy" path="res://ui/themes/Bold.tres" id="3_4v1ai"]
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="4_1xlqb"]
+
+[sub_resource type="Animation" id="Animation_0ayd1"]
+resource_name = "demo"
+length = 4.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XorGate/Input:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("XorGate/Input2:value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("XorGate/Not:value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 1, 0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("XorGate/Output:value")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 1, 0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("NandGate/Input:value")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("NandGate/Input2:value")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.00999999, 1, 2.01, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("NandGate/And:value")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 1, 1, 0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("NandGate/Output:value")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 1, 1, 0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("NorGate/Input2:value")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 1]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("NorGate/Input:value")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("NorGate/Or:value")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 0, 0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("NorGate/Output:value")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_1t45i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XorGate/Input:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("XorGate/Input2:value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("XorGate/Not:value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("XorGate/Output:value")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("NandGate/Input:value")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("NandGate/Input2:value")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("NandGate/And:value")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("NandGate/Output:value")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("NorGate/Input2:value")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("NorGate/Input:value")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("NorGate/Or:value")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("NorGate/Output:value")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ojcp"]
+_data = {
+"RESET": SubResource("Animation_1t45i"),
+"demo": SubResource("Animation_0ayd1")
+}
+
+[node name="XorNotDemo" type="Node2D"]
+script = ExtResource("1_tx3ht")
+
+[node name="XorGate" type="Node2D" parent="."]
+position = Vector2(184, 113)
+
+[node name="Input" parent="XorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(-57, -3)
+gate_type = "start"
+demo_mode = true
+
+[node name="Input2" parent="XorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(28, 132)
+gate_type = "start"
+demo_mode = true
+
+[node name="Not" parent="XorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(198, -1)
+gate_type = "xor"
+demo_mode = true
+
+[node name="Output" parent="XorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(460, -1)
+gate_type = "end"
+demo_mode = true
+
+[node name="Lines" type="Node2D" parent="XorGate"]
+
+[node name="TempLine" type="Line2D" parent="XorGate/Lines"]
+position = Vector2(-211, -102)
+points = PackedVector2Array(222, 100, 327, 100)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TempLine3" type="Line2D" parent="XorGate/Lines"]
+position = Vector2(-211, -102)
+points = PackedVector2Array(308, 233, 327, 100)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TempLine2" type="Line2D" parent="XorGate/Lines"]
+position = Vector2(43, -101)
+points = PackedVector2Array(222, 100, 335, 99)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="NotGatePanel" type="Panel" parent="XorGate"]
+offset_left = 136.0
+offset_top = 68.0
+offset_right = 529.0
+offset_bottom = 318.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="XorGate/NotGatePanel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 21.0
+offset_right = 227.0
+offset_bottom = 57.0
+theme = ExtResource("3_4v1ai")
+text = "The XOR Gate"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="RichTextLabel" parent="XorGate/NotGatePanel"]
+clip_contents = false
+layout_mode = 0
+offset_left = 30.0
+offset_top = 73.0
+offset_right = 380.0
+offset_bottom = 247.0
+theme = ExtResource("4_1xlqb")
+bbcode_enabled = true
+text = "Inputs a 1 if inputs A [b]OR[/b] B true, [b]but[/b] not both
+
+10 = 1, 11 = 0"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="NandGate" type="Node2D" parent="."]
+position = Vector2(1600, 0)
+
+[node name="And" parent="NandGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(415, 209)
+gate_type = "nand"
+demo_mode = true
+
+[node name="Output" parent="NandGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(696, 210)
+gate_type = "end"
+demo_mode = true
+
+[node name="Input" parent="NandGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(138, 130)
+gate_type = "start"
+demo_mode = true
+
+[node name="Input2" parent="NandGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(138, 344)
+gate_type = "start"
+demo_mode = true
+
+[node name="Lines" type="Node2D" parent="NandGate"]
+
+[node name="TempLine" type="Line2D" parent="NandGate/Lines"]
+position = Vector2(-17, 30)
+points = PackedVector2Array(222, 100, 350, 178)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TempLine2" type="Line2D" parent="NandGate/Lines"]
+position = Vector2(-19, 34)
+points = PackedVector2Array(224, 310, 349, 179)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TempLine3" type="Line2D" parent="NandGate/Lines"]
+position = Vector2(321.089, 30)
+scale = Vector2(0.467577, 1)
+points = PackedVector2Array(626.445, 179, 346.277, 179)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="NorGate" type="Node2D" parent="."]
+position = Vector2(841, 84)
+
+[node name="Or" parent="NorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(432, 179)
+gate_type = "nor"
+demo_mode = true
+
+[node name="Output" parent="NorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(713, 180)
+gate_type = "end"
+demo_mode = true
+
+[node name="Input" parent="NorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(155, 100)
+gate_type = "start"
+demo_mode = true
+
+[node name="Input2" parent="NorGate" instance=ExtResource("2_eoqfh")]
+position = Vector2(155, 314)
+gate_type = "start"
+demo_mode = true
+
+[node name="Lines" type="Node2D" parent="NorGate"]
+position = Vector2(2, 2)
+
+[node name="TempLine" type="Line2D" parent="NorGate/Lines"]
+points = PackedVector2Array(222, 100, 350, 178)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TempLine2" type="Line2D" parent="NorGate/Lines"]
+position = Vector2(-2, 4)
+points = PackedVector2Array(224, 310, 349, 179)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TempLine3" type="Line2D" parent="NorGate/Lines"]
+position = Vector2(338.089, 0)
+scale = Vector2(0.467577, 1)
+points = PackedVector2Array(626.445, 179, 346.277, 179)
+width = 6.0
+default_color = Color(0.117647, 0.117647, 0.117647, 1)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="OrGatePanel" type="Panel" parent="NorGate"]
+offset_left = 356.0
+offset_top = 230.0
+offset_right = 749.0
+offset_bottom = 530.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="NorGate/OrGatePanel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 21.0
+offset_right = 227.0
+offset_bottom = 57.0
+theme = ExtResource("3_4v1ai")
+text = "Not Versions"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="RichTextLabel" parent="NorGate/OrGatePanel"]
+clip_contents = false
+layout_mode = 0
+offset_left = 30.0
+offset_top = 73.0
+offset_right = 380.0
+offset_bottom = 247.0
+theme = ExtResource("4_1xlqb")
+bbcode_enabled = true
+text = "Gates have a \"not\" version which inverts their normal output
+
+Similar to adding a not gate after a regular gate"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="DemoPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0ojcp")
+}

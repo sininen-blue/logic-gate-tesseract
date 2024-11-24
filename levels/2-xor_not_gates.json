@@ -1,0 +1,5 @@
+{
+	"title": "NOT and XOR Gates",
+	"description": "Teaches you the fundamentals of NOT gates and the NOT versions of other gates, as well as the XOR gate\n\nThis stage will go a bit faster now that you know the basics",
+	"demo": "res://ui/TutorialDemos/xor_not_demo.tscn"
+}

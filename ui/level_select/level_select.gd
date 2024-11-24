@@ -23,6 +23,12 @@ func _on_back_button_pressed() -> void:
 
 ## TODO: still need to make challenge levels have a different thing
 func _ready() -> void:
+	if DataManager.demo_file_location != "":
+		var demo: Node2D = load(DataManager.demo_file_location).instantiate()
+		demo.global_position = Vector2(0, 350)
+		add_child(demo)
+		move_child(demo, 0)
+	
 	var count : int = 0
 	for level in stage_dir.get_files():
 		var new_level_button : Button = level_button.instantiate()
