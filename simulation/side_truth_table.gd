@@ -4,6 +4,9 @@ const TRUTH_TABLE_ROW = preload("res://ui/components/truth_table_row.tscn")
 const DARK_PANEL = preload("res://ui/themes/darkPanel.tres")
 const LIGHT_PANEL = preload("res://ui/themes/lightPanel.tres")
 
+const LEFT_ARROW = preload("res://assets/UI/icons/left-arrow.png")
+const RIGHT_ARROW = preload("res://assets/UI/icons/right-arrow.png")
+
 var close_pos: Vector2 = Vector2(1141, 135)
 var open_pos: Vector2 = Vector2(867, 135)
 var opened: bool = false
@@ -11,6 +14,7 @@ var opened: bool = false
 var output_count: int
 var input_count: int
 
+@onready var handle_button: Button = $HandleButton
 @onready var debounce_timer: Timer = $DebounceTimer
 @onready var truth_table_heading: Panel = $TruthTableHeading
 @onready var truth_table: VBoxContainer = $TruthTableScroll/TruthTable
@@ -67,9 +71,11 @@ func _on_handle_button_pressed() -> void:
 	if debounce_timer.is_stopped():
 		if opened:
 			opened = false
+			handle_button.icon = LEFT_ARROW
 			tween_position(close_pos)
 		else:
 			opened = true
+			handle_button.icon = RIGHT_ARROW
 			tween_position(open_pos)
 	
 	debounce_timer.start()

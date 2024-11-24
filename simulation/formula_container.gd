@@ -106,23 +106,43 @@ func format(arr: Array[Dictionary]) -> String:
 		
 		if dict.get("left") == null:
 			output += dict["parent"].gate.gate_name
-			output += " is "
-			output += dict["parent"].gate.gate_type + " "
+			output += " = "
+			output += convert_to_symbol(dict["parent"].gate.gate_type) + " "
 			output += dict["right"].gate.gate_name
 		elif dict.get("right") == null:
 			output += dict["parent"].gate.gate_name
-			output += " is "
-			output += dict["parent"].gate.gate_type + " "
+			output += " = "
+			output += convert_to_symbol(dict["parent"].gate.gate_type) + " "
 			output += dict["left"].gate.gate_name
 		else:
 			output += dict["parent"].gate.gate_name
-			output += " is "
+			output += " = "
 			output += dict["left"].gate.gate_name + " "
-			output += dict["parent"].gate.gate_type + " "
+			output += convert_to_symbol(dict["parent"].gate.gate_type) + " "
 			output += dict["right"].gate.gate_name
 		
 		if arr.find(dict) < len(arr)-1:
 			output += ", "
+	
+	return output
+
+func convert_to_symbol(type: String) -> String:
+	var output: String
+	match type:
+		"and":
+			output = "∧"
+		"or":
+			output = "∨"
+		"xor":
+			output = "⊕"
+		"nadn":
+			output = "¬∧"
+		"nor":
+			output = "¬∨"
+		"xnor":
+			output = "¬⊕"
+		"not":
+			output = "¬"
 	
 	return output
 

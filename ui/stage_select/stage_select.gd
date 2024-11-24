@@ -12,6 +12,7 @@ func _on_back_button_pressed() -> void:
 
 
 func _ready() -> void:
+	DataManager.demo_file_location = ""
 	# ensure custom levels is at the top
 	make_panel("custom_levels")
 	for stage in stages_directory.get_directories():

@@ -13,7 +13,8 @@ var edit_level_data: Dictionary
 
 ## NOTE: for the demos in some stages
 # set in stage_panel.gd
-# recieved, reset in level_select.gd
+# recieved level_select.gd
+# reset in stage_panel.gd
 var demo_file_location: String = ""
 
 var level_clear_speed: int = 0

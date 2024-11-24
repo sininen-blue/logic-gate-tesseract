@@ -289,7 +289,7 @@ _data = {
 script = ExtResource("1_6alak")
 
 [node name="NotGate" type="Node2D" parent="."]
-position = Vector2(911, -194)
+position = Vector2(967, -181)
 
 [node name="Input" parent="NotGate" instance=ExtResource("1_d1cdd")]
 position = Vector2(-57, -3)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=19 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
 [ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
 [ext_resource type="PackedScene" uid="uid://0im5s06d6220" path="res://ui/level_select/truth_table_row_no_check.tscn" id="4_4xfkp"]
+[ext_resource type="Texture2D" uid="uid://ba8vhrweymj8x" path="res://assets/UI/icons/left-arrow.png" id="5_5u020"]
 [ext_resource type="Texture2D" uid="uid://bakndx3eqlal4" path="res://assets/simulation/and.png" id="5_571u2"]
 [ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/level_select/level_info.tscn" id="5_qf11p"]
 [ext_resource type="Texture2D" uid="uid://dth82x8bk4i3n" path="res://assets/simulation/or.png" id="6_6f24j"]
@@ -97,10 +98,12 @@ script = ExtResource("3_1veaq")
 
 [node name="HandleButton" type="Button" parent="CanvasLayer/UI/SideTruthTable"]
 layout_mode = 0
-offset_left = -27.0
-offset_top = 160.0
-offset_right = 17.0
-offset_bottom = 213.0
+offset_left = -55.0
+offset_top = 161.0
+offset_right = 5.0
+offset_bottom = 231.0
+icon = ExtResource("5_5u020")
+icon_alignment = 1
 
 [node name="DebounceTimer" type="Timer" parent="CanvasLayer/UI/SideTruthTable"]
 wait_time = 0.25
