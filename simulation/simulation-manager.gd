@@ -61,6 +61,7 @@ func _ready() -> void:
 	run_button.pressed.connect(run_simulation)
 	
 	create_level()
+	generate_circuit()
 
 
 func create_level() -> void:
@@ -98,6 +99,33 @@ func create_level() -> void:
 				xnor_button.disabled = false
 			"not":
 				not_button.disabled = false
+
+
+func generate_circuit() -> void:
+	var truth_table: Array = LEVEL.data["truth_table"]
+	var output_count: int = int(LEVEL.data["end_count"])
+	var input_count: int = len(truth_table[0]) - output_count
+	var minterms: Array
+	
+	for row: String in truth_table:
+		if row.right(output_count) == "1":
+			minterms.append(row.left(input_count))
+	
+	var sop: Array
+	for term in minterms:
+		var product: Array
+		
+		var count: int = 0
+		for variable in term:
+			if variable == "1":
+				product.append(str(count))
+			if variable == "0":
+				product.append(str("not", count))
+			count += 1
+		sop.append(product)
+	
+	
+
 
 ## TODO: change the random creaton thing and just have set positions
 func create_gate(type : String, location : String = "") -> void:
