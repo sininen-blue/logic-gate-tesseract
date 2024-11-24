@@ -1,0 +1,22 @@
+{
+	"title": "Smart Door Lock System",
+	"author": "game",
+	"create_date": "6-9-2024",
+	"description": "An alarm triggers if at least one of three sensors detects an issue, but the system should suppress the alarm if all sensors are active simultaneously.",
+	"allow": [
+		"or",
+		"and",
+		"xor"
+	],
+	"end_count": "1",
+	"truth_table": [
+		"0000",
+		"0011",
+		"0101",
+		"0111",
+		"1001",
+		"1011",
+		"1101",
+		"1110"
+	]
+}

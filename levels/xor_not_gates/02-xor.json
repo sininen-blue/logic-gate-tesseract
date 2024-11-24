@@ -1,0 +1,16 @@
+{
+	"title": "Reverse a Signal",
+	"author": "game",
+	"create_date": "6-9-2024",
+	"description": "In a signaling system, a signal (A) needs to be reversed when a control switch (B) is ON.",
+	"allow": [
+		"xor"
+	],
+	"end_count": "1",
+	"truth_table": [
+		"000",
+		"011",
+		"101",
+		"111"
+	]
+}

@@ -1,0 +1,18 @@
+{
+	"title": "Dual Saftey System",
+	"author": "game",
+	"create_date": "6-9-2024",
+	"description": "A safety system requires that neither of two critical sensors (A, B) be activated for the machine to operate.",
+	"end_count": "1",
+	"allow": [
+		"or",
+		"nor",
+		"not"
+	],
+	"truth_table": [
+		"001",
+		"010",
+		"100",
+		"110"
+	]
+}
