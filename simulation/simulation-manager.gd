@@ -61,7 +61,10 @@ func _ready() -> void:
 	run_button.pressed.connect(run_simulation)
 	
 	create_level()
-	generate_circuit()
+	
+	if DataManager.auto_generate_level == true:
+		generate_circuit()
+		DataManager.auto_generate_level = false
 
 
 func create_level() -> void:
@@ -125,34 +128,59 @@ func generate_circuit() -> void:
 		sop.append(product)
 	
 	print(sop)
-	var overall_count: int = 0
+	var and_gate_list: Array[Gate] = []
+	var row: int = 0
 	for product in sop:
+		if len(product) == 2:
+			create_gate("and", "generated", row)
+			and_gate_list.append(all_gates[-1])
+		if len(product) == 3:
+			create_gate("and", "generated", row)
+			and_gate_list.append(all_gates[-1])
+			
+			# this should not be counted in the and gate list
+			# but I need to be able to access it
+			# make a global and gate list and local?
+			create_gate("and", "generated", row+.5)
+			and_gate_list.append(all_gates[-1])
+			
+			manual_connection(all_gates[-1], all_gates[-2])
 		
 		var variable_count: int = 0
 		for variable in product:
-			var conn_output: Gate
-			if variable[0] != "!":
-				conn_output = start_gates[int(variable[0])]
+			var and_index: int = 0
+			if len(product) == 3:
+				# after the first one, use the second and
+				if variable_count > 0:
+					and_index = 1
 			
 			if variable[0] == "!":
-				create_gate("not", "generated not", overall_count)
+				create_gate("not", "generated not", row)
 				manual_connection(start_gates[int(variable[1])], all_gates[-1])
-				conn_output = all_gates[-1]
-				
-				if variable_count > 0:
-					manual_connection(all_gates[-1], all_gates[-2])
-			
-			if variable_count > 1:
-				variable_count = 0
-				# add another and gate to make 3 inputs work
-				pass
-			
-			if variable_count < 1:
-				create_gate("and", "generated", overall_count)
-			
-			manual_connection(conn_output, all_gates[-1])
-			overall_count += 1
+				manual_connection(all_gates[-1], and_gate_list[row+and_index])
+			else:
+				manual_connection(start_gates[int(variable[0])], and_gate_list[row+and_index])
 			variable_count += 1
+		row+= 1
+	
+	# or together here
+	if len(and_gate_list) == 1:
+		manual_connection(and_gate_list[0], end_gates[0])
+	elif len(and_gate_list) == 2:
+		create_gate("or", "generated", row)
+		var or_gate: Gate = all_gates[-1]
+		
+		for and_gate in and_gate_list:
+			manual_connection(and_gate, or_gate)
+	else:
+		var or_gate_list: Array[Gate] = generate_or_gates(len(and_gate_list)-1)
+		manual_connection(and_gate_list[0], or_gate_list[0])
+		
+		# -1 to account for the first or gate generated
+		for i in range(len(or_gate_list)):
+			manual_connection(and_gate_list[i+1], or_gate_list[i])
+		
+		manual_connection(or_gate_list[-1], end_gates[0])
 
 
 func manual_connection(output: Gate, input: Gate) -> void:
@@ -161,8 +189,27 @@ func manual_connection(output: Gate, input: Gate) -> void:
 	temp_connection.input = input
 	complete_connection()
 
+
+# assumes 3 or more inputs
+func generate_or_gates(amount: int) -> Array[Gate]:
+	var or_gate_list: Array[Gate]
+	var row: int = 0
+	
+	create_gate("or", "generated or", row)
+	or_gate_list.append(all_gates[-1])
+	row += 1
+	for i in range(amount-1):
+		create_gate("or", "generated or", row)
+		or_gate_list.append(all_gates[-1])
+		
+		manual_connection(all_gates[-2], all_gates[-1])
+		row += 1
+	
+	return or_gate_list
+
+
 ## TODO: change the random creaton thing and just have set positions
-func create_gate(type : String, location : String = "", count: int = 0) -> void:
+func create_gate(type : String, location : String = "", count: float = 0) -> void:
 	var gate_scene : Gate = GATE_SCENE.instantiate()
 	gate_scene.gate_type = type
 	gate_scene.gate_name = String.chr(97 + len(all_gates)) # NOTE: will die after Z
@@ -173,9 +220,11 @@ func create_gate(type : String, location : String = "", count: int = 0) -> void:
 	elif location == "right":
 		start_location = Vector2(1000, 200*len(end_gates))
 	elif location == "generated not":
-		start_location = Vector2(350, 100*count)
+		start_location = Vector2(300, 200*count)
 	elif location == "generated":
-		start_location = Vector2(550, 100*count)
+		start_location = Vector2(550, 200*count)
+	elif location == "generated or":
+		start_location = Vector2(700, 200*count)
 	else:
 		start_location = Vector2(randi_range(400, 500), randi_range(400, 500))
 	gate_scene.global_position = start_location
@@ -274,7 +323,7 @@ func complete_connection() -> void:
 	
 	var conn_exists: bool = false
 	for connection in temp_connection.output.connections:
-		if (connection.input == temp_connection.input and 
+		if (connection.input == temp_connection.input and
 			connection.output == temp_connection.output):
 			conn_exists = true
 			break
@@ -502,3 +551,8 @@ func _on_trash_container_mouse_exited() -> void:
 
 func _on_timer_timeout() -> void:
 	time_spent += 1
+
+
+func _on_auto_generate_button_pressed() -> void:
+	DataManager.auto_generate_level = true
+	get_tree().reload_current_scene()
