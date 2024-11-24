@@ -72,6 +72,9 @@ func _process(_delta: float) -> void:
 		remove_child(label_pool[0])
 		label_pool.erase(label_pool[0])
 	
+	if len(label_pool) != len(roots):
+		return
+	
 	for i in range(len(roots)):
 		var output: String = format(walk(roots[i], []))
 		label_pool[i].text = output

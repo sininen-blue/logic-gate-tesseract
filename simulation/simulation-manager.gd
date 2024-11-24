@@ -120,24 +120,62 @@ func generate_circuit() -> void:
 			if variable == "1":
 				product.append(str(count))
 			if variable == "0":
-				product.append(str("not", count))
+				product.append(str("!", count))
 			count += 1
 		sop.append(product)
 	
-	
+	print(sop)
+	var overall_count: int = 0
+	for product in sop:
+		
+		var variable_count: int = 0
+		for variable in product:
+			var conn_output: Gate
+			if variable[0] != "!":
+				conn_output = start_gates[int(variable[0])]
+			
+			if variable[0] == "!":
+				create_gate("not", "generated not", overall_count)
+				manual_connection(start_gates[int(variable[1])], all_gates[-1])
+				conn_output = all_gates[-1]
+				
+				if variable_count > 0:
+					manual_connection(all_gates[-1], all_gates[-2])
+			
+			if variable_count > 1:
+				variable_count = 0
+				# add another and gate to make 3 inputs work
+				pass
+			
+			if variable_count < 1:
+				create_gate("and", "generated", overall_count)
+			
+			manual_connection(conn_output, all_gates[-1])
+			overall_count += 1
+			variable_count += 1
 
+
+func manual_connection(output: Gate, input: Gate) -> void:
+	temp_connection = Connection.new()
+	temp_connection.output = output
+	temp_connection.input = input
+	complete_connection()
 
 ## TODO: change the random creaton thing and just have set positions
-func create_gate(type : String, location : String = "") -> void:
+func create_gate(type : String, location : String = "", count: int = 0) -> void:
 	var gate_scene : Gate = GATE_SCENE.instantiate()
 	gate_scene.gate_type = type
 	gate_scene.gate_name = String.chr(97 + len(all_gates)) # NOTE: will die after Z
 	
 	var start_location : Vector2
 	if location == "left":
-		start_location = Vector2(200, 200*len(start_gates))
+		start_location = Vector2(0, 200*len(start_gates))
 	elif location == "right":
-		start_location = Vector2(700, 200*len(end_gates))
+		start_location = Vector2(1000, 200*len(end_gates))
+	elif location == "generated not":
+		start_location = Vector2(350, 100*count)
+	elif location == "generated":
+		start_location = Vector2(550, 100*count)
 	else:
 		start_location = Vector2(randi_range(400, 500), randi_range(400, 500))
 	gate_scene.global_position = start_location
