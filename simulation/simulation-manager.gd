@@ -587,5 +587,9 @@ func _on_timer_timeout() -> void:
 
 
 func _on_auto_generate_button_pressed() -> void:
+	$ConfirmationDialog.visible = true
+
+
+func _on_confirmation_dialog_confirmed() -> void:
 	DataManager.auto_generate_level = true
 	get_tree().reload_current_scene()
