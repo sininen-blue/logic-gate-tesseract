@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=20 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
 [ext_resource type="Script" path="res://simulation/side_truth_table.gd" id="3_1veaq"]
 [ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="3_caabb"]
+[ext_resource type="Theme" uid="uid://diwchjwgvp2l4" path="res://ui/themes/redButton.tres" id="3_hos0p"]
 [ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
 [ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
 [ext_resource type="PackedScene" uid="uid://0im5s06d6220" path="res://ui/level_select/truth_table_row_no_check.tscn" id="4_4xfkp"]
@@ -59,6 +60,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+
+[node name="AutoGenerateButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 1028.0
+offset_top = 472.0
+offset_right = 1127.0
+offset_bottom = 548.0
+theme = ExtResource("3_hos0p")
+text = "Auto 
+Generate"
 
 [node name="TestRunButton" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -135,11 +146,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+clip_contents = true
 custom_minimum_size = Vector2(359, 183)
 layout_mode = 0
 offset_left = 26.0
 offset_top = 77.0
-offset_right = 385.0
+offset_right = 521.0
 offset_bottom = 260.0
 theme = ExtResource("3_caabb")
 script = ExtResource("3_qlwgx")
@@ -288,6 +300,13 @@ text = "Back"
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 1
+size = Vector2i(200, 138)
+dialog_text = "This will automatically a generate an unoptimized truth table"
+dialog_autowrap = true
+
+[connection signal="pressed" from="CanvasLayer/UI/AutoGenerateButton" to="." method="_on_auto_generate_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TestRunButton" to="." method="_on_test_run_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/SideTruthTable/HandleButton" to="CanvasLayer/UI/SideTruthTable" method="_on_handle_button_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_control_mouse_entered"]
@@ -295,3 +314,4 @@ autostart = true
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

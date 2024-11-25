@@ -5,6 +5,10 @@ var current_stage : DirAccess
 var current_level : JSON
 var is_custom : bool = false
 
+## NOTE: used for the auto generate button
+# called, recieved, and reset in simulation_manager.gd
+var auto_generate_level: bool = false
+
 ## NOTE: used to edit levels
 # called in custom_stage_panel.gd
 # recieved, reset in create_custom_level.gd
