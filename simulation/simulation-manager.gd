@@ -175,7 +175,28 @@ func generate_circuit() -> void:
 			manual_connection(sop_and_gate_list[i+1], or_gate_list[i])
 		
 		manual_connection(or_gate_list[-1], end_gates[0])
-
+	
+	# blast everything here
+	var not_column: float = 250
+	var not_count: int = 0
+	var and_column: float = 450
+	var and_count: int = 0
+	var or_column: float = 650
+	var or_count: int = 0
+	for gate in all_gates:
+		if gate.gate_type == "end":
+			continue
+		
+		match gate.gate_type:
+			"not":
+				gate.position = Vector2(not_column, 150 * not_count)
+				not_count += 1
+			"and":
+				gate.position = Vector2(and_column, 150 * and_count)
+				and_count += 1
+			"or":
+				gate.position = Vector2(or_column, 150 * or_count)
+				or_count += 1
 
 func manual_connection(output: Gate, input: Gate) -> void:
 	temp_connection = Connection.new()
