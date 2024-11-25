@@ -128,23 +128,17 @@ func generate_circuit() -> void:
 		sop.append(product)
 	
 	print(sop)
-	var and_gate_list: Array[Gate] = []
+	var sop_and_gate_list: Array[Gate] = []
 	var row: int = 0
 	for product in sop:
+		var local_and_gate_list: Array[Gate] = []
 		if len(product) == 2:
 			create_gate("and", "generated", row)
-			and_gate_list.append(all_gates[-1])
-		if len(product) == 3:
-			create_gate("and", "generated", row)
-			and_gate_list.append(all_gates[-1])
-			
-			# this should not be counted in the and gate list
-			# but I need to be able to access it
-			# make a global and gate list and local?
-			create_gate("and", "generated", row+.5)
-			and_gate_list.append(all_gates[-1])
-			
-			manual_connection(all_gates[-1], all_gates[-2])
+			local_and_gate_list.append(all_gates[-1])
+			sop_and_gate_list.append(all_gates[-1])
+		if len(product) > 2:
+			local_and_gate_list = generate_and_gates(len(product)-1)
+			sop_and_gate_list.append(local_and_gate_list[0])
 		
 		var variable_count: int = 0
 		for variable in product:
@@ -157,28 +151,28 @@ func generate_circuit() -> void:
 			if variable[0] == "!":
 				create_gate("not", "generated not", row)
 				manual_connection(start_gates[int(variable[1])], all_gates[-1])
-				manual_connection(all_gates[-1], and_gate_list[row+and_index])
+				manual_connection(all_gates[-1], local_and_gate_list[and_index])
 			else:
-				manual_connection(start_gates[int(variable[0])], and_gate_list[row+and_index])
+				manual_connection(start_gates[int(variable[0])], local_and_gate_list[and_index])
 			variable_count += 1
 		row+= 1
 	
 	# or together here
-	if len(and_gate_list) == 1:
-		manual_connection(and_gate_list[0], end_gates[0])
-	elif len(and_gate_list) == 2:
+	if len(sop_and_gate_list) == 1:
+		manual_connection(sop_and_gate_list[0], end_gates[0])
+	elif len(sop_and_gate_list) == 2:
 		create_gate("or", "generated", row)
 		var or_gate: Gate = all_gates[-1]
 		
-		for and_gate in and_gate_list:
+		for and_gate in sop_and_gate_list:
 			manual_connection(and_gate, or_gate)
 	else:
-		var or_gate_list: Array[Gate] = generate_or_gates(len(and_gate_list)-1)
-		manual_connection(and_gate_list[0], or_gate_list[0])
+		var or_gate_list: Array[Gate] = generate_or_gates(len(sop_and_gate_list)-1)
+		manual_connection(sop_and_gate_list[0], or_gate_list[0])
 		
 		# -1 to account for the first or gate generated
 		for i in range(len(or_gate_list)):
-			manual_connection(and_gate_list[i+1], or_gate_list[i])
+			manual_connection(sop_and_gate_list[i+1], or_gate_list[i])
 		
 		manual_connection(or_gate_list[-1], end_gates[0])
 
@@ -207,6 +201,22 @@ func generate_or_gates(amount: int) -> Array[Gate]:
 	
 	return or_gate_list
 
+func generate_and_gates(amount: int) -> Array[Gate]:
+	var and_gate_list: Array[Gate]
+	var row: int = 0
+	
+	create_gate("and", "generated", row)
+	and_gate_list.append(all_gates[-1])
+	row += 1
+	for i in range(amount-1):
+		create_gate("and", "generated and", row)
+		and_gate_list.append(all_gates[-1])
+		
+		manual_connection(all_gates[-1], all_gates[-2])
+		row += 1
+	
+	return and_gate_list
+
 
 ## TODO: change the random creaton thing and just have set positions
 func create_gate(type : String, location : String = "", count: float = 0) -> void:
@@ -221,6 +231,8 @@ func create_gate(type : String, location : String = "", count: float = 0) -> voi
 		start_location = Vector2(1000, 200*len(end_gates))
 	elif location == "generated not":
 		start_location = Vector2(300, 200*count)
+	elif location == "generated and":
+		start_location = Vector2(450, 200*count)
 	elif location == "generated":
 		start_location = Vector2(550, 200*count)
 	elif location == "generated or":
