@@ -125,7 +125,7 @@ custom_minimum_size = Vector2(200, 40)
 layout_mode = 0
 offset_left = 18.0
 offset_top = 11.0
-offset_right = 286.0
+offset_right = 240.0
 offset_bottom = 57.0
 
 [node name="TruthTableScroll" type="ScrollContainer" parent="CanvasLayer/UI/SideTruthTable"]
