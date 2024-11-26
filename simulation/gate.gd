@@ -168,7 +168,7 @@ func _on_tooltip_timer_timeout() -> void:
 			text = "A gate which outputs a 1 if both inputs are true"
 		"or":
 			text = "A gate which outputs a 1 if either inputs are true"
-		"xnor":
+		"xor":
 			text = "A gate which outputs a 1 if either inputs are true but not both"
 		"nand":
 			text = "A gate which outputs a 1 if both gates aren't true"
@@ -178,5 +178,9 @@ func _on_tooltip_timer_timeout() -> void:
 			text = "A gate which outputs a 1 if both gates are false or if both gates are true"
 		"not":
 			text = "A gate which outputs the opposite of the input"
+		"start":
+			text = "An input for the circuit"
+		"end":
+			text = "The output of the circuit"
 	
 	tooltip_label.text = text
