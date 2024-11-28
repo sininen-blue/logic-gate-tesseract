@@ -108,21 +108,21 @@ func format(arr: Array[Dictionary]) -> String:
 			continue
 		
 		if dict.get("left") == null:
-			output += dict["parent"].gate.gate_name
-			output += " = "
 			output += convert_to_symbol(dict["parent"].gate.gate_type) + " "
 			output += dict["right"].gate.gate_name
-		elif dict.get("right") == null:
-			output += dict["parent"].gate.gate_name
 			output += " = "
+			output += dict["parent"].gate.gate_name
+		elif dict.get("right") == null:
 			output += convert_to_symbol(dict["parent"].gate.gate_type) + " "
 			output += dict["left"].gate.gate_name
-		else:
-			output += dict["parent"].gate.gate_name
 			output += " = "
+			output += dict["parent"].gate.gate_name
+		else:
 			output += dict["left"].gate.gate_name + " "
 			output += convert_to_symbol(dict["parent"].gate.gate_type) + " "
 			output += dict["right"].gate.gate_name
+			output += " = "
+			output += dict["parent"].gate.gate_name
 		
 		if arr.find(dict) < len(arr)-1:
 			output += ", "
