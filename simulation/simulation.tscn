@@ -306,6 +306,13 @@ size = Vector2i(200, 138)
 dialog_text = "This will automatically a generate an unoptimized truth table"
 dialog_autowrap = true
 
+[node name="ErrorDialog" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 1
+initial_position = 1
+size = Vector2i(200, 138)
+dialog_text = "This will automatically a generate an unoptimized truth table"
+dialog_autowrap = true
+
 [connection signal="pressed" from="CanvasLayer/UI/AutoGenerateButton" to="." method="_on_auto_generate_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TestRunButton" to="." method="_on_test_run_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/SideTruthTable/HandleButton" to="CanvasLayer/UI/SideTruthTable" method="_on_handle_button_pressed"]
@@ -315,3 +322,4 @@ dialog_autowrap = true
 [connection signal="pressed" from="CanvasLayer/UI/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="confirmed" from="ErrorDialog" to="." method="_on_error_dialog_confirmed"]
