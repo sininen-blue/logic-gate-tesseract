@@ -110,6 +110,15 @@ func generate_circuit() -> void:
 	var input_count: int = len(truth_table[0]) - output_count
 	var minterms: Array
 	
+	if len(start_gates) == 1:
+		$ErrorDialog.visible = true
+		$ErrorDialog.dialog_text = "Auto generate does not work on single input levels"
+		return
+	if len(end_gates) > 1:
+		$ErrorDialog.visible = true
+		$ErrorDialog.dialog_text = "Auto generate does not work multi output levels"
+		return
+	
 	for row: String in truth_table:
 		if row.right(output_count) == "1":
 			minterms.append(row.left(input_count))
@@ -588,8 +597,13 @@ func _on_timer_timeout() -> void:
 
 func _on_auto_generate_button_pressed() -> void:
 	$ConfirmationDialog.visible = true
+	$ConfirmationDialog.dialog_text = "This will automatically a generate an unoptimized truth table"
 
 
 func _on_confirmation_dialog_confirmed() -> void:
 	DataManager.auto_generate_level = true
 	get_tree().reload_current_scene()
+
+
+func _on_error_dialog_confirmed() -> void:
+	$ErrorDialog.visible = false
