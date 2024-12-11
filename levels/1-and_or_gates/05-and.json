@@ -4,7 +4,9 @@
 	"create_date": "6-9-2024",
 	"description": "A green signal for pedestrians is given only if the traffic light is red and the pedestrian button is pressed\n\nWhere A is the traffic light being red, \nand B is the pedestrian button being pressed",
 	"allow": [
-		"and"
+		"and",
+		"not",
+		"or"
 	],
 	"end_count": "1",
 	"truth_table": [

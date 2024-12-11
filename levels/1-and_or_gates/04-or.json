@@ -5,6 +5,8 @@
 	"description": "A doorbell rings if either the front, or the back doorbell button is pressed\n\nWhere A is the front doorbell, and B is the doorbell",
 	"end_count": "1",
 	"allow": [
+		"and",
+		"not",
 		"or"
 	],
 	"truth_table": [

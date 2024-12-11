@@ -4,6 +4,8 @@
 	"create_date": "6-9-2024",
 	"description": "A machine operates if either:\n\nThe start button is pressed (A).\nThe system is in auto mode (B).\nThere is a maintenance override (C).",
 	"allow": [
+		"and",
+		"not",
 		"or"
 	],
 	"end_count": "1",
