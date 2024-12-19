@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://yrih2e5sant0"]
+[gd_scene load_steps=10 format=3 uid="uid://yrih2e5sant0"]
 
 [ext_resource type="Script" path="res://ui/level_select/level_select.gd" id="1_6kh77"]
 [ext_resource type="Theme" uid="uid://dt7cs1ptpftme" path="res://ui/themes/Bolder.tres" id="2_v4a0r"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bdj0b2iu4u7ud" path="res://assets/UI/tutorial/tutorial.png" id="6_dmblx"]
 [ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="7_wh2qk"]
 [ext_resource type="Texture2D" uid="uid://bv4885ob5v1w" path="res://assets/UI/icons/info.png" id="8_q0kn4"]
+[ext_resource type="Texture2D" uid="uid://b1j74ktf4bn8q" path="res://assets/UI/icons/arrow.png" id="9_f0d4p"]
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -102,6 +103,18 @@ offset_bottom = 234.0
 theme = ExtResource("7_wh2qk")
 text = "Scroll to Zoom"
 autowrap_mode = 3
+
+[node name="Arrow" type="Sprite2D" parent="."]
+position = Vector2(175, 223)
+texture = ExtResource("9_f0d4p")
+
+[node name="Label" type="Label" parent="Arrow"]
+offset_left = 21.0
+offset_top = -48.0
+offset_right = 141.0
+offset_bottom = -17.0
+theme = ExtResource("7_wh2qk")
+text = "Start Here"
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]

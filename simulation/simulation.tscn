@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=25 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cihvntuxvqwuj" path="res://assets/simulation/xnor-false.png" id="10_yyr3h"]
 [ext_resource type="Texture2D" uid="uid://cjtkhygl5goca" path="res://assets/simulation/not-false.png" id="11_ga2oo"]
 [ext_resource type="Texture2D" uid="uid://5eedn8tgc886" path="res://assets/simulation/trashBin/trashBin.png" id="13_ihso0"]
+[ext_resource type="Texture2D" uid="uid://b1j74ktf4bn8q" path="res://assets/UI/icons/arrow.png" id="23_c6xtl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ovty"]
 radius = 5.0
@@ -118,7 +119,6 @@ text = "Right click or drag to trash bin to delete"
 autowrap_mode = 3
 
 [node name="ContinueTutorial" parent="CanvasLayer" instance=ExtResource("3_sh4ws")]
-visible = false
 offset_left = 95.0
 offset_top = -182.0
 offset_right = 398.0
@@ -132,30 +132,6 @@ offset_right = 268.0
 offset_bottom = 121.0
 theme = ExtResource("3_caabb")
 text = "Press run and test run to test your circuit"
-autowrap_mode = 3
-
-[node name="Label2" type="Label" parent="CanvasLayer/ContinueTutorial"]
-layout_mode = 0
-offset_left = 268.0
-offset_top = 6.99998
-offset_right = 321.0
-offset_bottom = 61.0
-rotation = -0.523598
-theme = ExtResource("3_caabb")
-theme_override_font_sizes/font_size = 40
-text = "->"
-autowrap_mode = 3
-
-[node name="Label4" type="Label" parent="CanvasLayer/ContinueTutorial"]
-layout_mode = 0
-offset_left = 290.0
-offset_top = 159.0
-offset_right = 343.0
-offset_bottom = 213.0
-rotation = 0.261799
-theme = ExtResource("3_caabb")
-theme_override_font_sizes/font_size = 40
-text = "->"
 autowrap_mode = 3
 
 [node name="Label3" type="Label" parent="CanvasLayer/ContinueTutorial"]
@@ -179,6 +155,7 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="HelpButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
 offset_left = 882.0
 offset_top = 7.0
 offset_right = 998.0
@@ -422,6 +399,16 @@ offset_top = 12.0
 offset_right = 81.0
 offset_bottom = 65.0
 text = "Back"
+
+[node name="Arrow" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(981, 320)
+rotation = -2.09439
+texture = ExtResource("23_c6xtl")
+
+[node name="Arrow2" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(971, 173)
+rotation = -2.87979
+texture = ExtResource("23_c6xtl")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
