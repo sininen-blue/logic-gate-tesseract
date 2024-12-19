@@ -133,19 +133,19 @@ func convert_to_symbol(type: String) -> String:
 	var output: String
 	match type:
 		"and":
-			output = "∧"
+			output = "^"
 		"or":
-			output = "∨"
+			output = "v"
 		"xor":
-			output = "⊕"
+			output = "<->"
 		"nadn":
-			output = "¬∧"
+			output = "!^"
 		"nor":
-			output = "¬∨"
+			output = "!v"
 		"xnor":
-			output = "¬⊕"
+			output = "!<->"
 		"not":
-			output = "¬"
+			output = "!"
 	
 	return output
 

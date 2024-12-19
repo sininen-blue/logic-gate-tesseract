@@ -34,6 +34,18 @@ text = "Select a Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Arrow" type="Sprite2D" parent="."]
+position = Vector2(175, 223)
+texture = ExtResource("9_f0d4p")
+
+[node name="Label" type="Label" parent="Arrow"]
+offset_left = 21.0
+offset_top = -48.0
+offset_right = 141.0
+offset_bottom = -17.0
+theme = ExtResource("7_wh2qk")
+text = "Start Here"
+
 [node name="Main" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -103,18 +115,6 @@ offset_bottom = 234.0
 theme = ExtResource("7_wh2qk")
 text = "Scroll to Zoom"
 autowrap_mode = 3
-
-[node name="Arrow" type="Sprite2D" parent="."]
-position = Vector2(175, 223)
-texture = ExtResource("9_f0d4p")
-
-[node name="Label" type="Label" parent="Arrow"]
-offset_left = 21.0
-offset_top = -48.0
-offset_right = 141.0
-offset_bottom = -17.0
-theme = ExtResource("7_wh2qk")
-text = "Start Here"
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
