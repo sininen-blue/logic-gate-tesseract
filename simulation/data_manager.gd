@@ -50,6 +50,8 @@ func save_settings() -> void:
 
 var player_save: Dictionary = {
 	"completed_levels": [],
+	"seen_level_select_tutorial": false,
+	"seen_simulation_tutorial": false,
 }
 
 func read_save() -> void:

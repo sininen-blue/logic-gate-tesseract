@@ -16,6 +16,7 @@ var moving_camera : bool = false
 @onready var main: Control = $Main
 @onready var back_button: Button = $BackButton
 @onready var camera: Camera2D = $Camera2D
+@onready var movement_tutorial: Panel = $MovementTutorial
 
 
 func _on_back_button_pressed() -> void:
@@ -23,6 +24,10 @@ func _on_back_button_pressed() -> void:
 
 ## TODO: still need to make challenge levels have a different thing
 func _ready() -> void:
+	if DataManager.player_save["seen_level_select_tutorial"] == false:
+		movement_tutorial.show()
+		DataManager.player_save["seen_level_select_tutorial"] = true
+	
 	if DataManager.demo_file_location != "":
 		var demo: Node2D = load(DataManager.demo_file_location).instantiate()
 		demo.global_position = Vector2(0, 350)
@@ -91,3 +96,7 @@ func _process(_delta: float) -> void:
 	tween.tween_property(
 		camera, "global_position", camera.global_position + mouse_vector, 0.05
 	)
+
+
+func _on_help_button_pressed() -> void:
+	movement_tutorial.show()

@@ -1,5 +1,7 @@
 extends Panel
 
+signal cleared
+
 @onready var error_label: Label = $ErrorLabel
 
 func _ready() -> void:
@@ -12,3 +14,4 @@ func show_error(error_text: String) -> void:
 
 func _on_error_confirm_pressed() -> void:
 	self.visible = false
+	cleared.emit()

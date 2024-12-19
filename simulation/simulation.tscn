@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://swjkfmyam37c"]
+[gd_scene load_steps=24 format=3 uid="uid://swjkfmyam37c"]
 
 [ext_resource type="Script" path="res://simulation/simulation-manager.gd" id="1_qo526"]
 [ext_resource type="PackedScene" uid="uid://psym6w7moids" path="res://simulation/gate.tscn" id="2_8m28h"]
@@ -7,11 +7,15 @@
 [ext_resource type="Theme" uid="uid://diwchjwgvp2l4" path="res://ui/themes/redButton.tres" id="3_hos0p"]
 [ext_resource type="Script" path="res://simulation/formula_container.gd" id="3_qlwgx"]
 [ext_resource type="PackedScene" uid="uid://dpd7dfojh77bw" path="res://simulation/formula_label.tscn" id="3_qwkcl"]
+[ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="3_sh4ws"]
 [ext_resource type="PackedScene" uid="uid://0im5s06d6220" path="res://ui/level_select/truth_table_row_no_check.tscn" id="4_4xfkp"]
+[ext_resource type="Texture2D" uid="uid://bdj0b2iu4u7ud" path="res://assets/UI/tutorial/tutorial.png" id="4_qbqbu"]
 [ext_resource type="Texture2D" uid="uid://ba8vhrweymj8x" path="res://assets/UI/icons/left-arrow.png" id="5_5u020"]
 [ext_resource type="Texture2D" uid="uid://bakndx3eqlal4" path="res://assets/simulation/and.png" id="5_571u2"]
 [ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/level_select/level_info.tscn" id="5_qf11p"]
 [ext_resource type="Texture2D" uid="uid://dth82x8bk4i3n" path="res://assets/simulation/or.png" id="6_6f24j"]
+[ext_resource type="Texture2D" uid="uid://ujiu36258msl" path="res://assets/UI/tutorial/tutorial2.png" id="6_qxhd6"]
+[ext_resource type="Texture2D" uid="uid://bv4885ob5v1w" path="res://assets/UI/icons/info.png" id="7_dsagr"]
 [ext_resource type="Texture2D" uid="uid://bvhnk5tks5kyi" path="res://assets/simulation/xor.png" id="7_jgmls"]
 [ext_resource type="Texture2D" uid="uid://c7phyvdx6c783" path="res://assets/simulation/nand-false.png" id="8_2drvl"]
 [ext_resource type="Texture2D" uid="uid://cp7fapvx1faxt" path="res://assets/simulation/nor-false.png" id="9_p42qm"]
@@ -51,6 +55,119 @@ offset_bottom = 23.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="MovementTutorial" parent="CanvasLayer" instance=ExtResource("3_sh4ws")]
+visible = false
+offset_left = -12.0
+offset_top = -181.0
+offset_right = 287.0
+offset_bottom = 131.0
+
+[node name="Tutorial" type="Sprite2D" parent="CanvasLayer/MovementTutorial"]
+position = Vector2(153, 95)
+texture = ExtResource("4_qbqbu")
+
+[node name="Label" type="Label" parent="CanvasLayer/MovementTutorial"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 161.0
+offset_right = 157.0
+offset_bottom = 226.0
+theme = ExtResource("3_caabb")
+text = "Left click to drag"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/MovementTutorial"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 169.0
+offset_right = 293.0
+offset_bottom = 234.0
+theme = ExtResource("3_caabb")
+text = "Scroll to Zoom"
+autowrap_mode = 3
+
+[node name="ControlsTutorial" parent="CanvasLayer" instance=ExtResource("3_sh4ws")]
+visible = false
+offset_left = -465.0
+offset_top = -220.0
+offset_right = -26.0
+offset_bottom = 149.0
+
+[node name="Tutorial" type="Sprite2D" parent="CanvasLayer/ControlsTutorial"]
+position = Vector2(209, 102)
+texture = ExtResource("6_qxhd6")
+
+[node name="Label" type="Label" parent="CanvasLayer/ControlsTutorial"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 193.0
+offset_right = 199.0
+offset_bottom = 339.0
+theme = ExtResource("3_caabb")
+text = "Left click and drag to get gates"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/ControlsTutorial"]
+layout_mode = 0
+offset_left = 228.0
+offset_top = 191.0
+offset_right = 415.0
+offset_bottom = 290.0
+theme = ExtResource("3_caabb")
+text = "Right click or drag to trash bin to delete"
+autowrap_mode = 3
+
+[node name="ContinueTutorial" parent="CanvasLayer" instance=ExtResource("3_sh4ws")]
+visible = false
+offset_left = 95.0
+offset_top = -182.0
+offset_right = 398.0
+offset_bottom = 154.0
+
+[node name="Label" type="Label" parent="CanvasLayer/ContinueTutorial"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 22.0
+offset_right = 268.0
+offset_bottom = 121.0
+theme = ExtResource("3_caabb")
+text = "Press run and test run to test your circuit"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/ContinueTutorial"]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 6.99998
+offset_right = 321.0
+offset_bottom = 61.0
+rotation = -0.523598
+theme = ExtResource("3_caabb")
+theme_override_font_sizes/font_size = 40
+text = "->"
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="CanvasLayer/ContinueTutorial"]
+layout_mode = 0
+offset_left = 290.0
+offset_top = 159.0
+offset_right = 343.0
+offset_bottom = 213.0
+rotation = 0.261799
+theme = ExtResource("3_caabb")
+theme_override_font_sizes/font_size = 40
+text = "->"
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="CanvasLayer/ContinueTutorial"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 133.0
+offset_right = 264.0
+offset_bottom = 232.0
+theme = ExtResource("3_caabb")
+text = "and press this button to show the test run results"
+autowrap_mode = 3
+
 [node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
@@ -60,6 +177,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+
+[node name="HelpButton" type="Button" parent="CanvasLayer/UI"]
+offset_left = 882.0
+offset_top = 7.0
+offset_right = 998.0
+offset_bottom = 74.0
+text = "HELP!"
+icon = ExtResource("7_dsagr")
+expand_icon = true
 
 [node name="AutoGenerateButton" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 0
@@ -313,6 +439,9 @@ size = Vector2i(200, 138)
 dialog_text = "This will automatically a generate an unoptimized truth table"
 dialog_autowrap = true
 
+[connection signal="cleared" from="CanvasLayer/MovementTutorial" to="." method="_on_movement_tutorial_cleared"]
+[connection signal="cleared" from="CanvasLayer/ControlsTutorial" to="." method="_on_controls_tutorial_cleared"]
+[connection signal="pressed" from="CanvasLayer/UI/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/AutoGenerateButton" to="." method="_on_auto_generate_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TestRunButton" to="." method="_on_test_run_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/SideTruthTable/HandleButton" to="CanvasLayer/UI/SideTruthTable" method="_on_handle_button_pressed"]

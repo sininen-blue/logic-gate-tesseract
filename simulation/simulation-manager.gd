@@ -48,7 +48,20 @@ var test_count: int = MAX_TEST_COUNT
 @onready var test_run_button: Button = $CanvasLayer/UI/TestRunButton
 @onready var test_count_label: Label = $CanvasLayer/UI/TestRunButton/TestCountLabel
 
+@onready var movement_tutorial: Panel = $CanvasLayer/MovementTutorial
+@onready var controls_tutorial: Panel = $CanvasLayer/ControlsTutorial
+@onready var continue_tutorial: Panel = $CanvasLayer/ContinueTutorial
+
+var movement_tutorial_read: bool = false
+var controls_tutorial_read: bool = false
+
 func _ready() -> void:
+	if DataManager.player_save["seen_simulation_tutorial"] == false:
+		movement_tutorial.show()
+		controls_tutorial.show()
+		DataManager.player_save["seen_simulation_tutorial"] = true
+	
+	
 	randomize()
 	and_button.button_down.connect(create_gate.bind("and"))
 	or_button.button_down.connect(create_gate.bind("or"))
@@ -607,3 +620,21 @@ func _on_confirmation_dialog_confirmed() -> void:
 
 func _on_error_dialog_confirmed() -> void:
 	$ErrorDialog.visible = false
+
+
+func _on_movement_tutorial_cleared() -> void:
+	movement_tutorial_read = true
+	if controls_tutorial_read == true:
+		continue_tutorial.show()
+
+func _on_controls_tutorial_cleared() -> void:
+	controls_tutorial_read = true
+	if movement_tutorial_read == true:
+		continue_tutorial.show()
+
+
+func _on_help_button_pressed() -> void:
+	controls_tutorial_read = false
+	movement_tutorial_read = false
+	movement_tutorial.show()
+	controls_tutorial.show()

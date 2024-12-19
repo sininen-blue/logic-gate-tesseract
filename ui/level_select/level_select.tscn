@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://yrih2e5sant0"]
+[gd_scene load_steps=9 format=3 uid="uid://yrih2e5sant0"]
 
 [ext_resource type="Script" path="res://ui/level_select/level_select.gd" id="1_6kh77"]
 [ext_resource type="Theme" uid="uid://dt7cs1ptpftme" path="res://ui/themes/Bolder.tres" id="2_v4a0r"]
 [ext_resource type="PackedScene" uid="uid://dttx53vhtgwy1" path="res://ui/level_select/level_info.tscn" id="3_7seht"]
 [ext_resource type="Theme" uid="uid://diwchjwgvp2l4" path="res://ui/themes/redButton.tres" id="3_vbhxb"]
+[ext_resource type="PackedScene" uid="uid://b4f4srb41fiu6" path="res://ui/components/error_panel.tscn" id="5_iivdn"]
+[ext_resource type="Texture2D" uid="uid://bdj0b2iu4u7ud" path="res://assets/UI/tutorial/tutorial.png" id="6_dmblx"]
+[ext_resource type="Theme" uid="uid://dh7cgp4wswxi3" path="res://ui/themes/lessBold.tres" id="7_wh2qk"]
+[ext_resource type="Texture2D" uid="uid://bv4885ob5v1w" path="res://assets/UI/icons/info.png" id="8_q0kn4"]
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -46,6 +50,16 @@ offset_bottom = 85.0
 theme = ExtResource("3_vbhxb")
 text = "Back"
 
+[node name="HelpButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 21.0
+offset_right = 236.0
+offset_bottom = 96.0
+text = "HELP!"
+icon = ExtResource("8_q0kn4")
+expand_icon = true
+
 [node name="LevelInfo" parent="." instance=ExtResource("3_7seht")]
 visible = false
 layout_mode = 1
@@ -57,4 +71,37 @@ offset_bottom = 363.5
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(551, 290)
 
+[node name="MovementTutorial" parent="." instance=ExtResource("5_iivdn")]
+visible = false
+layout_mode = 1
+offset_left = -150.0
+offset_top = -165.0
+offset_right = 149.0
+offset_bottom = 147.0
+
+[node name="Tutorial" type="Sprite2D" parent="MovementTutorial"]
+position = Vector2(153, 95)
+texture = ExtResource("6_dmblx")
+
+[node name="Label" type="Label" parent="MovementTutorial"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 161.0
+offset_right = 157.0
+offset_bottom = 226.0
+theme = ExtResource("7_wh2qk")
+text = "Left click to drag"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="MovementTutorial"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 169.0
+offset_right = 293.0
+offset_bottom = 234.0
+theme = ExtResource("7_wh2qk")
+text = "Scroll to Zoom"
+autowrap_mode = 3
+
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
