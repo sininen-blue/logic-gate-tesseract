@@ -74,7 +74,8 @@ func _ready() -> void:
 		var tween : Tween = get_tree().create_tween()
 
 		tween.set_trans(Tween.TRANS_QUART)
-		tween.tween_property(camera, "global_position", level_just_completed_vector, 1.5)
+		tween.tween_property(camera, "global_position", level_just_completed_vector, 0.5)
+		DataManager.level_just_completed = ""
 
 
 func show_panel() -> void:
