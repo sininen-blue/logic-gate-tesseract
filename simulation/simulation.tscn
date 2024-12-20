@@ -56,105 +56,6 @@ offset_bottom = 23.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MovementTutorial" parent="CanvasLayer" instance=ExtResource("3_sh4ws")]
-visible = false
-offset_left = -12.0
-offset_top = -181.0
-offset_right = 287.0
-offset_bottom = 131.0
-
-[node name="Tutorial" type="Sprite2D" parent="CanvasLayer/MovementTutorial"]
-position = Vector2(153, 95)
-texture = ExtResource("4_qbqbu")
-
-[node name="Label" type="Label" parent="CanvasLayer/MovementTutorial"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 161.0
-offset_right = 157.0
-offset_bottom = 226.0
-theme = ExtResource("3_caabb")
-text = "Left click to drag"
-autowrap_mode = 3
-
-[node name="Label2" type="Label" parent="CanvasLayer/MovementTutorial"]
-layout_mode = 0
-offset_left = 166.0
-offset_top = 169.0
-offset_right = 293.0
-offset_bottom = 234.0
-theme = ExtResource("3_caabb")
-text = "Scroll to Zoom"
-autowrap_mode = 3
-
-[node name="ControlsTutorial" parent="CanvasLayer" instance=ExtResource("3_sh4ws")]
-visible = false
-offset_left = -465.0
-offset_top = -220.0
-offset_right = -26.0
-offset_bottom = 149.0
-
-[node name="Tutorial" type="Sprite2D" parent="CanvasLayer/ControlsTutorial"]
-position = Vector2(209, 102)
-texture = ExtResource("6_qxhd6")
-
-[node name="Label" type="Label" parent="CanvasLayer/ControlsTutorial"]
-layout_mode = 0
-offset_left = 39.0
-offset_top = 193.0
-offset_right = 199.0
-offset_bottom = 339.0
-theme = ExtResource("3_caabb")
-text = "Left click and drag to get gates"
-autowrap_mode = 3
-
-[node name="Label2" type="Label" parent="CanvasLayer/ControlsTutorial"]
-layout_mode = 0
-offset_left = 228.0
-offset_top = 191.0
-offset_right = 415.0
-offset_bottom = 290.0
-theme = ExtResource("3_caabb")
-text = "Right click or drag to trash bin to delete"
-autowrap_mode = 3
-
-[node name="ContinueTutorial" parent="CanvasLayer" instance=ExtResource("3_sh4ws")]
-offset_left = 95.0
-offset_top = -182.0
-offset_right = 398.0
-offset_bottom = 154.0
-
-[node name="Label" type="Label" parent="CanvasLayer/ContinueTutorial"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 22.0
-offset_right = 268.0
-offset_bottom = 121.0
-theme = ExtResource("3_caabb")
-text = "Press run and test run to test your circuit"
-autowrap_mode = 3
-
-[node name="Label3" type="Label" parent="CanvasLayer/ContinueTutorial"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 133.0
-offset_right = 264.0
-offset_bottom = 232.0
-theme = ExtResource("3_caabb")
-text = "and press this button to show the test run results"
-autowrap_mode = 3
-
-[node name="Arrow" type="Sprite2D" parent="CanvasLayer/ContinueTutorial"]
-position = Vector2(310, 178)
-rotation = -2.09439
-texture = ExtResource("23_c6xtl")
-
-[node name="Arrow2" type="Sprite2D" parent="CanvasLayer/ContinueTutorial"]
-position = Vector2(300, 31)
-rotation = -2.87979
-scale = Vector2(1, 1)
-texture = ExtResource("23_c6xtl")
-
 [node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
@@ -258,6 +159,111 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="MovementTutorial" parent="CanvasLayer/UI" instance=ExtResource("3_sh4ws")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = -12.0
+offset_top = -181.0
+offset_right = 287.0
+offset_bottom = 131.0
+
+[node name="Tutorial" type="Sprite2D" parent="CanvasLayer/UI/MovementTutorial"]
+position = Vector2(153, 95)
+texture = ExtResource("4_qbqbu")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/MovementTutorial"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 161.0
+offset_right = 157.0
+offset_bottom = 226.0
+theme = ExtResource("3_caabb")
+text = "Left click to drag"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/MovementTutorial"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 169.0
+offset_right = 293.0
+offset_bottom = 234.0
+theme = ExtResource("3_caabb")
+text = "Scroll to Zoom"
+autowrap_mode = 3
+
+[node name="ControlsTutorial" parent="CanvasLayer/UI" instance=ExtResource("3_sh4ws")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = -465.0
+offset_top = -220.0
+offset_right = -26.0
+offset_bottom = 149.0
+
+[node name="Tutorial" type="Sprite2D" parent="CanvasLayer/UI/ControlsTutorial"]
+position = Vector2(209, 102)
+texture = ExtResource("6_qxhd6")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/ControlsTutorial"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 193.0
+offset_right = 199.0
+offset_bottom = 339.0
+theme = ExtResource("3_caabb")
+text = "Left click and drag to get gates"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/ControlsTutorial"]
+layout_mode = 0
+offset_left = 228.0
+offset_top = 191.0
+offset_right = 415.0
+offset_bottom = 290.0
+theme = ExtResource("3_caabb")
+text = "Right click or drag to trash bin to delete"
+autowrap_mode = 3
+
+[node name="ContinueTutorial" parent="CanvasLayer/UI" instance=ExtResource("3_sh4ws")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = -136.0
+offset_top = -192.0
+offset_right = 167.0
+offset_bottom = 144.0
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/ContinueTutorial"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 22.0
+offset_right = 268.0
+offset_bottom = 121.0
+theme = ExtResource("3_caabb")
+text = "Press run and test run to test your circuit"
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="CanvasLayer/UI/ContinueTutorial"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 133.0
+offset_right = 264.0
+offset_bottom = 232.0
+theme = ExtResource("3_caabb")
+text = "and press this button to show the test run results"
+autowrap_mode = 3
+
+[node name="Arrow" type="Sprite2D" parent="CanvasLayer/UI/ContinueTutorial"]
+position = Vector2(310, 178)
+rotation = -2.09439
+texture = ExtResource("23_c6xtl")
+
+[node name="Arrow2" type="Sprite2D" parent="CanvasLayer/UI/ContinueTutorial"]
+position = Vector2(300, 31)
+rotation = -2.87979
+texture = ExtResource("23_c6xtl")
 
 [node name="FormulaContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 clip_contents = true
@@ -427,12 +433,12 @@ size = Vector2i(200, 138)
 dialog_text = "This will automatically a generate an unoptimized truth table"
 dialog_autowrap = true
 
-[connection signal="cleared" from="CanvasLayer/MovementTutorial" to="." method="_on_movement_tutorial_cleared"]
-[connection signal="cleared" from="CanvasLayer/ControlsTutorial" to="." method="_on_controls_tutorial_cleared"]
 [connection signal="pressed" from="CanvasLayer/UI/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/AutoGenerateButton" to="." method="_on_auto_generate_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TestRunButton" to="." method="_on_test_run_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/SideTruthTable/HandleButton" to="CanvasLayer/UI/SideTruthTable" method="_on_handle_button_pressed"]
+[connection signal="cleared" from="CanvasLayer/UI/MovementTutorial" to="." method="_on_movement_tutorial_cleared"]
+[connection signal="cleared" from="CanvasLayer/UI/ControlsTutorial" to="." method="_on_controls_tutorial_cleared"]
 [connection signal="mouse_entered" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_control_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/UI/FlowContainer/TrashContainer" to="." method="_on_trash_container_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/InfoButton" to="." method="_on_info_button_pressed"]

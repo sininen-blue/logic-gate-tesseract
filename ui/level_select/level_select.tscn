@@ -80,6 +80,7 @@ offset_left = -432.0
 offset_top = -260.5
 offset_right = 576.0
 offset_bottom = 363.5
+mouse_filter = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(551, 290)

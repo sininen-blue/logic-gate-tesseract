@@ -21,6 +21,9 @@ var input_count: int
 
 
 func _ready() -> void:
+	if DataManager.player_save["seen_simulation_tutorial"] == false:
+		_on_handle_button_pressed()
+	
 	self.position = close_pos
 	
 	var level_data : Dictionary = DataManager.current_level.data

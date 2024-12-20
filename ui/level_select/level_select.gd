@@ -9,6 +9,8 @@ var distance : Vector2 = Vector2(300, 0)
 var prev_button : Button
 var moving_camera : bool = false
 
+var level_just_completed_vector: Vector2 = Vector2.ZERO
+
 @onready var level_button: PackedScene = preload("uid://ckh2s38lodfvg")
 @onready var level_line: PackedScene = preload("uid://4whmf1flbabh")
 
@@ -47,6 +49,7 @@ func _ready() -> void:
 		level_json.data = JSON.parse_string(level_file.get_as_text())
 		new_level_button.level = level_json
 		
+		
 		if count != 0: # after the first one
 			if prev_button.is_completed() == false:
 				new_level_button.disabled = true
@@ -59,12 +62,25 @@ func _ready() -> void:
 			main.add_child(new_line)
 		
 		# cleanup
+		if level_json.data["title"] == DataManager.level_just_completed:
+			level_just_completed_vector = new_level_button.global_position + distance
+
 		main.add_child(new_level_button)
 		new_level_button.pressed.connect(show_panel)
 		count += 1
 		prev_button = new_level_button
+	
+	if level_just_completed_vector != Vector2.ZERO:
+		var tween : Tween = get_tree().create_tween()
+
+		tween.set_trans(Tween.TRANS_QUART)
+		tween.tween_property(camera, "global_position", level_just_completed_vector, 1.5)
+
 
 func show_panel() -> void:
+	var tween : Tween = get_tree().create_tween()
+	tween.tween_property(camera, "zoom", Vector2(1, 1), 0.1)
+
 	level_info.visible = !level_info.visible
 
 
@@ -76,12 +92,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("left_click"):
 		moving_camera = false
 	
-	if event.is_action_pressed("mouse_wheel_up"):
-		var tween : Tween = get_tree().create_tween()
-		tween.tween_property(camera, "zoom", camera.zoom + Vector2(0.2, 0.2), 0.1)
-	if event.is_action_pressed("mouse_whee_down") and camera.zoom >= Vector2(0.5, 0.5):
-		var tween : Tween = get_tree().create_tween()
-		tween.tween_property(camera, "zoom", camera.zoom - Vector2(0.2, 0.2), 0.1)
+	if level_info.visible == false:
+		if event.is_action_pressed("mouse_wheel_up"):
+			var tween : Tween = get_tree().create_tween()
+			tween.tween_property(camera, "zoom", camera.zoom + Vector2(0.2, 0.2), 0.1)
+		if event.is_action_pressed("mouse_whee_down") and camera.zoom >= Vector2(0.5, 0.5):
+			var tween : Tween = get_tree().create_tween()
+			tween.tween_property(camera, "zoom", camera.zoom - Vector2(0.2, 0.2), 0.1)
 
 
 func _process(_delta: float) -> void:

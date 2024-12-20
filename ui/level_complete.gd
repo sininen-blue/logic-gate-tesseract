@@ -12,6 +12,8 @@ const RED_BOLDER = preload("res://ui/themes/RedBolder.tres")
 var output_count: int
 var input_count: int
 
+var current_level: String
+
 @onready var title: Label = $TitleLabel
 @onready var accuracy_value_label: Label = $"%AccuracyValueLabel"
 @onready var speed_value_label: Label = %SpeedValueLabel
@@ -23,6 +25,7 @@ var input_count: int
 
 func _ready() -> void:
 	var level_data : Dictionary = DataManager.current_level.data
+	current_level = level_data["title"]
 	
 	output_count = int(level_data["end_count"])
 	input_count = len(level_data["truth_table"][0]) - output_count
@@ -99,6 +102,7 @@ func _on_retry_button_pressed() -> void:
 
 
 func _on_continue_button_pressed() -> void:
+	DataManager.level_just_completed = current_level
 	if DataManager.is_custom == true:
 		get_tree().change_scene_to_file(custom_level_scene)
 	else:

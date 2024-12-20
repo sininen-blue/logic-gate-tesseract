@@ -48,9 +48,9 @@ var test_count: int = MAX_TEST_COUNT
 @onready var test_run_button: Button = $CanvasLayer/UI/TestRunButton
 @onready var test_count_label: Label = $CanvasLayer/UI/TestRunButton/TestCountLabel
 
-@onready var movement_tutorial: Panel = $CanvasLayer/MovementTutorial
-@onready var controls_tutorial: Panel = $CanvasLayer/ControlsTutorial
-@onready var continue_tutorial: Panel = $CanvasLayer/ContinueTutorial
+@onready var movement_tutorial: Panel = $"%MovementTutorial"
+@onready var controls_tutorial: Panel = $"%ControlsTutorial"
+@onready var continue_tutorial: Panel = $"%ContinueTutorial"
 
 var movement_tutorial_read: bool = false
 var controls_tutorial_read: bool = false
@@ -638,3 +638,6 @@ func _on_help_button_pressed() -> void:
 	movement_tutorial_read = false
 	movement_tutorial.show()
 	controls_tutorial.show()
+	
+	if side_truth_table.opened == false:
+		side_truth_table._on_handle_button_pressed()

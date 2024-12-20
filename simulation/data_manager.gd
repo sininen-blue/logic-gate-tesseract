@@ -21,6 +21,10 @@ var edit_level_data: Dictionary
 # reset in stage_panel.gd
 var demo_file_location: String = ""
 
+# set in level_complete.gd
+# recieved, reset in level_select.gd
+var level_just_completed: String = ""
+
 var level_clear_speed: int = 0
 
 var settings: Dictionary = {
